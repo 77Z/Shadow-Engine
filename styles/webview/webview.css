@@ -1,0 +1,11 @@
+* {
+    user-select: none;
+    outline: none;
+    caret-color: orangered;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+::selection {
+    background-color: orangered;
+}

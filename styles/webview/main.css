@@ -1,0 +1,42 @@
+.header {
+    grid-area: header;
+    background-color: #0f0f0f;
+}
+.sidepanel {
+    grid-area: sidepanel;
+    background-color: #111111;
+}
+.viewport {
+    grid-area: viewport;
+    background-color: #353535;
+}
+.inspector {
+    grid-area: inspector;
+    background-color: #252525;
+}
+.file-ex {
+    grid-area: file-ex;
+    background-color: #161616;
+}
+
+.grid-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    grid-template-areas: 
+        'header header header header header header'
+        'sidepanel viewport viewport viewport inspector inspector'
+        'sidepanel viewport viewport viewport inspector inspector'
+        'sidepanel viewport viewport viewport inspector inspector'
+        'sidepanel viewport viewport viewport inspector inspector'
+        'sidepanel viewport viewport viewport inspector inspector'
+        'sidepanel viewport viewport viewport inspector inspector'
+        'file-ex file-ex file-ex file-ex inspector inspector'
+        'file-ex file-ex file-ex file-ex inspector inspector'
+        'file-ex file-ex file-ex file-ex inspector inspector'
+    ;
+    grid-gap: 10px;
+    display: grid;
+}

@@ -1,0 +1,128 @@
+* {
+    color: #ffffff;
+    font-family: "Montserrat", sans-serif;
+    outline: none;
+    user-select: none;
+}
+
+body {
+    background: #222222;
+}
+
+.top {
+    position: fixed;
+    top: 3px;
+    left: 0;
+    width: 100%;
+    height: 26px;
+    background: #000000;
+    -webkit-app-region: drag;
+    z-index: 9997;
+    transition: 0.3s;
+}
+
+.grab-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 3px;
+    background: #000000;
+    left: 0;
+    z-index: 9999;
+    -webkit-app-region: no-drag;
+    transition: 0.3s;
+}
+
+.nav-icon {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 29px;
+    width: 48px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    transition: 0.2s;
+    -webkit-app-region: no-drag;
+    z-index: 9999;
+}
+
+.nav-icon:hover {
+    background: #ffffff50;
+}
+
+.close-nav-btn:hover {
+    background: red;
+}
+
+.min-max-nav-btn {
+    right: 48px;
+}
+
+.min-nav-btn {
+    right: 96px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+    color: #ffffff;
+}
+
+.content {
+    position: absolute;
+    top: 29px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 29px);
+}
+
+fieldset {
+    border: 2px solid #ffffff;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 13px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #1b1b1b;
+    border: 3px solid #222222;
+    border-radius: 9999px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #585858;
+    border-radius: 9999px;
+    border: 3px solid #222222;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #2e2e2e;
+}
+
+input[type=text] {
+    background-color: #1d1d1d;
+    color: #fff;
+    user-select: all;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 3px 5px;
+    caret-color: #ff7300;
+    transition: 0.2s;
+}
+
+input[type=text]:focus {
+    box-shadow: 0px 0px 10px #4d4dff;
+}
+
+::selection {
+    background-color: #ff4500;
+}

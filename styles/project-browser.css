@@ -1,0 +1,293 @@
+body, html {
+    overflow: hidden;
+}
+
+#new-project {
+    position: absolute;
+    bottom: 5px;
+    right: 25px;
+    cursor: pointer;
+    background: #00c97c;
+    color: #ffffff;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    padding: 3px 25px;
+}
+
+#createprojectbtn {
+    position: absolute;
+    bottom: 5px;
+    right: 25px;
+    cursor: pointer;
+    background: #00c97c;
+    color: #ffffff;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    padding: 3px 25px;
+    transition: 0.3s;
+}
+
+.projects {
+    position: absolute;
+    overflow-y: scroll;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.projects div {
+    height: 150px;
+    width: 150px;
+    background-color: transparent;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.projects div:hover {
+    background-color: #ffffff50;
+}
+
+.projects div .imgcontainer {
+    height: 120px;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.projects div .imgcontainer .ndo {
+    height: 110px;
+    width: 110px;
+    position: absolute;
+}
+
+.projects div .imgcontainer img {
+    height: 110px;
+    width: 110px;
+}
+
+.projects div span {
+    display: block;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.projects div:focus {
+    background-color: #ff4500;
+}
+
+#proj-menu {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    clip-path: circle(0% at 100% 100%);
+    background-color: rgb(30, 0, 58);
+    transition: 0.7s ease-in-out;
+    overflow: hidden;
+}
+
+#proj-menu h1 {
+    text-align: center;
+    text-shadow: 0px 1px 0 #fff,
+                 0px 2px 0 #e7e7e7,
+                 0px 3px 0 #d6d6d6,
+                 0px 4px 0 #c9c9c9,
+                 0px 5px 0 #b4b4b4;
+}
+
+#proj-menu .desc {
+    margin-left: 10px;
+}
+
+#proj-menu hr.half {
+    width: 20%;
+}
+
+#proj-menu .input-container {
+    margin: 10px;
+}
+
+#proj-menu .input-container button {
+    background-color: teal;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#proj-menu .back {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 45px;
+}
+
+.select-dropdown {
+    height: 30px;
+    width: 120px;
+    border: 3px solid #006eff;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+
+.select-dropdown .selected-option {
+    position: absolute;
+    height: 30px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.select-dropdown .options {
+    position: absolute;
+    top: 33px;
+    width: 120px;
+    display: none;
+}
+
+.select-dropdown .options .option {
+    cursor: pointer;
+}
+
+.select-dropdown .options .option:hover {
+    background: #ffffff50;
+}
+
+.select-dropdown::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-top: 5px solid #fff;
+    right: 5px;
+    top: 13px;
+}
+
+#proj-menu .input-container #errs {
+    color: red;
+    text-shadow: 0px 0px 10px #fff;
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2C2F33;
+    z-index: 10000;
+    clip-path: circle(0% at 50% 50%);
+    transition: 0.7s ease-in;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading img {
+    image-rendering: pixelated;
+}
+
+.loading .nodragoverlay {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+}
+
+.loading .svg-text {
+    animation: spin 10s infinite linear;
+    position: absolute;
+    color: #fff;
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.context-menu {
+    position: absolute;
+    width: 300px;
+    cursor: pointer;
+    background: #474747;
+    box-sizing: border-box;
+}
+
+.context-menu .context-child {
+    height: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding-left: 20px;
+}
+
+.context-menu .context-child:hover {
+    background: #ffffff1e;
+}
+
+.terminalSettings {
+    position: fixed;
+    bottom: 5px;
+    left: 5px;
+    background-color: transparent;
+    font-size: 22px;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1000px;
+    transition: 0.2s;
+}
+
+.terminalSettings:hover {
+    background-color: #ffffff50;
+}

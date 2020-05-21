@@ -1,0 +1,2 @@
+wt -d %CD%
+exit

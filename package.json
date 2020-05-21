@@ -1,0 +1,35 @@
+{
+    "name": "shadow-engine",
+    "version": "0.1.0",
+    "description": "Shadow Engine",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "author": "77Z",
+    "license": "MIT",
+    "dependencies": {
+        "electron": "^8.2.1",
+        "electron-download-manager": "^2.1.2",
+        "electron-tools": "^2.4.2",
+        "fs-extra": "^9.0.0",
+        "split-grid": "^1.0.9",
+        "trash": "^6.1.1"
+    },
+    "build": {
+        "appId": "tk.a77zsite.shadow-engine",
+        "copyright": "Copyright © 77Z 2020",
+        "productName": "Shadow Engine",
+        "nsis": {
+            "installerIcon": "build/installer.png",
+            "uninstallerIcon": "build/uninstaller.png",
+            "uninstallDisplayName": "Shadow Engine",
+            "shortcutName": "Shadow"
+        },
+        "extraFiles": [
+            "exe/ShadowLog.exe",
+            "DiscordRPC",
+            "exe/Terrain"
+        ]
+    }
+}

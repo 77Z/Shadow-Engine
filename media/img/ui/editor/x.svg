@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="11px" viewBox="0 0 10 11">
+    <g stroke="none" stroke-width="1" fill="#ffffff" id="close-btn-g" fill-rule="evenodd">
+        <g fill-rule="nonzero" class="fill">
+            <path d="M5,4.82101759 L0.678982409,0.5 L0,1.17898241 L4.32101759,5.5 L0,9.82101759 L0.678982409,10.5 L5,6.17898241 L9.32101759,10.5 L10,9.82101759 L5.67898241,5.5 L10,1.17898241 L9.32101759,0.5 L5,4.82101759 Z"></path>
+        </g>
+    </g>
+</svg>
