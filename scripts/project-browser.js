@@ -12,6 +12,10 @@ const {BrowserWindow} = require("electron").remote;
 const ipcRenderer = require("electron").ipcRenderer;
 const trash = require("trash");
 
+document.body.onmousedown = function (e) {
+    if (e.button == 1) return false;
+};
+
 newProject.addEventListener("click", function() {
     createProjectMenu.style.clipPath = "circle(141.5% at 100% 100%)";
 });

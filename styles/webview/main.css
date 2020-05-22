@@ -1,22 +1,42 @@
 .header {
-    grid-area: header;
     background-color: #0f0f0f;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 9%;
+    width: 100%;
 }
 .sidepanel {
-    grid-area: sidepanel;
     background-color: #111111;
+    position: fixed;
+    top: 10%;
+    height: 50%;
+    width: 20%;
 }
 .viewport {
-    grid-area: viewport;
     background-color: #353535;
+    position: fixed;
+    top: 10%;
+    width: 50%;
+    height: 50%;
+    left: 21%;
 }
 .inspector {
-    grid-area: inspector;
     background-color: #252525;
+    position: fixed;
+    top: 10%;
+    width: 28%;
+    height: 90%;
+    left: 72%;
 }
 .file-ex {
-    grid-area: file-ex;
     background-color: #161616;
+    position: fixed;
+    top: 61%;
+    height: 39%;
+    left: 0;
+    width: 71%;
+    overflow-y: scroll;
 }
 
 .grid-container {
@@ -25,18 +45,86 @@
     left: 0;
     height: 100%;
     width: 100%;
-    grid-template-areas: 
-        'header header header header header header'
-        'sidepanel viewport viewport viewport inspector inspector'
-        'sidepanel viewport viewport viewport inspector inspector'
-        'sidepanel viewport viewport viewport inspector inspector'
-        'sidepanel viewport viewport viewport inspector inspector'
-        'sidepanel viewport viewport viewport inspector inspector'
-        'sidepanel viewport viewport viewport inspector inspector'
-        'file-ex file-ex file-ex file-ex inspector inspector'
-        'file-ex file-ex file-ex file-ex inspector inspector'
-        'file-ex file-ex file-ex file-ex inspector inspector'
-    ;
-    grid-gap: 10px;
-    display: grid;
+}
+
+.file-ex-item {
+    display: inline-block;
+    height: 120px;
+    width: 120px;
+    margin: 3px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: relative;
+}
+
+.file-ex-item img {
+    height: 85px;
+    width: 85px;
+    position: absolute;
+    left: calc(50% - 42.5px);
+    top: 5px;
+}
+
+.file-ex-item span {
+    font-weight: 100;
+    width: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: absolute;
+    bottom: 10px;
+    font-size: 12px;
+}
+
+.file-ex-item .no-drag-overlay {
+    height: 85px;
+    width: 85px;
+    position: absolute;
+    left: calc(50% - 42.5px);
+    top: 5px;
+}
+
+.file-ex-item:hover {
+    background: #ffffff1f;
+}
+
+.file-ex-item:focus {
+    background: orangered;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #383838;
+    border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #383838;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: #303030;
+}
+
+::-webkit-scrollbar-track {
+    background: #242424;
+    border-radius: 100px;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+.viewport canvas {
+    height: 100%;
+    width: 100%;
 }
