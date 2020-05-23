@@ -1,0 +1,41 @@
+* {
+    outline: none;
+}
+
+.content {
+    transform: scale(0);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    background: #222;
+    transform: scale(0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: sans-serif;
+    -webkit-app-region: drag;
+}
+
+.ok {
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    background: blue;
+    border-radius: 3px;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 17px;
+    border: none;
+    -webkit-app-region: no-drag;
+}
+
+::selection {
+    background: orangered;
+}

@@ -1,8 +1,16 @@
+const customPop = require("../../scripts/custom-popup");
+
+//customPop.create("Lorem ipsum dolor sit amet. Text");
+
 document.body.onmousedown = function(e) {
     if (e.button == 1) return false;
 };
 
 console.log("Middle Mouse Scroll Prevented");
+
+document.getElementById("uri-bar-container").addEventListener("click", function() {
+    document.getElementById("uriinput").focus();
+});
 
 ////Import 3D tools
 //import * as THREE from "three";

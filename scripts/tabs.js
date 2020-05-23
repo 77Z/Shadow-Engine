@@ -149,5 +149,5 @@ var tabs = {
 };
 
 tabs.create("Main", "main.html");
-tabs.create("Log Test", "logTest.html");
-tabs.create("DuMmY tAb", "dummy.html");
+//tabs.create("Log Test", "logTest.html");
+//tabs.create("DuMmY tAb", "dummy.html");
