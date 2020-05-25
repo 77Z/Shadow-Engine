@@ -67,9 +67,9 @@ app.on('ready', function() {
     })
 });
 
+let mainWindow;
 
 function createWindow() {
-    let mainWindow;
     mainWindow = new BrowserWindow({
         height: 500,
         width: 850,
@@ -102,11 +102,9 @@ function createWindow() {
     });
 
     const windowIconMenu = new Menu();
-    windowIconMenu.append(new MenuItem({ label: "Move" }));
-    windowIconMenu.append(new MenuItem({ label: "Size" }));
-    windowIconMenu.append(new MenuItem({ label: "Minimize", click() {mainWindow.minimize()} }));
-    windowIconMenu.append(new MenuItem({ label: "Maximize" }));
-    windowIconMenu.append(new MenuItem({ type: "separator" }));
+    //windowIconMenu.append(new MenuItem({ label: "Minimize", click() {mainWindow.minimize()} }));
+    //windowIconMenu.append(new MenuItem({ label: "Maximize", click() {mainWindow.maximize()} }));
+    //windowIconMenu.append(new MenuItem({ type: "separator" }));
     windowIconMenu.append(new MenuItem({ label: "Close", accelerator: "Alt+F4", click() {app.quit()} }));
 
     ipcMain.on("window-icon-context", function(event) {

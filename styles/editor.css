@@ -6,6 +6,18 @@
     -webkit-app-region: no-drag;
 }
 
+.top .top-icon-div {
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+    margin-top: 3px;
+    background-image: url(../media/img/icons/shadowengine.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-app-region: no-drag;
+}
+
 .tabs-container {
     position: fixed;
     top: 0;

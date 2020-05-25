@@ -11,7 +11,11 @@
 <body>
     <div class="grab-bar" id="grab"></div>
     <div class="top" id="top">
-        <img src="../media/img/icons/shadowengine.png" class="top-icon" id="window-icon">
+        <!-- If you use this image, the user will be able to drag the image outside the program -->
+        <!--<img src="../media/img/icons/shadowengine.png" class="top-icon" id="window-icon">-->
+
+        <!-- With this, they won't be able to drag the image -->
+        <div class="top-icon-div" id="window-icon"></div>
     </div>
     <div class="tabs-container" id="tabs-container">
         <!--<div class="tab">
