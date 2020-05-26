@@ -291,3 +291,39 @@ body, html {
 .terminalSettings:hover {
     background-color: #ffffff50;
 }
+
+#pref-dimension {
+    margin-top: 10px;
+}
+
+#pref-dimension .d2 {
+    height: 40px;
+    width: 50px;
+    background: #313131;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border-radius: 5px 0 0 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#pref-dimension .d3 {
+    height: 40px;
+    width: 50px;
+    background: #313131;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#pref-dimension .selected {
+    background: #4747ff;
+}

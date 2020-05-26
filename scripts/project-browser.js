@@ -1,4 +1,4 @@
-const EngineVersion = 1.00
+const EngineVersion = 1.00;
 
 
 var newProject = document.getElementById("new-project");
@@ -25,14 +25,14 @@ document.getElementById("randoprojecto").addEventListener("click", function() {
 });
 
 document.getElementById("resetcopyrighttext").addEventListener("click", function() {
-    document.getElementById("copyright").value = "Copyright © " + date.getFullYear() + " Steve Smith";
+    document.getElementById("copyright").value = "Copyright © Steve Smith " + date.getFullYear();
 });
 
 document.getElementById("back-new-proj").addEventListener("click", function() {
     createProjectMenu.style.clipPath = "circle(0% at 100% 100%)";
 });
 
-document.getElementById("copyright").value = "Copyright © " + date.getFullYear() + " Steve Smith";
+document.getElementById("copyright").value = "Copyright © Steve Smith " + date.getFullYear();
 
 //createProjectMenu.style.clipPath = "circle(141.5% at 100% 100%)";
 
@@ -99,12 +99,22 @@ createprojectbtn.addEventListener("click", function() {
     }
 });
 
+var d2 = document.getElementById("d2");
+var d3 = document.getElementById("d3");
+
 function startEngine() {
     document.getElementById("loading").style.clipPath = "circle(200% at 50% 50%)";
 
 
     var projectName = document.getElementById("name").value;
     var projectFolder = shadowEngineDataDir + "\\projects\\" + projectName;
+
+    var dimension;
+    if (d2.classList.contains("selected")) {
+        dimension = 2;
+    } else {
+        dimension = 3;
+    }
 
     fs.mkdir(shadowEngineDataDir + "\\projects\\" + projectName, (err) => {
         if (err) throw err;
@@ -116,7 +126,7 @@ function startEngine() {
                     if (err) throw err;
                     fs.mkdir(projectFolder + "\\Bin\\Win64", (err) => {
                         if (err) throw err;
-                        fs.writeFile(projectFolder + "\\game.sproject", projectName + "\n" + document.getElementById("copyright").value + "\n" + document.getElementById("selected-option-text").innerText + "\n" + EngineVersion.toString() + "\n", "utf8", (err) => {
+                        fs.writeFile(projectFolder + "\\game.sproject", projectName + "\n" + document.getElementById("copyright").value + "\n" + document.getElementById("selected-option-text").innerText + "\n" + EngineVersion.toString() + "\n" + dimension, "utf8", (err) => {
                             if (err) throw err;
                             fs.writeFile(projectFolder + "\\pack.png", "", "base64", (err) => {
                                 if (err) throw err;
@@ -319,4 +329,16 @@ document.getElementById("termsettings").addEventListener("click", function() {
         x: 0,
         width: 450
     });
+});
+
+d2.addEventListener("click", function() {
+    d3.classList.remove("selected");
+    d2.classList.remove("selected");
+    d2.classList.add("selected");
+});
+
+d3.addEventListener("click", function() {
+    d3.classList.remove("selected");
+    d2.classList.remove("selected");
+    d3.classList.add("selected");
 });

@@ -51,6 +51,8 @@ module.exports = function(filename) {
             return "Just a dot is not allowed by Windows";
         } else if (filename == " ") {
             return "Just a space is not allowed by Windows";
+        } else if (filename == "null") {
+            return "null is not allowed by Shadow Engine";
         } else {
             //Further Checks
             //Check for a space or period at the start and end of the string.
@@ -70,7 +72,11 @@ module.exports = function(filename) {
                 if (filename.match(charactorsNotAllowed)) {
                     return "It is not allowed to have the following characters: / \\ < > : \" | ? * space"
                 } else {
-                    return true;
+                    if (filename.length > 100) {
+                        return "Name can't be longer than 100 characters";
+                    } else {
+                        return true;
+                    }
                 }
             }
         }
