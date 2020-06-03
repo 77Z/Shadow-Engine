@@ -295,6 +295,7 @@ ipcRenderer.on("response-confirm-delete-proj-msg", (event, index, project) => {
             await trash([shadowEngineDataDir + "\\projects\\" + project]);
         })();
         document.getElementById("project-panel-" + project).remove();
+	document.location.href = "project-browser.html";
     } else {
         //no
         showContextMenu(false);
