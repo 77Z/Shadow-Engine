@@ -11,6 +11,7 @@ const shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow 
 const {BrowserWindow} = require("electron").remote;
 const ipcRenderer = require("electron").ipcRenderer;
 const trash = require("trash");
+const et = require("electron-tools");
 
 document.body.onmousedown = function (e) {
     if (e.button == 1) return false;
@@ -200,6 +201,11 @@ function setLoader() {
 }
 setLoader();
 
+var hoveredProject = null;
+function setHoveredProject(projName) {
+    hoveredProject = projName;
+}
+
 function getProjects() {
     fs.readdir(shadowEngineDataDir + "\\projects", "utf-8", (err, files) => {
         if (err) throw err;
@@ -221,6 +227,7 @@ function getProjects() {
                 ndo.setAttribute("class", "ndo");
                 img.src = "../media/img/ui/placeholder.png";
                 project.tabIndex = "0";
+                project.setAttribute("onmouseover", "setHoveredProject('" + projName + "')");
                 
                 project.appendChild(imgContainer);
                 imgContainer.appendChild(img);
@@ -264,7 +271,7 @@ function getProjects() {
 
                 project.addEventListener("contextmenu", (e) => {
                     e.preventDefault();
-                    showContextMenu(true, e.clientX, e.clientY, projName);
+                    showContextMenu(true, e.clientX, e.clientY, hoveredProject);
                 });
             }
         }
@@ -278,7 +285,13 @@ function showContextMenu(show = true, x = 0, y = 0, project = null) {
     cmenu.style.display = show ? "block" : "none";
     cmenu.style.left = x + "px";
     cmenu.style.top = y + "px";
+    document.getElementById("context-open-proj").setAttribute("onclick", "openEditor('" + project + "')");
     document.getElementById("delete-proj-button").setAttribute("onclick", "ipcRenderer.send('confirm-delete-proj-msg', '" + project + "')")
+    document.getElementById("open-proj-in-explorer").setAttribute("onclick", "openProjInExp('" + project + "')");
+}
+
+function openProjInExp(projName) {
+    et.openExplorer(shadowEngineDataDir + "\\projects\\" + projName + "\\game.sproject");
 }
 
 window.onclick = function() {

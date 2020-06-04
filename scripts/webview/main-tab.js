@@ -21,13 +21,13 @@ var fileExUribar = document.getElementById("uriinput");
 //    }
 //});
 
-document.addEventListener("keydown", (event) => {
-    if (event.xdefaultPrevented) { return; }
-    var key = event.key || event.keyCode;
-    if (key == "Enter") {
-        console.log("Hello");
-    }
-});
+//document.addEventListener("keydown", (event) => {
+//    if (event.xdefaultPrevented) { return; }
+//    var key = event.key || event.keyCode;
+//    if (key == "Enter") {
+//        console.log("Hello");
+//    }
+//});
 
 
 ////Import 3D tools
