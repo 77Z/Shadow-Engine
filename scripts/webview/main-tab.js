@@ -1,5 +1,6 @@
 const customPop = require("../../scripts/custom-popup");
 const tabControl = require("../../scripts/tab-control-from-tab");
+const _ = require("../../scripts/vq-node");
 
 //customPop.create("Lorem ipsum dolor sit amet. Text");
 
@@ -9,8 +10,9 @@ document.body.onmousedown = function(e) {
 
 console.log("Middle Mouse Scroll Prevented");
 
+var uriInput = document.getElementById("uriinput");
 document.getElementById("uri-bar-container").addEventListener("click", function() {
-    document.getElementById("uriinput").focus();
+    uriInput.focus();
 });
 
 document.getElementById("loading-file-ex-item").addEventListener("dblclick", function() {
@@ -26,13 +28,23 @@ var fileExUribar = document.getElementById("uriinput");
 //    }
 //});
 
-//document.addEventListener("keydown", (event) => {
-//    if (event.xdefaultPrevented) { return; }
-//    var key = event.key || event.keyCode;
-//    if (key == "Enter") {
-//        console.log("Hello");
-//    }
-//});
+document.addEventListener("keydown", (event) => {
+    if (event.xdefaultPrevented) { return; }
+    var key = event.key || event.keyCode;
+    if (key == "Enter") {
+        if (uriInput == document.activeElement) {
+            //Change Directory!
+            fileExplorer.loadDirectory();
+        }
+    }
+});
+
+
+var fileExplorer = {
+    loadDirectory: function() {
+        _("file-ex-item-container").empty();
+    }
+};
 
 
 ////Import 3D tools
