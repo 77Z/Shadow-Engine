@@ -68,6 +68,7 @@ app.on('ready', function() {
 });
 
 let mainWindow;
+let editor;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
@@ -107,6 +108,40 @@ function createWindow() {
     //windowIconMenu.append(new MenuItem({ type: "separator" }));
     windowIconMenu.append(new MenuItem({ label: "Close", accelerator: "Alt+F4", click() {app.quit()} }));
 
+    ipcMain.on("project-browser.createEditor", (event, projectName) => {
+        editor = new BrowserWindow({
+            height: 900,
+            width: 1500,
+            minWidth: 1500,
+            minHeight: 900,
+            frame: false,
+            webPreferences: {
+                nodeIntegration: true,
+                nodeIntegrationInSubFrames: true,
+                webviewTag: true,
+                webgl: true
+            },
+            backgroundColor: "#222222",
+            darkTheme: true,
+            title: "Shadow Engine"
+        });
+        editor.loadURL(`file://${__dirname}/dom/editor.html`);
+        editor.on("closed", function () {
+            editor = null
+        });
+        editor.show();
+        editor.webContents.on("did-finish-load", function () {
+            editor.webContents.send("load-proj", projectName);
+            event.sender.send("main.project-browser.kill");
+        });
+        editor.setThumbnailClip({
+            x: 0,
+            y: 49,
+            width: editor.getBounds().width,
+            height: editor.getBounds().height - 49
+        });
+    });
+
     ipcMain.on("window-icon-context", function(event) {
         const win = BrowserWindow.fromWebContents(event.sender);
         windowIconMenu.popup(win);
@@ -116,12 +151,23 @@ function createWindow() {
 
         var confirm = dialog.showMessageBoxSync(mainWindow, {
             type: "warning",
+            title: "Project Deletion",
+            message: "Due to an existing bug, you have to manually delete \"" + project + "\" with file explorer, then restart Shadow. You can right click on a project and open with file explorer to see where it is located",
+            buttons: ["Ok"]
+        });
+
+        /* var confirm = dialog.showMessageBoxSync(mainWindow, {
+            type: "warning",
             title: "Confirm Project Deletion",
             message: "Are you sure you want to delete " + project + "?",
             buttons: ["Yes", "No"]
         });
 
-        event.sender.send("response-confirm-delete-proj-msg", confirm, project);
+        event.sender.send("response-confirm-delete-proj-msg", confirm, project); */
+    });
+
+    ipcMain.on("tab-control-from-tab.createTab", (event, name, URL) => {
+        editor.webContents.send("main.relay.createTab", name, URL);
     });
 
     ipcMain.on("editor-resized", (event) => {});

@@ -1,4 +1,5 @@
 const customPop = require("../../scripts/custom-popup");
+const tabControl = require("../../scripts/tab-control-from-tab");
 
 //customPop.create("Lorem ipsum dolor sit amet. Text");
 
@@ -10,6 +11,10 @@ console.log("Middle Mouse Scroll Prevented");
 
 document.getElementById("uri-bar-container").addEventListener("click", function() {
     document.getElementById("uriinput").focus();
+});
+
+document.getElementById("loading-file-ex-item").addEventListener("dblclick", function() {
+    tabControl.createTab("Dummy Tab", "dummy.html");
 });
 
 var fileExUribar = document.getElementById("uriinput");

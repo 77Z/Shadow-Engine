@@ -14,6 +14,10 @@ editorIpcRenderer.on("load-proj", (event, projectName) => {
     editor.setProjectActiveFile(projectName);
 });
 
+editorIpcRenderer.on("main.relay.createTab", (event, name, URL) => {
+    tabs.create(name, URL);
+});
+
 function getProjFromFile() {
     var proj = configFileReader.readConfigFile(shadowEngineDataDir + "\\engine-data\\proj.sec", 1);
     //Show name in top right corner

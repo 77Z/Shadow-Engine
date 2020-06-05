@@ -142,40 +142,7 @@ function startEngine() {
 }
 
 function openEditor(projectName) {
-    let editor;
-    editor = new BrowserWindow({
-        height: 900,
-        width: 1500,
-        minWidth: 1500,
-        minHeight: 900,
-        frame: false,
-        webPreferences: {
-            nodeIntegration: true,
-            nodeIntegrationInSubFrames: true,
-            webviewTag: true,
-            webgl: true
-        },
-        backgroundColor: "#222222",
-        darkTheme: true,
-        title: "Shadow Engine"
-    });
-    editor.loadURL(`file://${__dirname}/editor.html`);
-    editor.on("closed", function() {
-        editor = null
-    });
-    editor.show();
-    editor.webContents.on("did-finish-load", function() {
-        editor.webContents.send("load-proj", projectName);
-        setTimeout(function() {
-            window.close();
-        }, 200);
-    });
-    editor.setThumbnailClip({
-        x: 0,
-        y: 49,
-        width: editor.getBounds().width,
-        height: editor.getBounds().height - 49
-    });
+    ipcRenderer.send("project-browser.createEditor", projectName);
 }
 
 
@@ -313,6 +280,12 @@ ipcRenderer.on("response-confirm-delete-proj-msg", (event, index, project) => {
         //no
         showContextMenu(false);
     }
+});
+
+ipcRenderer.on("main.project-browser.kill", () => {
+    setTimeout(() => {
+        window.close();
+    }, 200);
 });
 
 setInterval(() => {
