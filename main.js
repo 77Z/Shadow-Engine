@@ -81,7 +81,8 @@ function createWindow() {
         maximizable: false,
         resizable: false,
         darkTheme: true,
-        alwaysOnTop: true
+        alwaysOnTop: true,
+        icon: "media\\img\\icons\\shadowengine.png"
     });
 
     mainWindow.loadURL(`file://${__dirname}/dom/project-browser.html`);
@@ -123,7 +124,8 @@ function createWindow() {
             },
             backgroundColor: "#222222",
             darkTheme: true,
-            title: "Shadow Engine"
+            title: "Shadow Engine",
+            icon: "media\\img\\icons\\shadowengine.png"
         });
         editor.loadURL(`file://${__dirname}/dom/editor.html`);
         editor.on("closed", function () {

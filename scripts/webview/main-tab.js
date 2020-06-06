@@ -84,7 +84,7 @@ var fileExplorer = {
             var item = document.createElement("div");
             item.setAttribute("class", "file-ex-item");
             item.setAttribute("tabindex", "0");
-            item.setAttribute("ondblclick", isDirectory ? "fileExplorer.openFolder(" + name + ")" : "fileExplorer.openFile(" + name + ")");
+            item.setAttribute("ondblclick", isDirectory ? "fileExplorer.openFolder('" + name + "')" : "fileExplorer.openFile('" + name + "')");
             
             var img = document.createElement("img");
             img.src = "../../media/img/ui/placeholder.png"
