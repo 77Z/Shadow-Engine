@@ -163,3 +163,13 @@
     width: 75%;
     color: #000;
 }
+
+.invalid-dir {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

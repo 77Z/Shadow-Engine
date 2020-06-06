@@ -1,6 +1,11 @@
+//Global
+const shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow Engine";
+
 const customPop = require("../../scripts/custom-popup");
 const tabControl = require("../../scripts/tab-control-from-tab");
 const _ = require("../../scripts/vq-node");
+const fs = require("fs");
+const getProject = require("../../scripts/get-project");
 
 //customPop.create("Lorem ipsum dolor sit amet. Text");
 
@@ -34,16 +39,82 @@ document.addEventListener("keydown", (event) => {
     if (key == "Enter") {
         if (uriInput == document.activeElement) {
             //Change Directory!
-            fileExplorer.loadDirectory();
+            fileExplorer.loadDirectory(uriInput.value);
         }
     }
 });
 
 
 var fileExplorer = {
-    loadDirectory: function() {
-        _("file-ex-item-container").empty();
-    }
+    loadDirectory: function(directory) {
+        var fileContainer = document.getElementById("file-ex-item-container");
+        var prefix = shadowEngineDataDir + "\\projects\\" + getProject() + "\\Source";
+        _("file-ex-item-container").empty(); //Empty all the current items.
+        var fullDir = prefix + directory;
+        fs.exists(fullDir, (exists) => {
+            if (!exists) {
+                var notValid = document.createElement("div");
+                notValid.setAttribute("class", "invalid-dir");
+                notValid.innerText = "Invalid Directory";
+                fileContainer.appendChild(notValid);
+            } else {
+                fs.readdir(fullDir, (err, files) => {
+                    if (err) throw err;
+                    if (files.length == 0) {
+                        var notValid = document.createElement("div");
+                        notValid.setAttribute("class", "invalid-dir");
+                        notValid.innerText = "Directory is empty";
+                        fileContainer.appendChild(notValid);
+                    } else {
+                        //Read files in directory
+                        for (var i = 0; i < files.length; i++) {
+                            if (fs.lstatSync(fullDir + "\\" + files[i]).isDirectory()) {
+                                //Item is a folder, handle accordingly
+                                createItem(files[i], true);
+                            } else {
+                                createItem(files[i]);
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        function createItem(name = null, isDirectory = false) {
+            var item = document.createElement("div");
+            item.setAttribute("class", "file-ex-item");
+            item.setAttribute("tabindex", "0");
+            item.setAttribute("ondblclick", isDirectory ? "fileExplorer.openFolder(" + name + ")" : "fileExplorer.openFile(" + name + ")");
+            
+            var img = document.createElement("img");
+            img.src = "../../media/img/ui/placeholder.png"
+            img.alt = "Thumbnail";
+            img.setAttribute("class", "thumbnail");
+            var ndo = document.createElement("div");
+            ndo.setAttribute("class", "no-drag-overlay");
+
+            var itemTitle = document.createElement("span");
+            itemTitle.setAttribute("class", "item-title");
+            itemTitle.innerText = name;
+
+            item.appendChild(img);
+            item.appendChild(ndo);
+            item.appendChild(itemTitle);
+            fileContainer.appendChild(item);
+        }
+    },
+    openFolder: function(folderName) {
+        var uri = null;
+        if (uriInput.value.slice(-1) == "/" | uriInput.value.slice(-1) == "\\") {
+            uri = uriInput.value.slice(0, -1);
+        } else {
+            uri = uriInput.value;
+        }
+        var uri = uri + "/" + folderName;
+        uriInput.value = uri;
+        this.loadDirectory(uri);
+    },
+    openFile: function() {}
 };
 
 
