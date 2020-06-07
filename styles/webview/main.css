@@ -148,6 +148,8 @@
     height: 20px;
     margin: 0;
     padding: 0;
+    display: inline-block;
+    position: absolute;
 }
 
 .uri-bar-container .pre {
@@ -172,4 +174,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.file-ex .directory-up-btn {
+    height: 23px;
+    width: 23px;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 41%;
+    
+    background-image: url("../../media/img/ui/editor/UpDir.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.file-ex .directory-up-btn:hover {
+    background-color: #ff4500;
 }

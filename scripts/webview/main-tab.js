@@ -104,6 +104,7 @@ var fileExplorer = {
         }
     },
     openFolder: function(folderName) {
+        //Fix Uri to make sure no / or \ at the end
         var uri = null;
         if (uriInput.value.slice(-1) == "/" | uriInput.value.slice(-1) == "\\") {
             uri = uriInput.value.slice(0, -1);
@@ -114,8 +115,102 @@ var fileExplorer = {
         uriInput.value = uri;
         this.loadDirectory(uri);
     },
-    openFile: function() {}
+    openFile: function(fileName) {
+        var fileExt = fileName.split(".")[fileName.split(".").length - 1];
+        
+        if (fileExt == "js") { //Javascript File
+            //
+        } else if (fileExt == "cs") { //C-Sharp File
+            //
+        } else if (fileExt == "java") { //Java File
+            //
+        } else if (fileExt == "rs") { //Rust File or C++ Resource File
+            //
+        } else if (fileExt == "cpp") { //C++ File
+            //
+        } else if (fileExt == "h") { //C++ Header File
+            //
+        } else if (fileExt == "class") { //Compiled java File, class
+            //
+        } else if (fileExt == "jar") { //Compiled java Program, jar
+            //
+        } else if (fileExt == "ts") { //TypeScript File
+            //
+        } else if (fileExt == "txt") { //Text File
+            //
+        } else if (fileExt == "log") { //Log File
+            //
+        } else if (fileExt == "bat") { //Windows Batch File
+            //
+        } else if (fileExt == "json") { //Json File
+            //
+        } else if (fileExt == "sproject") { //Shadow Engine Project File
+            //
+        } else if (fileExt == "sec") { //Shadow Engine Configuation File
+            //
+        } else if (fileExt == "sln") { //Microsoft Visual Studio Solution File
+            //
+        } else if (fileExt == "csproject") { //Microsoft Visual Studio C-Sharp Project File
+            //
+        } else if (fileExt == "code-workspace") { //Visual Studio Code Workspace File
+            //
+        } else if (fileExt == "png") { //PNG Image File
+            //
+        } else if (fileExt == "jpg") { //JPG Image File
+            //
+        } else if (fileExt == "bmp") { //Bitmap Image File
+            //
+        } else if (fileExt == "jpeg") { //JPEG Image File
+            //
+        } else if (fileExt == "mp3") { //MP3 Audio File
+            //
+        } else if (fileExt == "wav") { //WAV Audio File
+            //
+        } else if (fileExt == "flac") { //FLAC Audio File
+            //
+        } else if (fileExt == "aac") { //AAC Audio File
+            //
+        } else if (fileExt == "ogg") { //OGG Audio File
+            //
+        } else if (fileExt == "blend") { //Blender Project File
+            //
+        } else if (fileExt == "blend1") { //Blender Backup File 1
+            //
+        } else if (fileExt == "blend2") { //Blender Backup File 2
+            //
+        } else if (fileExt == "blend3") { //Blender Backup File 3
+            //
+        } else if (fileExt == "obj") { //OBJ 3D File / Alias Wavefront
+            //
+        } else if (fileExt == "fbx") { //FBX 3D File / Autodesk Filmbox
+            //
+        } else if (fileExt == "gltf") { //GLTF 3D File / GL Transmission Format
+            //
+        } else if (fileExt == "glb") { //GLB 3D File / GL Transmission Format
+            //
+        } else {
+            //Unsupported
+        }
+    }
 };
+
+fileExplorer.loadDirectory("/");
+
+document.getElementById("dirupbtn").addEventListener("click", function() {
+    //Fix Uri to make sure no / or \ at the end
+    var uri = null;
+    if (uriInput.value.slice(-1) == "/" | uriInput.value.slice(-1) == "\\") {
+        uri = uriInput.value.slice(0, -1);
+    } else {
+        uri = uriInput.value;
+    }
+    var lastWord = uri.split("/")[uri.split("/").length - 1];
+    var IdkWhatToCallThisVariable = uri.substr(0, uri.length - lastWord.length);
+
+    uri = IdkWhatToCallThisVariable;
+    uriInput.value = uri;
+    fileExplorer.loadDirectory(uri);
+});
 
 
 ////Import 3D tools
