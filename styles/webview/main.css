@@ -197,3 +197,72 @@
 .file-ex .directory-up-btn:hover {
     background-color: #ff4500;
 }
+
+.file-ex .directory-reload-btn {
+    height: 23px;
+    width: 23px;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 44%;
+    
+    background-image: url("../../media/img/ui/editor/reload.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.file-ex .directory-reload-btn:hover {
+    background-color: #ff4500;
+}
+
+/* Context Menu Code START */
+
+.context-menu {
+    position: fixed;
+    min-width: 200px;
+    background: #202020;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.context-menu .context-menu-header {
+    background: #b4b4b4;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.context-menu .option {
+    height: 27px;
+    margin: 0;
+    padding: 5px;
+    display: flex;
+    cursor: pointer;
+    font-size: 19px;
+    color: #fff;
+
+
+    justify-content: center;
+}
+
+.context-menu .option:hover {
+    background: #ffffff50;
+}
+
+.context-menu .seperator {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: #fff;
+    width: 100%;
+    height: 2px;
+}
+
+/* Context Menu Code END */

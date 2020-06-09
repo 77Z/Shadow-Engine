@@ -7,6 +7,41 @@ const fs = require("fs");
 const discordRpc = require("./scripts/discordRPC");
 const devEnabled = false;
 const shadowProgramDir = require("os").homedir() + "\\AppData\\Local\\Programs\\shadow-engine";
+const { openProcessManager } = require("electron-process-manager");
+
+const editorFileMenuTemplate = [
+    {
+        label: "Window",
+        submenu: [
+            {
+                label: "Reload Window",
+                accelerator: "CmdOrCtrl+r",
+                click() {
+                    BrowserWindow.getFocusedWindow().webContents.reload();
+                }
+            }
+        ]
+    },
+    {
+        label: "Help",
+        submenu: [
+            {
+                label: "Shadow Task Manager",
+                accelerator: "CmdOrCtrl+Shift+~",
+                click() {
+                    openProcessManager();
+                }
+            },
+            {
+                label: "Open Developer Tools",
+                accelerator: "CmdOrCtrl+Shift+I",
+                click() {
+                    BrowserWindow.getFocusedWindow().webContents.openDevTools();
+                }
+            }
+        ]
+    }
+];
 
 app.on('ready', function() {
     fs.exists(shadowEngineDataDir, (exists, err) => {
@@ -142,6 +177,9 @@ function createWindow() {
             width: editor.getBounds().width,
             height: editor.getBounds().height - 49
         });
+
+        const editorMenu = Menu.buildFromTemplate(editorFileMenuTemplate);
+        Menu.setApplicationMenu(editorMenu);
     });
 
     ipcMain.on("window-icon-context", function(event) {
