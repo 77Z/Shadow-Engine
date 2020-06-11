@@ -66,6 +66,25 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
+document.getElementById("file-ex-item-container").addEventListener("contextmenu", function(e) {
+    if (FileExplorerItemHover == null) {
+        e.preventDefault();
+        ContextMenu().create({items:[
+            {
+                type: "label",
+                name: "Create Folder",
+                click() {}
+            },
+            {
+                type: "label",
+                name: "Create File",
+                click() {}
+            }
+        ]}, null, e.clientX, e.clientY);
+    }
+    
+});
+
 
 var fileExplorer = {
     loadDirectory: function(directory) {
@@ -260,7 +279,7 @@ var fileExplorer = {
         var fileExt = fileName.split(".")[fileName.split(".").length - 1];
         
         if (fileExt == "js") { //Javascript File
-            //
+            tabControl.createTab("Code Editor", "code-editor-tab.html");
         } else if (fileExt == "cs") { //C-Sharp File
             //
         } else if (fileExt == "java") { //Java File
@@ -361,15 +380,12 @@ function ContextMenu() {
     const cm = {};
     cm.create = function (object = null, header = null, x = 0, y = 0) {
         if (typeof object !== "object") throw new TypeError("object must be an object");
-        if (typeof header !== "string") throw new TypeError("header must be a string");
+        //if (typeof header !== "string") throw new TypeError("header must be a string");
         if (typeof x !== "number" || typeof y !== "number") throw new TypeError("x and y must be numbers");
 
         //Warning, creating a context menu will destroy the last one.
 
         var contextMenuObj = document.getElementById("cm");
-
-        contextMenuObj.style.left = x + "px";
-        contextMenuObj.style.top = y + "px";
 
         _("cm").empty();
 
@@ -397,6 +413,30 @@ function ContextMenu() {
                 throw new TypeError("item.type type of " + item.type + " is invalid");
             }
         }
+
+        //Calculate the postion for the context menu
+
+        /* contextMenuObj.style.left = x + "px";
+        contextMenuObj.style.top = y + "px"; */
+
+        contextMenuObj.style.bottom = "unset";
+        contextMenuObj.style.right = "unset";
+
+        if (y + contextMenuObj.clientHeight > window.innerHeight) {
+            contextMenuObj.style.top = "unset";
+            contextMenuObj.style.bottom = "0";
+        } else {
+            contextMenuObj.style.top = y + "px"
+        }
+
+        if (x + contextMenuObj.clientWidth > window.innerWidth) {
+            contextMenuObj.style.left = "unset";
+            contextMenuObj.style.right = "0";
+        } else {
+            contextMenuObj.style.left = x + "px";
+        }
+
+        //END
 
         contextMenuObj.style.display = "block";
     }

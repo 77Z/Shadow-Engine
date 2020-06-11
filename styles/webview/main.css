@@ -36,7 +36,7 @@
     height: 39%;
     left: 0;
     width: 71%;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 .grid-container {
@@ -54,6 +54,7 @@
     width: 100%;
     height: calc(100% - 20px);
     background: transparent;
+    overflow-y: scroll;
 }
 
 .file-ex-item {
