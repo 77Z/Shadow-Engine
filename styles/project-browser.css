@@ -327,3 +327,11 @@ body, html {
 #pref-dimension .selected {
     background: #4747ff;
 }
+
+.top {
+    background: #222222;
+}
+
+.grab-bar {
+    background: #222222;
+}

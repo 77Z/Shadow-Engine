@@ -182,6 +182,10 @@ function createWindow() {
         Menu.setApplicationMenu(editorMenu);
     });
 
+    ipcMain.on("main-tab.createTab", function() {
+        //
+    });
+
     ipcMain.on("window-icon-context", function(event) {
         const win = BrowserWindow.fromWebContents(event.sender);
         windowIconMenu.popup(win);

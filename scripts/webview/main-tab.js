@@ -6,6 +6,7 @@ const tabControl = require("../../scripts/tab-control-from-tab");
 const _ = require("../../scripts/vq-node");
 const fs = require("fs");
 const getProject = require("../../scripts/get-project");
+const ipc = require("electron").ipcRenderer;
 
 var FileExplorerItemHover = null;
 
@@ -73,7 +74,9 @@ document.getElementById("file-ex-item-container").addEventListener("contextmenu"
             {
                 type: "label",
                 name: "Create Folder",
-                click() {}
+                click() {
+                    ipc.send("main-tab.createFolder", uriInput.value);
+                }
             },
             {
                 type: "label",
