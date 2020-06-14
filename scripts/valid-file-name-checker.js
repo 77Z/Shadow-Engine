@@ -1,7 +1,7 @@
 module.exports = function(filename) {
     if (typeof filename !== "string") throw new TypeError("filename must be a string!");
     if (filename == "") {
-        return "Project name can't be blank";
+        return "Name can't be blank";
     } else {
         if (filename == "CON") {
             return "CON is a name reserved by Windows";

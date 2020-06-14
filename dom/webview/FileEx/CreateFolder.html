@@ -6,44 +6,11 @@
     <title>Create Folder</title>
     <link rel="stylesheet" href="../../../fonts/fonts.css">
     <link rel="stylesheet" href="../../../styles/webview/webview.css">
-    <style>
-
-        .titlebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 15px;
-            background: #000;
-            -webkit-app-region: drag;
-        }
-
-        .close-btn {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 15px;
-            height: 15px;
-            background: transparent;
-            transition: 0.3s;
-        }
-
-        .close-btn:hover {
-            background: red;
-        }
-
-        #createnewin {
-            position: fixed;
-            top: 20px;
-            color: #fff;
-            left: 5px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="../../../styles/webview/FileEx/CreateFolder.css">
 </head>
 <body>
     <div class="titlebar">
-        <div class="close-btn">
+        <div class="close-btn" onclick="window.close()">
             <svg class="" width="10px" height="11px" viewBox="0 0 10 11">
             <g stroke="none" stroke-width="1" fill="#ffffff" id="close-btn-g" fill-rule="evenodd">
                 <g fill-rule="nonzero" class="fill">
@@ -55,19 +22,12 @@
     </div>
     <div class="content">
         <p id="createnewin"></p>
+        <label for="input">Folder Name</label>
+        <input type="text" id="input">
+        <button id="btn">Create Folder</button>
+        <p class="err" id="err">ERROR</p>
     </div>
 
-    <script>
-
-
-        const ipc = require("electron").ipcRenderer;
-
-        ipc.on("main.directory", (e, directory) => {
-            document.getElementById("createnewin").innerText = "Create New Folder in " + directory;
-        });
-        
-
-
-    </script>
+    <script src="../../../scripts/webview/FileEx/CreateFolder.js"></script>
 </body>
 </html>

@@ -185,7 +185,7 @@ function createWindow() {
     ipcMain.on("main-tab.createFolder", function(e, directory) {
         let createFolder;
         createFolder = new BrowserWindow({
-            width: 800,
+            width: 500,
             height: 200,
             frame: false,
             movable: true,
@@ -208,12 +208,18 @@ function createWindow() {
         createFolder.webContents.on("did-finish-load", function() {
             createFolder.webContents.send("main.directory", directory);
         });
+        createFolder.setThumbnailClip({
+            x: 0,
+            y: 20,
+            width: createFolder.getBounds().width,
+            height: createFolder.getBounds().height - 20,
+        });
     });
 
     ipcMain.on("main-tab.createFile", function(e, directory) {
         let createFile;
         createFile = new BrowserWindow({
-            width: 800,
+            width: 500,
             height: 200,
             frame: false,
             movable: true,
@@ -236,11 +242,21 @@ function createWindow() {
         createFile.webContents.on("did-finish-load", function() {
             createFile.webContents.send("main.directory", directory);
         });
+        createFile.setThumbnailClip({
+            x: 0,
+            y: 20,
+            width: createFile.getBounds().width,
+            height: createFile.getBounds().height - 20,
+        });
     });
 
     ipcMain.on("window-icon-context", function(event) {
         const win = BrowserWindow.fromWebContents(event.sender);
         windowIconMenu.popup(win);
+    });
+
+    ipcMain.on("reloadExplorer", (e) => {
+        editor.webContents.send("main.relay.reloadExplorer");
     });
 
     ipcMain.on("confirm-delete-proj-msg", (event, project) => {
