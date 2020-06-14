@@ -81,7 +81,9 @@ document.getElementById("file-ex-item-container").addEventListener("contextmenu"
             {
                 type: "label",
                 name: "Create File",
-                click() {}
+                click() {
+                    ipc.send("main-tab.createFile", uriInput.value);
+                }
             }
         ]}, null, e.clientX, e.clientY);
     }

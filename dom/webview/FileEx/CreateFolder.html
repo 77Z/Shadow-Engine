@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Folder</title>
+    <link rel="stylesheet" href="../../../fonts/fonts.css">
+    <link rel="stylesheet" href="../../../styles/webview/webview.css">
     <style>
 
         .titlebar {
@@ -30,6 +32,13 @@
             background: red;
         }
 
+        #createnewin {
+            position: fixed;
+            top: 20px;
+            color: #fff;
+            left: 5px;
+        }
+
     </style>
 </head>
 <body>
@@ -44,5 +53,21 @@
         </svg>
         </div>
     </div>
+    <div class="content">
+        <p id="createnewin"></p>
+    </div>
+
+    <script>
+
+
+        const ipc = require("electron").ipcRenderer;
+
+        ipc.on("main.directory", (e, directory) => {
+            document.getElementById("createnewin").innerText = "Create New Folder in " + directory;
+        });
+        
+
+
+    </script>
 </body>
 </html>

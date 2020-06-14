@@ -182,8 +182,60 @@ function createWindow() {
         Menu.setApplicationMenu(editorMenu);
     });
 
-    ipcMain.on("main-tab.createTab", function() {
-        //
+    ipcMain.on("main-tab.createFolder", function(e, directory) {
+        let createFolder;
+        createFolder = new BrowserWindow({
+            width: 800,
+            height: 200,
+            frame: false,
+            movable: true,
+            closable: true,
+            minimizable: false,
+            maximizable: false,
+            resizable: false,
+            alwaysOnTop: true,
+            backgroundColor: "#222",
+            darkTheme: true,
+            icon: "media/img/icons/shadowengine.png",
+            webPreferences: {
+                nodeIntegration: true
+            }
+        });
+        createFolder.loadURL(`file://${__dirname}/dom/webview/FileEx/createFolder.html`);
+        createFolder.on("closed", function() {
+            createFolder = null;
+        });
+        createFolder.webContents.on("did-finish-load", function() {
+            createFolder.webContents.send("main.directory", directory);
+        });
+    });
+
+    ipcMain.on("main-tab.createFile", function(e, directory) {
+        let createFile;
+        createFile = new BrowserWindow({
+            width: 800,
+            height: 200,
+            frame: false,
+            movable: true,
+            closable: true,
+            minimizable: false,
+            maximizable: false,
+            resizable: false,
+            alwaysOnTop: true,
+            backgroundColor: "#222",
+            darkTheme: true,
+            icon: "media/img/icons/shadowengine.png",
+            webPreferences: {
+                nodeIntegration: true
+            }
+        });
+        createFile.loadURL(`file://${__dirname}/dom/webview/FileEx/createFile.html`);
+        createFile.on("closed", function() {
+            createFile = null;
+        });
+        createFile.webContents.on("did-finish-load", function() {
+            createFile.webContents.send("main.directory", directory);
+        });
     });
 
     ipcMain.on("window-icon-context", function(event) {
