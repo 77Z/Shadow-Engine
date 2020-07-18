@@ -68,6 +68,10 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.getElementById("file-ex-item-container").addEventListener("contextmenu", function(e) {
+    fileExItemContainerCreate(e);
+});
+
+function fileExItemContainerCreate(e) {
     if (FileExplorerItemHover == null) {
         e.preventDefault();
         ContextMenu().create({items:[
@@ -87,8 +91,7 @@ document.getElementById("file-ex-item-container").addEventListener("contextmenu"
             }
         ]}, null, e.clientX, e.clientY);
     }
-    
-});
+}
 
 
 var fileExplorer = {
@@ -101,7 +104,7 @@ var fileExplorer = {
             if (!exists) {
                 var notValid = document.createElement("div");
                 notValid.setAttribute("class", "invalid-dir");
-                notValid.innerText = "Invalid Directory";
+                notValid.innerText = "Invalid Directory (Try reloading)";
                 fileContainer.appendChild(notValid);
             } else {
                 fs.readdir(fullDir, (err, files) => {
@@ -109,7 +112,26 @@ var fileExplorer = {
                     if (files.length == 0) {
                         var notValid = document.createElement("div");
                         notValid.setAttribute("class", "invalid-dir");
-                        notValid.innerText = "Directory is empty";
+                        notValid.innerText = "Directory is empty ¯\\_(ツ)_/¯";
+                        notValid.addEventListener("contextmenu", (e) => {
+                            e.preventDefault();
+                            ContextMenu().create({items:[
+                                {
+                                    type: "label",
+                                    name: "Create Folder",
+                                    click() {
+                                        ipc.send("main-tab.createFolder", uriInput.value);
+                                    }
+                                },
+                                {
+                                    type: "label",
+                                    name: "Create File",
+                                    click() {
+                                        ipc.send("main-tab.createFile", uriInput.value);
+                                    }
+                                }
+                            ]}, null, e.clientX, e.clientY);
+                        });
                         fileContainer.appendChild(notValid);
                     } else {
                         //Read files in directory

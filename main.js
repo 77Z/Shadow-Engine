@@ -155,7 +155,9 @@ function createWindow() {
                 nodeIntegration: true,
                 nodeIntegrationInSubFrames: true,
                 webviewTag: true,
-                webgl: true
+                webgl: true,
+                enableBlinkFeatures: true,
+                blinkFeatures: "PreciseMemoryInfo"
             },
             backgroundColor: "#222222",
             darkTheme: true,

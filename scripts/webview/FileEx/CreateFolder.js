@@ -5,9 +5,11 @@ const ipc = require("electron").ipcRenderer;
 const fileNameChecker = require("../../../scripts/valid-file-name-checker");
 const fs = require("fs");
 const getProject = require("../../../scripts/get-project");
+var projectDirectory = null;
 
 ipc.on("main.directory", (e, directory) => {
     document.getElementById("createnewin").innerText = "Create New Folder in " + directory;
+    projectDirectory = directory;
 });
 
 var btn = document.getElementById("btn");
@@ -36,7 +38,7 @@ btn.addEventListener("click", function() {
         //Create Folder
         var prefix =
           shadowEngineDataDir + "\\projects\\" + getProject() + "\\Source";
-        fs.mkdir(prefix + "\\" + document.getElementById("input").value, (err) => {
+        fs.mkdir(prefix + projectDirectory + "\\" + document.getElementById("input").value, (err) => {
             if (err) throw err; else {
                 ipc.send("reloadExplorer");
                 window.close();
