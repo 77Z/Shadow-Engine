@@ -17,7 +17,8 @@
         "fs-extra": "^9.0.0",
         "split-grid": "^1.0.9",
         "three": "file:three",
-        "trash": "^6.1.1"
+        "trash": "^6.1.1",
+        "uuid": "^8.2.0"
     },
     "build": {
         "appId": "tk.a77zsite.shadow-engine",

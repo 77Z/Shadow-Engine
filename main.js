@@ -8,6 +8,7 @@ const discordRpc = require("./scripts/discordRPC");
 const devEnabled = false;
 const shadowProgramDir = require("os").homedir() + "\\AppData\\Local\\Programs\\shadow-engine";
 const { openProcessManager } = require("electron-process-manager");
+const { v4: uuid4 } = require("uuid");
 
 const editorFileMenuTemplate = [
     {
@@ -79,7 +80,12 @@ app.on('ready', function() {
                                                                         if (err) throw err;
                                                                         fs.copyFile(shadowProgramDir + "\\DiscordRPC\\transports\\websocket.js", shadowEngineDataDir + "\\plugins\\DiscordRPC\\transports\\websocket.js", (err) => {
                                                                             if (err) throw err;
-                                                                            createWindow();
+                                                                            fs.mkdir(shadowEngineDataDir + "\\blob", (err) => {
+                                                                                fs.mkdir(shadowEngineDataDir + "\\blob\\" + uuid4, (err) => {
+                                                                                    if (err) throw err;
+                                                                                    createWindow();
+                                                                                });
+                                                                            });
                                                                         });
                                                                     });
                                                                 });
