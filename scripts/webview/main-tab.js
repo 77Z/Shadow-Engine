@@ -6,6 +6,7 @@ const tabControl = require("../../scripts/tab-control-from-tab");
 const _ = require("../../scripts/vq-node");
 const fs = require("fs");
 const getProject = require("../../scripts/get-project");
+const { Terminal } = require("xterm");
 const ipc = require("electron").ipcRenderer;
 
 var FileExplorerItemHover = null;
@@ -64,8 +65,47 @@ document.addEventListener("keydown", (event) => {
             //Change Directory!
             fileExplorer.loadDirectory(uriInput.value);
         }
+    } else if (event.ctrlKey && key == "`") {
+        mainTab.toggleTerminal();
     }
 });
+
+var terminalOpen = false;
+var gridContainerHeight = 100;
+var gridContainer = document.getElementById("grid-container");
+var mainTab = {
+    toggleTerminal: function() {
+        if (terminalOpen) {
+            //close
+            mainTab.setGridContainerHeight(100);
+            document.getElementById("terminal-container").style.display = "none";
+            document.getElementById("terminal-x-content-grabbar").style.display = "none";
+            terminalOpen = false;
+        } else {
+            //open
+            mainTab.setGridContainerHeight(80);
+            document.getElementById("terminal-container").style.display = "block";
+            document.getElementById("terminal-container").style.height = ((100 - gridContainerHeight) - 1) + "%";
+            
+            document.getElementById("terminal-x-content-grabbar").style.bottom = (99 - gridContainerHeight) + "%";
+            document.getElementById("terminal-x-content-grabbar").style.display = "block";
+
+            terminalOpen = true;
+        }
+    },
+    setGridContainerHeight: function(percent) {
+        if (typeof percent !== "number") throw new TypeError("percent Must be an int!");
+        gridContainer.style.height = percent + "%";
+        gridContainerHeight = percent;
+    },
+    initializeTerminal: function() {
+        var term = new Terminal();
+        term.open(document.getElementById("terminal"));
+        term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ AYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYfdsfdfsdfsd');
+    }
+}
+
+//mainTab.initializeTerminal();
 
 document.getElementById("file-ex-item-container").addEventListener("contextmenu", function(e) {
     fileExItemContainerCreate(e);
@@ -198,7 +238,121 @@ var fileExplorer = {
             } else {
                 var fileExt = name.split(".")[name.split(".").length - 1];
 
-                if (fileExt == "js") { //Javascript File
+                switch(fileExt) {
+                    case "js":
+                        img.src = "../../media/img/ui/editor/FileExplorer/Javascript.png";
+                        break;
+                    case "cs":
+                        img.src = "../../media/img/ui/editor/FileExplorer/C-Sharp.png";
+                        break;
+                    case "java":
+                        img.src = "../../media/img/ui/editor/FileExplorer/Java.png";
+                        break;
+                    case "rs":
+                        img.src = "../../media/img/ui/editor/FileExplorer/Rust.png";
+                        break;
+                    case "cpp":
+                        img.src = "../../media/img/ui/editor/FileExplorer/Cpp.png";
+                        break;
+                    case "h":
+                        img.src = "../../media/img/ui/editor/FileExplorer/h.png";
+                        break;
+                    case "class":
+                        img.src = "../../media/img/ui/editor/FileExplorer/class.png";
+                        break;
+                    case "jar":
+                        img.src = "../../media/img/ui/editor/FileExplorer/jar.png";
+                        break;
+                    case "ts":
+                        img.src = "../../media/img/ui/editor/FileExplorer/typescript.png";
+                        break;
+                    case "txt":
+                        img.src = "../../media/img/ui/editor/FileExplorer/txt.png";
+                        break;
+                    case "log":
+                        img.src = "../../media/img/ui/editor/FileExplorer/log.png";
+                        break;
+                    case "bat":
+                        img.src = "../../media/img/ui/editor/FileExplorer/batch.png";
+                        break;
+                    case "json":
+                        img.src = "../../media/img/ui/editor/FileExplorer/json.png";
+                        break;
+                    case "sproject":
+                        img.src = "../../media/img/ui/editor/FileExplorer/sproject.png";
+                        break;
+                    case "sec":
+                        img.src = "../../media/img/ui/editor/FileExplorer/sec.png";
+                        break;
+                    case "sln":
+                        img.src = "../../media/img/ui/editor/FileExplorer/sln.png";
+                        break;
+                    case "csproject":
+                        img.src = "../../media/img/ui/editor/FileExplorer/csproj.png";
+                        break;
+                    case "code-workspace":
+                        img.src = "../../media/img/ui/placeholder.png"
+                        break;
+                    case "png":
+                        img.src = "../../media/img/ui/placeholder.png"
+                        break;
+                    case "jpg":
+                        img.src = "../../media/img/ui/placeholder.png"
+                        break;
+                    case "bmp":
+                        img.src = "../../media/img/ui/placeholder.png"
+                        break;
+                    case "jpeg":
+                        img.src = "../../media/img/ui/placeholder.png"
+                        break;
+                    case "mp3":
+                        img.src = "../../media/img/ui/placeholder.png"
+                        break;
+                    case "wav":
+                        img.src = "../../media/img/ui/placeholder.png";
+                        break;
+                    case "flac":
+                        img.src = "../../media/img/ui/placeholder.png"
+                        break;
+                    case "aac":
+                        img.src = "../../media/img/ui/placeholder.png"
+                        break;
+                    case "ogg":
+                        img.src = "../../media/img/ui/placeholder.png"
+                        break;
+                    case "blend":
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
+                        break;
+                    case "blend1":
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
+                        break;
+                    case "blend2":
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
+                        break;
+                    case "blend3":
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
+                        break;
+                    case "obj":
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
+                        break;
+                    case "fbx":
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
+                        break;
+                    case "gltf":
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
+                        break;
+                    case "glb":
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
+                        break;
+                    default:
+                        img.src = "../../media/img/ui/placeholder.png";
+                        break;
+                }
+
+                //This is bad spahaghetti code  |
+                //                              \/
+
+                /* if (fileExt == "js") { //Javascript File
                     img.src = "../../media/img/ui/editor/FileExplorer/Javascript.png"
                 } else if (fileExt == "cs") { //C-Sharp File
                     img.src = "../../media/img/ui/editor/FileExplorer/C-Sharp.png"
@@ -224,7 +378,7 @@ var fileExplorer = {
                     img.src = "../../media/img/ui/editor/FileExplorer/batch.png"
                 } else if (fileExt == "json") { //Json File
                     img.src = "../../media/img/ui/editor/FileExplorer/json.png"
-                } else if (fileExt == "sproject") { //Shadow Engine Project File
+                } else if (fileExt == "sproject") { //Shadow Engine Project File                        //
                     img.src = "../../media/img/ui/editor/FileExplorer/sproject.png"
                 } else if (fileExt == "sec") { //Shadow Engine Configuation File
                     img.src = "../../media/img/ui/editor/FileExplorer/sec.png"
@@ -232,7 +386,7 @@ var fileExplorer = {
                     img.src = "../../media/img/ui/editor/FileExplorer/sln.png"
                 } else if (fileExt == "csproject") { //Microsoft Visual Studio C-Sharp Project File
                     img.src = "../../media/img/ui/editor/FileExplorer/csproj.png"
-                } else if (fileExt == "code-workspace") { //Visual Studio Code Workspace File
+                } else if (fileExt == "code-workspace") { //Visual Studio Code Workspace File                        //
                     img.src = "../../media/img/ui/placeholder.png"
                 } else if (fileExt == "png") { //PNG Image File
                     img.src = "../../media/img/ui/placeholder.png"
@@ -271,7 +425,7 @@ var fileExplorer = {
                 } else {
                     //Unsupported
                     img.src = "../../media/img/ui/placeholder.png"
-                }
+                } */
             }
 
 
@@ -314,7 +468,7 @@ var fileExplorer = {
         } else if (fileExt == "rs") { //Rust File or C++ Resource File
             //
         } else if (fileExt == "cpp") { //C++ File
-            //
+            tabControl.createCodeEditor("", "cpp");
         } else if (fileExt == "h") { //C++ Header File
             //
         } else if (fileExt == "class") { //Compiled java File, class
@@ -525,3 +679,12 @@ window.onclick = function() {
 //renderer.setSize(vpcWidth, vpcHeight);
 //vpContainer.appendChild(renderer.domElement);
 //
+
+
+
+
+
+///DELETE ME |
+///         \/
+
+document.getElementById("delete-me-button-tab-create").addEventListener("click", fui)

@@ -147,3 +147,12 @@
     color: #fff;
     font-weight: 900;
 }
+
+.fps-counter {
+    position: fixed;
+    top: 28px;
+    color: #fff;
+    right: 50px;
+    z-index: 9999;
+    float: right;
+}

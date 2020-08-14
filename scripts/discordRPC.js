@@ -4,6 +4,10 @@ const shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow 
 const fs = require("fs");
 const shadowProgramDir = require("os").homedir() + "\\AppData\\Local\\Programs\\shadow-engine";
 
+//--------------------------------------------------------------//
+//        THIS CODE IS DEAD AND NOT FUNCTIONAL OR USED          //
+//--------------------------------------------------------------//
+
 module.exports = {
     install: function(callbackfunc) {
         fs.exists(shadowProgramDir + "\\DiscordRPC", (err) => {

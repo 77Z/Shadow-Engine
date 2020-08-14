@@ -1,6 +1,6 @@
 .header {
     background-color: #0f0f0f;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     height: 9%;
@@ -8,14 +8,14 @@
 }
 .sidepanel {
     background-color: #111111;
-    position: fixed;
+    position: absolute;
     top: 10%;
     height: 50%;
     width: 20%;
 }
 .viewport {
     background-color: #353535;
-    position: fixed;
+    position: absolute;
     top: 10%;
     width: 50%;
     height: 50%;
@@ -23,7 +23,7 @@
 }
 .inspector {
     background-color: #252525;
-    position: fixed;
+    position: absolute;
     top: 10%;
     width: 28%;
     height: 90%;
@@ -31,7 +31,7 @@
 }
 .file-ex {
     background-color: #161616;
-    position: fixed;
+    position: absolute;
     top: 61%;
     height: 39%;
     left: 0;
@@ -267,3 +267,49 @@
 }
 
 /* Context Menu Code END */
+
+.terminal-container {
+    height: 19%;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    background: #160024;
+    display: none;
+}
+
+.terminal-x-content-grabbar {
+    bottom: 19%;
+    height: 1%;
+    background: #11001b;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    cursor: ns-resize;
+    display: none;
+}
+
+/* #terminal {
+    position: fixed;
+    bottom: 0;
+    left: 30px;
+    width: 500px;
+    height: 20%;
+    z-index: 99999;
+    background: #f00;
+} */
+
+/* #terminal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.terminal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+} */

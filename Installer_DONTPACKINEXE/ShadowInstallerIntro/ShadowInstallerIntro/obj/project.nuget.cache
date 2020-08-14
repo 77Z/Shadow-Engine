@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "sVbPEuOLB4Uqc7U1BevTN9QWY+rfngAjd+AY8G9d2sbZRGe0XGB5TE8fPXx5vRukWfPTCddG4M/NiubKAZlsXA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Owner\\Documents\\Projects\\Terrain\\Modules\\shadow-engine\\Installer_DONTPACKINEXE\\ShadowInstallerIntro\\ShadowInstallerIntro\\ShadowInstallerIntro.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Owner\\.nuget\\packages\\fluentwpf\\0.8.0\\fluentwpf.0.8.0.nupkg.sha512",
+    "C:\\Users\\Owner\\.nuget\\packages\\materialdesigncolors\\1.2.6\\materialdesigncolors.1.2.6.nupkg.sha512",
+    "C:\\Users\\Owner\\.nuget\\packages\\materialdesignthemes\\3.1.3\\materialdesignthemes.3.1.3.nupkg.sha512"
+  ],
+  "logs": []
+}

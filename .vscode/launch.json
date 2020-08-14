@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch Shadow",
+            "program": "${workspaceFolder}/main.js",
+            "request": "launch",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "skipFiles": [],
+            "type": "pwa-node"
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Launch Shadow Dummy Project",
@@ -14,16 +22,6 @@
                 "<node_internals>/**"
             ],
             "args": ["--devDummy"]
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Shadow",
-            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
-            "program": "${workspaceFolder}/main.js",
-            "skipFiles": [
-                "<node_internals>/**"
-            ]
         }
     ]
 }

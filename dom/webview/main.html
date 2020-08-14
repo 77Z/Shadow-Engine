@@ -6,6 +6,11 @@
     <title>
         MAIN
     </title>
+
+    <!-- xterm.js -->
+    <link rel="stylesheet" href="../../node_modules/xterm/css/xterm.css">
+    <script src="../../node_modules/xterm/lib/xterm.js"></script>
+
     <link rel="stylesheet" href="../../fonts/fonts.css">
     <link rel="stylesheet" href="../../styles/webview/webview.css">
     <link rel="stylesheet" href="../../styles/webview/main.css">
@@ -15,7 +20,12 @@
     <script src="../../scripts/Scrollers/OverlayScrollbars.min.js"></script>
 </head>
 <body>
-    <div class="grid-container">
+    <div class="terminal-container" id="terminal-container">
+        <div id="terminal"></div>
+        <button>Open Terminal</button>
+    </div>
+    <div class="terminal-x-content-grabbar" id="terminal-x-content-grabbar"></div>
+    <div class="grid-container" id="grid-container">
         <div class="header"></div>
         <div class="sidepanel"></div>
         <div class="viewport" id="vp-container"></div>

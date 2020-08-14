@@ -15,10 +15,13 @@
         "electron-process-manager": "^1.0.0",
         "electron-tools": "^2.4.2",
         "fs-extra": "^9.0.0",
+        "node-fetch": "^2.6.0",
         "split-grid": "^1.0.9",
         "three": "file:three",
         "trash": "^6.1.1",
-        "uuid": "^8.2.0"
+        "uuid": "^8.2.0",
+        "ws": "^7.3.1",
+        "xterm": "^4.8.1"
     },
     "build": {
         "appId": "tk.a77zsite.shadow-engine",

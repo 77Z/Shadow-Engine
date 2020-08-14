@@ -1,14 +1,25 @@
 //Global
 const shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow Engine";
 
+const defaultProtocolClient = "shadowengine";
 const {app, BrowserWindow, ipcMain, Menu, MenuItem, dialog, globalShortcut} = require("electron");
 const showLog = require("./scripts/showLog");
 const fs = require("fs");
-const discordRpc = require("./scripts/discordRPC");
 const devEnabled = false;
 const shadowProgramDir = require("os").homedir() + "\\AppData\\Local\\Programs\\shadow-engine";
 const { openProcessManager } = require("electron-process-manager");
 const { v4: uuid4 } = require("uuid");
+const startTimestamp = new Date();
+
+const DiscordRPC = require("./DiscordRPC");
+var DiscordRPCData = {
+    details: "In the Editor",
+    startTimestamp,
+    largeImageKey: 'shadowengine',
+    largeImageText: "Shadow Engine",
+    smallImageKey: "shadow-worker",
+    smallImageText: "In the Editor"
+};
 
 const editorFileMenuTemplate = [
     {
@@ -290,7 +301,18 @@ function createWindow() {
         editor.webContents.send("main.relay.createTab", name, URL);
     });
 
+    ipcMain.on("tab-control-from-tab.createCodeEditor", (event, fileLocation, fileType) => {
+        editor.webContents.send("main.relay.createCodeEditor", fileLocation, fileType);
+    });
+
     ipcMain.on("editor-resized", (event) => {});
+
+    ipcMain.on("ShadowDiscordRPC.setStatus", (event, data) => {
+        DiscordRPCData = data;
+
+        console.log(DiscordRPCData);
+        //createDebugDialogBox("external source set discord status to " + JSON.stringify(DiscordRPCData));
+    });
 
     mainWindow.setOverlayIcon("media/img/icons/!.png", "Shadow Engine attention");
     mainWindow.setThumbnailClip({
@@ -323,4 +345,39 @@ app.on("activate", function() {
     }
 });
 
-app.setAsDefaultProtocolClient("shadowengine");
+function createDebugDialogBox(message) {
+    dialog.showMessageBoxSync(null, {
+        type: "warning",
+        title: "Shadow Engine Debug Dialog",
+        message: message,
+        buttons: ["Ok"]
+    });
+}
+
+
+const clientId = "740011656817410140";
+
+DiscordRPC.register(clientId);
+
+const rpc = new DiscordRPC.Client({ transport: 'ipc' });
+
+async function setActivity() {
+    if (!rpc || !mainWindow) {
+        return;
+    }
+
+    rpc.setActivity(DiscordRPCData);
+}
+
+rpc.on("ready", () => {
+    setActivity();
+
+    setInterval(() => {
+        setActivity();
+    }, 15e3)
+});
+
+rpc.login({ clientId }).catch(console.error);
+
+app.removeAsDefaultProtocolClient(defaultProtocolClient);
+app.setAsDefaultProtocolClient(defaultProtocolClient);

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowInstallerIntro", "ShadowInstallerIntro\ShadowInstallerIntro.csproj", "{0B21DE9A-0F72-4FD3-AFE5-5C1A5087E832}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowInstaller", "ShadowInstaller\ShadowInstaller.csproj", "{0BD735B2-ACAB-4352-A301-7B5D9D47F0AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B21DE9A-0F72-4FD3-AFE5-5C1A5087E832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B21DE9A-0F72-4FD3-AFE5-5C1A5087E832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B21DE9A-0F72-4FD3-AFE5-5C1A5087E832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B21DE9A-0F72-4FD3-AFE5-5C1A5087E832}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BD735B2-ACAB-4352-A301-7B5D9D47F0AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BD735B2-ACAB-4352-A301-7B5D9D47F0AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BD735B2-ACAB-4352-A301-7B5D9D47F0AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BD735B2-ACAB-4352-A301-7B5D9D47F0AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A904E3CC-CFBC-40A6-97AB-A50DF81D650E}
+	EndGlobalSection
+EndGlobal
