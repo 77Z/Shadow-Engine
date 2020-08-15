@@ -12,7 +12,7 @@ const { v4: uuid4 } = require("uuid");
 const startTimestamp = new Date();
 const pty = require("node-pty");
 const os = require("os");
-var shell = os.platform() === "win32" ? "cmd.exe" : "bash";
+var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
 
 const DiscordRPC = require("./DiscordRPC");
 var DiscordRPCData = {
