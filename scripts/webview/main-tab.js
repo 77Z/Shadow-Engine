@@ -6,7 +6,6 @@ const tabControl = require("../../scripts/tab-control-from-tab");
 const _ = require("../../scripts/vq-node");
 const fs = require("fs");
 const getProject = require("../../scripts/get-project");
-const { Terminal } = require("xterm");
 const ipc = require("electron").ipcRenderer;
 
 var FileExplorerItemHover = null;
@@ -71,6 +70,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 var terminalOpen = false;
+var terminalInitialized = false;
 var gridContainerHeight = 100;
 var gridContainer = document.getElementById("grid-container");
 var mainTab = {
@@ -83,12 +83,21 @@ var mainTab = {
             terminalOpen = false;
         } else {
             //open
-            mainTab.setGridContainerHeight(80);
+            mainTab.setGridContainerHeight(70);
             document.getElementById("terminal-container").style.display = "block";
             document.getElementById("terminal-container").style.height = ((100 - gridContainerHeight) - 1) + "%";
             
             document.getElementById("terminal-x-content-grabbar").style.bottom = (99 - gridContainerHeight) + "%";
             document.getElementById("terminal-x-content-grabbar").style.display = "block";
+            if (!terminalInitialized) {
+                var iframe = document.createElement("iframe");
+                iframe.src = "terminal.html";
+                iframe.frameBorder = "0";
+                iframe.setAttribute("class", "terminal-iframe");
+                iframe.setAttribute("id", "viewport-terminal");
+                document.getElementById("terminal-container").appendChild(iframe);
+            }
+            
 
             terminalOpen = true;
         }
@@ -652,6 +661,33 @@ window.onclick = function() {
 };
 
 
+//GET EVENTS FROM EDITOR
+
+window.addEventListener("message", messageFromEditor);
+
+function messageFromEditor(event) {
+
+    if (event.data.split(":")[0] == "FTT") {
+        //Forward Data to the terminal
+
+        //remove the first four charactors instead of getting [1] of the array
+        //you do this because if there is an : in the rest of the data,
+        //only everything before that : will be send to the viewport terminal
+        var dataToForward = event.data.substr(4);
+
+        document.getElementById("viewport-terminal").contentWindow.postMessage(dataToForward, "*");
+
+    }
+
+    return;
+}
+
+//GET EVENTS FROM EDITOR END
+
+
+
+
+
 
 /* document.addEventListener("DOMContentLoaded", function() {
     console.log("Fully Loaded");
@@ -687,4 +723,4 @@ window.onclick = function() {
 ///DELETE ME |
 ///         \/
 
-document.getElementById("delete-me-button-tab-create").addEventListener("click", fui)
+//document.getElementById("delete-me-button-tab-create").addEventListener("click", fui)

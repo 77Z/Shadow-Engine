@@ -1,0 +1,27 @@
+* {
+    font-size: 20px;
+    outline: none;
+    caret-color: orangered;
+    color: #fff;
+}
+
+#editor { 
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-family: consolas !important;
+    font-size: 20px;
+}
+
+::selection {
+    background-color: orangered;
+}
+
+.ace_doc-tooltip {
+    background: #000;
+    font-family: consolas !important;
+    color: #fff;
+    font-size: 16px;
+}

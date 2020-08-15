@@ -10,6 +10,9 @@ const shadowProgramDir = require("os").homedir() + "\\AppData\\Local\\Programs\\
 const { openProcessManager } = require("electron-process-manager");
 const { v4: uuid4 } = require("uuid");
 const startTimestamp = new Date();
+const pty = require("node-pty");
+const os = require("os");
+var shell = os.platform() === "win32" ? "cmd.exe" : "bash";
 
 const DiscordRPC = require("./DiscordRPC");
 var DiscordRPCData = {
@@ -313,6 +316,30 @@ function createWindow() {
         console.log(DiscordRPCData);
         //createDebugDialogBox("external source set discord status to " + JSON.stringify(DiscordRPCData));
     });
+
+
+    ipcMain.on("terminal.createTerminal", (event) => {
+        //FTT = Forward To Terminal
+        //editor.webContents.send("FTT", "datahere");
+
+        var ptyProcess = pty.spawn(shell, [], {
+            name: "xterm-color",
+            cols: 80,
+            rows: 24,
+            cwd: process.env.HOME,
+            env: process.env
+        });
+
+        ptyProcess.on("data", function(data) {
+            editor.webContents.send("FTT", data);
+        });
+
+        ipcMain.on("terminal.keystroke", (event, key) => {
+            ptyProcess.write(key);
+        });
+
+    });
+
 
     mainWindow.setOverlayIcon("media/img/icons/!.png", "Shadow Engine attention");
     mainWindow.setThumbnailClip({

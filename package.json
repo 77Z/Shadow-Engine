@@ -4,7 +4,8 @@
     "description": "Shadow Engine",
     "main": "main.js",
     "scripts": {
-        "start": "electron ."
+        "start": "electron .",
+        "rebuild": "electron-rebuild"
     },
     "author": "77Z",
     "license": "MIT",
@@ -13,9 +14,11 @@
         "electron": "^8.2.1",
         "electron-download-manager": "^2.1.2",
         "electron-process-manager": "^1.0.0",
+        "electron-rebuild": "^1.11.0",
         "electron-tools": "^2.4.2",
         "fs-extra": "^9.0.0",
         "node-fetch": "^2.6.0",
+        "node-pty": "^0.9.0",
         "split-grid": "^1.0.9",
         "three": "file:three",
         "trash": "^6.1.1",

@@ -84,3 +84,15 @@ if (showEditorFPS) {
     }
     refresh();
 }
+
+//this variable creates the main tab and returns
+//the tabs id
+var maintabId = tabs.create("Main", "main.html");
+
+//Forwarding Data to tabs START
+
+editorIpcRenderer.on("FTT", (event, data) => {
+    document.getElementById(maintabId).contentWindow.postMessage("FTT:" + data, "*");
+});
+
+//Forwarding Data to tabs END

@@ -106,6 +106,9 @@ var tabs = {
                 }, 100);
             }
         });
+
+
+        return "webview" + id;
     },
     getTabAmount: function() {
         return tabsStorage.length;
@@ -148,6 +151,7 @@ var tabs = {
     }
 };
 
-tabs.create("Main", "main.html");
+//Main tab creation is now handled in editor.js
+/* tabs.create("Main", "main.html"); */
 //tabs.create("Log Test", "logTest.html");
 //tabs.create("DuMmY tAb", "dummy.html");
