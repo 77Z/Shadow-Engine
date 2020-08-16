@@ -1,0 +1,33 @@
+#include "resource.h"
+
+#include <windows.h>
+
+IDI_SMALL              ICON         "Shadow.ico"
+
+A ICON "Shadow.ico"
+
+1 VERSIONINFO
+FILEVERSION 1,0,0,0
+PRODUCTVERSION 1,0,0,0
+FILETYPE VFT_APP
+{
+    BLOCK "StringFileInfo"
+    {
+        BLOCK "040904E4"
+        {
+            VALUE "CompanyName", "77Z"
+            VALUE "FileVersion", "1.0.0.0"
+            VALUE "FileDescription", "Shadow Engine"
+            VALUE "InternalName", "Shadow"
+            VALUE "LegalCopyright", "�77Z"
+            VALUE "LegalTrademarks", "77Z�"
+            VALUE "OriginalFilename", "codecomp.exe"
+            VALUE "ProductName", "Shadow Engine Code Compiler"
+            VALUE "ProductVersion", "1.0.0.0"
+        }
+    }
+    BLOCK "VarFileInfo"
+    {
+        VALUE "Translation", 0x0409, 1252
+    }
+}

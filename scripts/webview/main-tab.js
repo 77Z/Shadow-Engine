@@ -57,7 +57,7 @@ var fileExUribar = document.getElementById("uriinput");
 //});
 
 document.addEventListener("keydown", (event) => {
-    if (event.xdefaultPrevented) { return; }
+    if (event.defaultPrevented) { return; }
     var key = event.key || event.keyCode;
     if (key == "Enter") {
         if (uriInput == document.activeElement) {
@@ -187,9 +187,9 @@ var fileExplorer = {
                         for (var i = 0; i < files.length; i++) {
                             if (fs.lstatSync(fullDir + "\\" + files[i]).isDirectory()) {
                                 //Item is a folder, handle accordingly
-                                createItem(files[i], true);
+                                createItem(files[i], fullDir + "\\" + files[i], true);
                             } else {
-                                createItem(files[i]);
+                                createItem(files[i], fullDir + "\\" + files[i]);
                             }
                         }
                     }
@@ -197,7 +197,7 @@ var fileExplorer = {
             }
         });
 
-        function createItem(name = null, isDirectory = false) {
+        function createItem(name = null, fileLocation, isDirectory = false) {
             var item = document.createElement("div");
             item.setAttribute("class", "file-ex-item");
             item.setAttribute("tabindex", "0");
@@ -465,11 +465,11 @@ var fileExplorer = {
         uriInput.value = uri;
         this.loadDirectory(uri);
     },
-    openFile: function(fileName) {
+    openFile: function(fileName, fileLocation) {
         var fileExt = fileName.split(".")[fileName.split(".").length - 1];
         
         if (fileExt == "js") { //Javascript File
-            tabControl.createTab("Code Editor", "code-editor-tab.html");
+            tabControl.createTab(fileLocation);
         } else if (fileExt == "cs") { //C-Sharp File
             //
         } else if (fileExt == "java") { //Java File
@@ -477,7 +477,7 @@ var fileExplorer = {
         } else if (fileExt == "rs") { //Rust File or C++ Resource File
             //
         } else if (fileExt == "cpp") { //C++ File
-            tabControl.createCodeEditor("", "cpp");
+            tabControl.createCodeEditor(fileLocation);
         } else if (fileExt == "h") { //C++ Header File
             //
         } else if (fileExt == "class") { //Compiled java File, class

@@ -95,10 +95,13 @@ app.on('ready', function() {
                                                                         fs.copyFile(shadowProgramDir + "\\DiscordRPC\\transports\\websocket.js", shadowEngineDataDir + "\\plugins\\DiscordRPC\\transports\\websocket.js", (err) => {
                                                                             if (err) throw err;
                                                                             fs.mkdir(shadowEngineDataDir + "\\blob", (err) => {
-                                                                                fs.mkdir(shadowEngineDataDir + "\\blob\\" + uuid4, (err) => {
+                                                                                //fs.mkdir(shadowEngineDataDir + "\\blob\\" + uuid4, (err) => {
                                                                                     if (err) throw err;
-                                                                                    createWindow();
-                                                                                });
+                                                                                    fs.writeFile(shadowEngineDataDir + "\\engine-data\\config.json", "//This is the Shadow Engine Configuration File\n//Change settings from here :)\n\n{\n    \"defaultProject\": null,\n    //This will change the default dropdown\n    //on the project creation screen\n    \"mostUsedProgrammingLang\": null,\n    \"codeEditor\": {\n        \"colorTheme\": \"solorized_dark\",\n        \"defaultFontSize\": 20\n    }\n}", (err) => {
+                                                                                        if (err) throw err;
+                                                                                        createWindow();
+                                                                                    });
+                                                                                //});
                                                                             });
                                                                         });
                                                                     });
@@ -304,8 +307,8 @@ function createWindow() {
         editor.webContents.send("main.relay.createTab", name, URL);
     });
 
-    ipcMain.on("tab-control-from-tab.createCodeEditor", (event, fileLocation, fileType) => {
-        editor.webContents.send("main.relay.createCodeEditor", fileLocation, fileType);
+    ipcMain.on("tab-control-from-tab.createCodeEditor", (event, fileLocation) => {
+        editor.webContents.send("main.relay.createCodeEditor", fileLocation);
     });
 
     ipcMain.on("editor-resized", (event) => {});

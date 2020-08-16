@@ -31,10 +31,6 @@ editorIpcRenderer.on("main.relay.createTab", (event, name, URL) => {
     tabs.create(name, URL);
 });
 
-editorIpcRenderer.on("main.relay.createCodeEditor", (event, fileLocation, fileType) => {
-    tabs.create("Code Editor", "code-editor-tab.html");
-});
-
 function getProjFromFile() {
     var proj = configFileReader.readConfigFile(shadowEngineDataDir + "\\engine-data\\proj.sec", 1);
     //Show name in top right corner
@@ -89,10 +85,16 @@ if (showEditorFPS) {
 //the tabs id
 var maintabId = tabs.create("Main", "main.html");
 
+var editortabId = tabs.create("Code Editor", "code-editor-tab.html");
+
 //Forwarding Data to tabs START
 
 editorIpcRenderer.on("FTT", (event, data) => {
     document.getElementById(maintabId).contentWindow.postMessage("FTT:" + data, "*");
+});
+
+editorIpcRenderer.on("main.relay.createCodeEditor", (event, fileLocation) => {
+    document.getElementById(editortabId).contentWindow.postMessage(fileLocation, "*");
 });
 
 //Forwarding Data to tabs END

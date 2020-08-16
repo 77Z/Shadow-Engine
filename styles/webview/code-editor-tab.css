@@ -7,7 +7,7 @@
 
 #editor { 
     position: absolute;
-    top: 0;
+    top: 40px;
     right: 0;
     bottom: 0;
     left: 0;
@@ -24,4 +24,132 @@
     font-family: consolas !important;
     color: #fff;
     font-size: 16px;
+}
+
+.command-popup {
+    position: fixed;
+    width: 700px;
+    height: 400px;
+    background: #222;
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    transform: scale(0);
+    transition: 0.2s transform;
+    z-index: 5;
+    margin-left: -350px;
+    margin-top: -200px;
+    user-select: none;
+}
+
+.command-popup-back {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #000000a1;
+    display: none;
+    z-index: 5;
+}
+
+.command-popup .keycaps-footer {
+    position: absolute;
+    bottom: -25px;
+    width: 100%;
+    left: 0;
+    height: 20px;
+    padding-left: 15px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.command-popup .keycaps-footer .keycap-group {
+    display: inline-block;
+}
+
+.command-popup .keycaps-footer .keycap-group img {
+    height: 20px;
+}
+
+.command-popup .keycaps-footer .keycap-group .keycap-caption {
+    font-size: 20px;
+    color: #fff;
+}
+
+.command-popup #command-input {
+    width: 680px;
+    box-sizing: border-box;
+    height: 50px;
+    font-size: 35px;
+    font-family: consolas !important;
+    background: #474747;
+    left: 10px;
+    top: 10px;
+    border: none;
+    position: absolute;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.file-info {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    float: right;
+    font-family: consolas;
+}
+
+.command-popup ul.command-list {
+    position: absolute;
+    top: 65px;
+    font-family: consolas;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    left: 10px;
+    width: 680px;
+}
+
+.command-popup ul.command-list li {
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding-left: 10px;
+    border-radius: 3px;
+}
+
+.command-popup ul.command-list li:hover {
+    background: #2c2c2c;
+}
+
+.command-popup ul.command-list .selected {
+    background: #2c2c2c;
+}
+
+.snackbar {
+    position: fixed;
+    bottom: -30px;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    background: #333333;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.6);
+    border-radius: 5px;
+    color: white;
+    font-size: 20px;
+    height: 25px;
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: bold;
+    user-select: none;
+    transition: 0.3s;
+}
+
+.snackbar-show {
+    bottom: 30px;
 }

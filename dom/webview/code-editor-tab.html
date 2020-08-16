@@ -10,6 +10,50 @@
     
     <div id="editor"></div>
 
+    <!-- Command Popup -->
+    <div class="command-popup-back" id="command-popup-back"></div>
+    <div class="command-popup" id="command-popup">
+        <input type="text" id="command-input" placeholder="Search Commands...">
+
+        <ul id="command-list" class="command-list">
+            <li class="command-list-item">Change Language Mode</li>
+            <li class="command-list-item">Change Color Theme</li>
+            <li class="command-list-item">New File</li>
+            <li class="command-list-item">Open File</li>
+            <li class="command-list-item">Close File</li>
+            <li class="command-list-item">Save File</li>
+            <li class="command-list-item">Build C++ File</li>
+            <li class="command-list-item">Build C File</li>
+            <li class="command-list-item">Build JavaScript File</li>
+        </ul>
+
+        <div class="keycaps-footer">
+            <div class="keycap-group">
+                <img src="../../media/img/ui/editor/keycaps/esc.svg">
+                <span class="keycap-caption"><strong>Esc</strong> to exit</span>
+            </div>
+            <div class="keycap-group">
+                <img src="../../media/img/ui/editor/keycaps/enter.svg">
+                <span class="keycap-caption"><strong>Enter</strong> to select</span>
+            </div>
+        </div>
+    </div>
+
+    <span class="file-info">
+        <span>Ln </span>
+        <span id="file-info-ln">0</span>
+        <span>, Col </span>
+        <span id="file-info-col">0</span>
+        <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+        <span id="file-info-encoding">UTF-8</span>
+        <span>&nbsp;</span>
+        <span id="file-info-line-endings">LF</span>
+        <span>&nbsp;</span>
+        <span id="file-info-language-mode">JavaScript</span>
+    </span>
+
+    <div class="snackbar" id="snackbar">Default Text</div>
+
     <script src="../../ace/ace.js"></script>
     <script src="../../ace/ext-language_tools.js"></script>
     <script src="../../scripts/webview/code-editor-tab.js"></script>
