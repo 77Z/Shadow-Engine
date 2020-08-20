@@ -93,8 +93,8 @@ editorIpcRenderer.on("FTT", (event, data) => {
     document.getElementById(maintabId).contentWindow.postMessage("FTT:" + data, "*");
 });
 
-editorIpcRenderer.on("main.relay.createCodeEditor", (event, fileLocation) => {
-    document.getElementById(editortabId).contentWindow.postMessage(fileLocation, "*");
+editorIpcRenderer.on("main.relay.createCodeEditor", (event, fileName) => {
+    document.getElementById(editortabId).contentWindow.postMessage(fileName, "*");
 });
 
 //Forwarding Data to tabs END

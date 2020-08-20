@@ -307,8 +307,8 @@ function createWindow() {
         editor.webContents.send("main.relay.createTab", name, URL);
     });
 
-    ipcMain.on("tab-control-from-tab.createCodeEditor", (event, fileLocation) => {
-        editor.webContents.send("main.relay.createCodeEditor", fileLocation);
+    ipcMain.on("tab-control-from-tab.createCodeEditor", (event, fileName) => {
+        editor.webContents.send("main.relay.createCodeEditor", fileName);
     });
 
     ipcMain.on("editor-resized", (event) => {});

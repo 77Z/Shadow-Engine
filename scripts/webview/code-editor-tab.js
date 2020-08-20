@@ -1,8 +1,12 @@
+//Global
+const shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow Engine";
+
 const child_process = require("child_process");
 const _ = require("../../scripts/vq-node");
 const fs = require("fs");
 const getFileType = require("../../scripts/FileManip/getFileType");
 const getLineEnding = require("../../scripts/FileManip/getLineEndingType");
+const getProject = require("../../scripts/get-project");
 
 var editor = ace.edit("editor");
 editor.setTheme("ace/theme/solarized_dark");
@@ -286,9 +290,11 @@ function fileLoader() {
     const fl = {};
 
     fl.load = function(fileLocation) {
+        console.log(typeof fileLocation);
         var filename = fileLocation.split("\\")[fileLocation.split("\\").length - 1];
 
         fs.readFile(fileLocation, "utf-8", (err, data) => {
+            if (err) { snackbar(err); throw err; }
             var lineEndingText = document.getElementById("file-info-line-endings");
             if (getLineEnding(data) == "\r\n") {
                 lineEndingText.innerText == "CRLF";
@@ -300,33 +306,51 @@ function fileLoader() {
 
             if (getFileType(filename) == "unknown") {
                 snackbar("Unknown file type :/");
+                return;
             }
 
             switch (getFileType(filename)) {
                 case "js": {
                     languageModeText.innerText = "JavaScript";
                     editor.session.setMode("ace/mode/javascript");
+                    editor.setValue(data, -1);
                     break;
                 }
                 case "cpp": {
                     languageModeText.innerText = "C++";
                     editor.session.setMode("ace/mode/c_cpp");
+                    editor.setValue(data, -1);
+                    break;
                 }
                 case "c": {
                     languageModeText.innerText = "C";
                     editor.session.setMode("ace/mode/c_cpp");
+                    editor.setValue(data, -1);
+                    break;
                 }
                 case "rust": {
                     languageModeText.innerText = "Rust";
                     editor.session.setMode("ace/mode/rust");
+                    editor.setValue(data, -1);
+                    break;
                 }
                 case "java": {
                     languageModeText.innerText = "Java!";
                     editor.session.setMode("ace/mode/java");
+                    editor.setValue(data, -1);
+                    break;
                 }
                 case "csharp": {
                     languageModeText.innerText = "C#";
                     editor.session.setMode("ace/mode/csharp");
+                    editor.setValue(data, -1);
+                    break;
+                }
+                case "h": {
+                    languageModeText.innerText = "C#";
+                    editor.session.setMode("ace/mode/c_cpp");
+                    editor.setValue(data, -1);
+                    break;
                 }
             }
         });
@@ -348,5 +372,6 @@ function snackbar(content) {
 window.addEventListener("message", messageFromEditor);
 
 function messageFromEditor(event) {
-    fileLoader().load(event.data);
+    var fileLocation = shadowEngineDataDir + "\\projects\\" + getProject() + "\\Source\\" + event.data;
+    fileLoader().load(fileLocation);
 }
