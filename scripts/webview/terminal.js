@@ -1,9 +1,16 @@
 const ipc = require("electron").ipcRenderer;
 
+const TermLetterCellSize = {
+    height: 17,
+    width: 9
+};
+
 var term = new Terminal({
     theme: {
         background: "#160024"
-    }
+    }/* ,
+    fontFamily: "Terminal",
+    letterSpacing: -5 */
 });
 term.open(document.getElementById("terminal"));
 term.write("Shadow Terminal\r\n\r\n");
@@ -24,5 +31,21 @@ function messageFromMainTab(event) {
 term.onData(e => {
     ipc.send("terminal.keystroke", e);
 })
+
+
+
+function calculateTerminalHeight(heightInPixels) {
+    //height = 250 should be 13 rows??
+    var numberrr = heightInPixels;
+    if (typeof heightInPixels == "string") {
+        number = parseInt(heightInPixels);
+    }
+    return Math.floor( ( heightInPixels / TermLetterCellSize.height ) - 1 );
+}
+
+//console.log(calculateTerminalHeight(250));
+//
+//ipc.send("terminal.resizeTerminal.height");
+
 
 ipc.send("terminal.createTerminal");

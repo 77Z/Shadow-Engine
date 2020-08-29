@@ -1,7 +1,7 @@
 var tabsContainer = document.getElementById("tabs-container");
 var tabsStorage = [];
 var tabs = {
-    create: function(name, URL) {
+    create: function(name, URL, closable = true) {
 
         var firstTab = false;
         if (tabsStorage.length == 0) {
@@ -34,7 +34,9 @@ var tabs = {
 
 
         tab.appendChild(title);
-        tab.appendChild(closeBtn);
+        if (closable) {
+            tab.appendChild(closeBtn);
+        }
         tabsContainer.appendChild(tab);
 
         tabsStorage.push(id);

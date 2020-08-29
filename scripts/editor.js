@@ -83,9 +83,9 @@ if (showEditorFPS) {
 
 //this variable creates the main tab and returns
 //the tabs id
-var maintabId = tabs.create("Main", "main.html");
+var maintabId = tabs.create("Main", "main.html", false);
 
-var editortabId = tabs.create("Code Editor", "code-editor-tab.html");
+var editortabId = tabs.create("Code Editor", "code-editor-tab.html", false);
 
 //Forwarding Data to tabs START
 

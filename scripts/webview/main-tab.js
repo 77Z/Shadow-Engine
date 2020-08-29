@@ -684,7 +684,7 @@ function messageFromEditor(event) {
 
 //GET EVENTS FROM EDITOR END
 
-
+//This function is a dud
 function escapeBackslash(input = null) {
     if (typeof input !== "string") throw new TypeError("input must be a string!!");
 
@@ -692,6 +692,42 @@ function escapeBackslash(input = null) {
 }
 
 
+//Terminal Resizer!
+
+    var grabber = document.getElementById("terminal-x-content-grabbar");
+    
+    var doc = document,
+        ht = 400,
+        wd = 400,
+        main = document.querySelector("#terminal-x-content-grabbar"),
+        y, dy;
+    
+    var startResize = function(evt) {
+        y = evt.screenY;
+    };
+        
+    var resize = function(evt) {
+        dy = evt.screenY - y;
+        y = evt.screenY;
+        ht += dy;
+        main.style.top = ht + "px";
+    };
+
+    grabber.addEventListener("mousedown", function(evt) {
+        startResize(evt);
+
+        //add iframe Safetey
+        document.getElementById("terminal-resize-safety").style.display = "block";
+
+        doc.body.addEventListener("mousemove", resize);
+        doc.body.addEventListener("mouseup", function() {
+            doc.body.removeEventListener("mousemove", resize);
+            document.getElementById("terminal-resize-safety").style.display = "none";
+        });
+    });
+
+
+//      END
 
 
 
