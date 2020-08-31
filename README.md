@@ -20,4 +20,5 @@ In order to run Shadow Engine on your computer you need these things:
     cd Shadow-Engine
     npm i
     npm run rebuild
-    npm start```
+    npm start
+```
