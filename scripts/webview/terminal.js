@@ -8,9 +8,8 @@ const TermLetterCellSize = {
 var term = new Terminal({
     theme: {
         background: "#160024"
-    }/* ,
-    fontFamily: "Terminal",
-    letterSpacing: -5 */
+    },
+    fontFamily: "Terminal"
 });
 term.open(document.getElementById("terminal"));
 term.write("Shadow Terminal\r\n\r\n");
