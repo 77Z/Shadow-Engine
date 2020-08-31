@@ -9,4 +9,4 @@ install:
   # install modules
   - npm install
   # Build c++ files
-  - npm run build
+  - npm run rebuild
