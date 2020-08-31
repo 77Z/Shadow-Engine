@@ -10,3 +10,14 @@ install:
   - npm install
   # Build c++ files
   - npm run rebuild
+
+# Post-install test scripts.
+test_script:
+  # Output useful info for debugging.
+  - node --version
+  - npm --version
+  # run tests
+  - npm start
+
+# Don't actually build.
+build: off
