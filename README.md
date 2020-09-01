@@ -16,9 +16,9 @@ In order to run Shadow Engine on your computer you need these things:
 - [Git](https://git-scm.com/)
 - G++/GCC/MinGW??
 ```
-    git clone https://github.com/77Z/Shadow-Engine.git
-    cd Shadow-Engine
-    npm i
-    npm run rebuild
-    npm start
+git clone https://github.com/77Z/Shadow-Engine.git
+cd Shadow-Engine
+npm i
+npm run rebuild
+npm start
 ```
