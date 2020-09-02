@@ -244,8 +244,8 @@ function createWindow() {
     ipcMain.on("main-tab.createFile", function(e, directory) {
         let createFile;
         createFile = new BrowserWindow({
-            width: 500,
-            height: 200,
+            width: 450,
+            height: 800,
             frame: false,
             movable: true,
             closable: true,
@@ -260,19 +260,19 @@ function createWindow() {
                 nodeIntegration: true
             }
         });
-        createFile.loadURL(`file://${__dirname}/dom/webview/FileEx/createFile.html`);
+        createFile.loadURL(`file://${__dirname}/dom/webview/FileEx/createNewItem.html`);
         createFile.on("closed", function() {
             createFile = null;
         });
         createFile.webContents.on("did-finish-load", function() {
             createFile.webContents.send("main.directory", directory);
         });
-        createFile.setThumbnailClip({
+        /* createFile.setThumbnailClip({
             x: 0,
             y: 20,
             width: createFile.getBounds().width,
             height: createFile.getBounds().height - 20,
-        });
+        }); */
     });
 
     ipcMain.on("window-icon-context", function(event) {

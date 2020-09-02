@@ -1,0 +1,72 @@
+body, html {
+    background: #000;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    user-select: none;
+    outline: none;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin-top: 25px;
+}
+
+ul li {
+    position: relative;
+    padding: 10px;
+    margin: 0;
+    background: #222;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin: 2px;
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+ul li::before {
+    content: '';
+    position: absolute;
+    background: #d4d4d4;
+    height: 3px;
+    width: 10px;
+    right: 20px;
+    top: 17px;
+    /* Yes i know that "a" is not valid but it makes the code work, so what */
+    transform-origin: a right;
+    transform: rotate(45deg);
+}
+
+ul li::after {
+    content: '';
+    position: absolute;
+    background: #d4d4d4;
+    height: 3px;
+    width: 10px;
+    right: 20px;
+    top: 22px;
+    transform-origin: a right;
+    transform: rotate(-45deg);
+}
+
+ul li:hover {
+    background: #2c2c2c;
+}
+
+.titlebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 100%;
+    background: #111;
+    -webkit-app-region: drag;
+}
+
+span {
+    color: white;
+}
