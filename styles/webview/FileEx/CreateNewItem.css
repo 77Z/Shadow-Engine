@@ -70,3 +70,21 @@ ul li:hover {
 span {
     color: white;
 }
+
+.close-btn {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    transition: 0.3s;
+    -webkit-app-region: no-drag;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-btn:hover {
+    background: red;
+}
