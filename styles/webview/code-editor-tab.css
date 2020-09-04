@@ -95,8 +95,8 @@
 
 .file-info {
     position: fixed;
-    bottom: 0;
-    right: 0;
+    bottom: 8px;
+    right: 10px;
     float: right;
     font-family: consolas;
 }
@@ -152,4 +152,35 @@
 
 .snackbar-show {
     bottom: 30px;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #383838;
+    border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #383838;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: #303030;
+}
+
+::-webkit-scrollbar-track {
+    background: #242424;
+    border-radius: 100px;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
 }
