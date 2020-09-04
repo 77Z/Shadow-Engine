@@ -149,6 +149,10 @@ var fileExplorer = {
         var prefix = shadowEngineDataDir + "\\projects\\" + getProject() + "\\Source";
         _("file-ex-item-container").empty(); //Empty all the current items.
         var fullDir = prefix + directory;
+
+        //So we can move file locations around easier.
+        var fullDirFrontSlash = "C:/Users/" + require("os").userInfo().username + "/AppData/Roaming/Shadow Engine/projects/" + getProject() + "/Source/" + directory;
+
         fs.exists(fullDir, (exists) => {
             if (!exists) {
                 var notValid = document.createElement("div");
@@ -187,9 +191,9 @@ var fileExplorer = {
                         for (var i = 0; i < files.length; i++) {
                             if (fs.lstatSync(fullDir + "\\" + files[i]).isDirectory()) {
                                 //Item is a folder, handle accordingly
-                                createItem(files[i], fullDir + "\\" + files[i], true);
+                                createItem(files[i], fullDirFrontSlash + "/" + files[i], true);
                             } else {
-                                createItem(files[i], fullDir + "\\" + files[i]);
+                                createItem(files[i], fullDirFrontSlash + "/" + files[i]);
                             }
                         }
                     }
@@ -201,7 +205,7 @@ var fileExplorer = {
             var item = document.createElement("div");
             item.setAttribute("class", "file-ex-item");
             item.setAttribute("tabindex", "0");
-            item.setAttribute("ondblclick", isDirectory ? "fileExplorer.openFolder('" + name + "')" : "fileExplorer.openFile('" + name + "', '" + escapeBackslash(fileLocation) + "')");
+            item.setAttribute("ondblclick", isDirectory ? "fileExplorer.openFolder('" + name + "')" : "fileExplorer.openFile('" + name + "', '" + fileLocation + "')");
 
             item.addEventListener("mouseenter", function() {
                 FileExplorerItemHover = name;
@@ -469,17 +473,17 @@ var fileExplorer = {
         var fileExt = fileName.split(".")[fileName.split(".").length - 1];
         
         if (fileExt == "js") { //Javascript File
-            tabControl.createCodeEditor(fileName);
+            tabControl.createCodeEditor(fileName, fileLocation);
         } else if (fileExt == "cs") { //C-Sharp File
-            tabControl.createCodeEditor(fileName);
+            tabControl.createCodeEditor(fileName, fileLocation);
         } else if (fileExt == "java") { //Java File
-            tabControl.createCodeEditor(fileName);
+            tabControl.createCodeEditor(fileName, fileLocation);
         } else if (fileExt == "rs") { //Rust File or C++ Resource File
-            tabControl.createCodeEditor(fileName);
+            tabControl.createCodeEditor(fileName, fileLocation);
         } else if (fileExt == "cpp") { //C++ File
-            tabControl.createCodeEditor(fileName);
+            tabControl.createCodeEditor(fileName, fileLocation);
         } else if (fileExt == "h") { //C++ Header File
-            tabControl.createCodeEditor(fileName);
+            tabControl.createCodeEditor(fileName, fileLocation);
         } else if (fileExt == "class") { //Compiled java File, class
             //
         } else if (fileExt == "jar") { //Compiled java Program, jar

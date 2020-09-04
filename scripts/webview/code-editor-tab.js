@@ -290,7 +290,7 @@ function fileLoader() {
     const fl = {};
 
     fl.load = function(fileLocation) {
-        console.log(typeof fileLocation);
+        //console.log(typeof fileLocation);
         var filename = fileLocation.split("\\")[fileLocation.split("\\").length - 1];
 
         fs.readFile(fileLocation, "utf-8", (err, data) => {
@@ -372,6 +372,5 @@ function snackbar(content) {
 window.addEventListener("message", messageFromEditor);
 
 function messageFromEditor(event) {
-    var fileLocation = shadowEngineDataDir + "\\projects\\" + getProject() + "\\Source\\" + event.data;
-    fileLoader().load(fileLocation);
+    fileLoader().load(event.data);
 }
