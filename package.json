@@ -12,7 +12,7 @@
     "license": "MIT",
     "dependencies": {
         "crypto-js": "^4.0.0",
-        "electron": "^8.5.0",
+        "electron": "^8.5.1",
         "electron-download-manager": "^2.1.2",
         "electron-process-manager": "^1.0.0",
         "electron-rebuild": "^1.11.0",
@@ -26,7 +26,8 @@
         "trash": "^6.1.1",
         "uuid": "^8.3.0",
         "ws": "^7.3.1",
-        "xterm": "^4.8.1"
+        "xterm": "^4.8.1",
+        "yargs": "^15.4.1"
     },
     "build": {
         "appId": "tk.a77zsite.shadow-engine",

@@ -88,3 +88,20 @@ span {
 .close-btn:hover {
     background: red;
 }
+
+input[type=text] {
+    background: #111;
+    border-radius: 3px;
+    border: 1px solid #000;
+}
+
+button {
+    cursor: pointer;
+    background: #00c97c;
+    color: #fff;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    padding: 3px 25px;
+    transition: 0.3s;
+}
