@@ -489,13 +489,13 @@ var fileExplorer = {
         } else if (fileExt == "jar") { //Compiled java Program, jar
             //
         } else if (fileExt == "ts") { //TypeScript File
-            //
+            tabControl.createCodeEditor(fileName, fileLocation);
         } else if (fileExt == "txt") { //Text File
-            //
+            tabControl.createCodeEditor(fileName, fileLocation);
         } else if (fileExt == "log") { //Log File
-            //
+            tabControl.createCodeEditor(fileName, fileLocation);
         } else if (fileExt == "bat") { //Windows Batch File
-            //
+            tabControl.createCodeEditor(fileName, fileLocation);
         } else if (fileExt == "json") { //Json File
             //
         } else if (fileExt == "sproject") { //Shadow Engine Project File
@@ -542,6 +542,8 @@ var fileExplorer = {
             //
         } else if (fileExt == "glb") { //GLB 3D File / GL Transmission Format
             //
+        } else if (fileExt == "rc") { //C/C++ Resource File
+            tabControl.createCodeEditor(fileName, fileLocation);
         } else {
             //Unsupported
         }

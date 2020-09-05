@@ -290,8 +290,9 @@ function fileLoader() {
     const fl = {};
 
     fl.load = function(fileLocation) {
-        //console.log(typeof fileLocation);
         var filename = fileLocation.split("\\")[fileLocation.split("\\").length - 1];
+        console.log(filename);
+        console.log("a");
 
         fs.readFile(fileLocation, "utf-8", (err, data) => {
             if (err) { snackbar(err); throw err; }
@@ -304,12 +305,25 @@ function fileLoader() {
                 lineEndingText.innerText == "????";
             }
 
+            console.log("b");
+
             if (getFileType(filename) == "unknown") {
+                languageModeText.innerText = "Plain Text";
+                editor.session.setMode("ace/mode/text");
+                editor.setValue(data, -1);
                 snackbar("Unknown file type :/");
                 return;
             }
+            console.log("c");
 
             switch (getFileType(filename)) {
+                case "h": {
+                    console.log("HEADER FILE!");
+                    languageModeText.innerText = "Header";
+                    editor.session.setMode("ace/mode/c_cpp");
+                    editor.setValue(data, -1);
+                    break;
+                }
                 case "js": {
                     languageModeText.innerText = "JavaScript";
                     editor.session.setMode("ace/mode/javascript");
@@ -346,13 +360,12 @@ function fileLoader() {
                     editor.setValue(data, -1);
                     break;
                 }
-                case "h": {
-                    languageModeText.innerText = "C#";
-                    editor.session.setMode("ace/mode/c_cpp");
-                    editor.setValue(data, -1);
-                    break;
+                default: {
+                    console.log("WUT");
                 }
             }
+
+            console.log("d");
         });
     }
 
