@@ -4,8 +4,6 @@
 #include "main.h"
 
 int main() {
-    printf("Paranoid fish\n");
-
     loop();
 
     return 0;

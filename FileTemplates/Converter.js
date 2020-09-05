@@ -15,7 +15,7 @@ fs.readFile(input, 'utf-8', (err, data) => {
         lineSplit = data.split("\n");
     } else { throw new Error("leType unknown...!!??"); }
 
-    var out = null;
+    var out;
     for (var i = 0; i < lineSplit.length; i++) {
         out += lineSplit[i] + "\\n";
     }

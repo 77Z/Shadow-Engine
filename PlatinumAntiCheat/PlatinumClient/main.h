@@ -7,3 +7,6 @@
 #include <stdio.h>
 #include <Windows.h>
 #include <TlHelp32.h>
+#include <IPTypes.h>
+#include <winsock2.h>
+#include "types.h"
