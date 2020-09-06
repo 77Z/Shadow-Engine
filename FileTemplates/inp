@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "./Source"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}

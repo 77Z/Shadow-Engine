@@ -9,7 +9,8 @@ var term = new Terminal({
     theme: {
         background: "#160024"
     }/* ,
-    fontFamily: "Terminal" */
+    fontFamily: "Terminal",
+    rendererType: "dom" */
 });
 term.open(document.getElementById("terminal"));
 term.write("Shadow Terminal\r\n\r\n");
