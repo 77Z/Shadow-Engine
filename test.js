@@ -1,5 +1,4 @@
 const child_process = require("child_process");
-const { stderr } = require("process");
 
 if (process.platform == "linux") {
     console.log("running tests for linux");
