@@ -8,7 +8,7 @@
 ![GitHub](https://img.shields.io/github/license/77Z/Shadow-Engine)
 ![Platforms](https://img.shields.io/badge/Platforms-Win-green)
 
-[AppVeyor Build](https://ci.appveyor.com/projects/77Z/Shadow-Engine)
+[AppVeyor Build](https://ci.appveyor.com/project/77Z/Shadow-Engine)
 
 ### Table of Contents
 
