@@ -13,6 +13,7 @@ const startTimestamp = new Date();
 const pty = require("node-pty");
 const os = require("os");
 var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
+const isDev = require("electron-is-dev");
 
 const DiscordRPC = require("./DiscordRPC");
 var DiscordRPCData = {
@@ -205,6 +206,31 @@ function createWindow() {
 
         const editorMenu = Menu.buildFromTemplate(editorFileMenuTemplate);
         Menu.setApplicationMenu(editorMenu);
+
+
+        //Create Development Window in the corner
+        if (isDev) {
+            let devLabel = new BrowserWindow({
+                height: 100,
+                width: 400,
+                frame: false,
+                transparent: true,
+                movable: false,
+                alwaysOnTop: true,
+                skipTaskbar: true,
+                x: 10,
+                y: 0
+            });
+            devLabel.setIgnoreMouseEvents(true);
+            devLabel.loadURL(`file://${__dirname}/dom/development-mode.html`);
+            devLabel.on("closed", function() {
+                devLabel = null;
+            });
+            editor.on("close", function() {
+                devLabel.close();
+            });
+        }
+        
     });
 
     ipcMain.on("main-tab.createFolder", function(e, directory) {

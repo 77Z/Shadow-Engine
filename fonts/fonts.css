@@ -9,3 +9,9 @@
     font-weight: normal;
     src: url("CascadiaCodePL-Regular.ttf");
 }
+
+@font-face {
+    font-family: "Anton";
+    font-weight: normal;
+    src: url("Anton.ttf");
+}
