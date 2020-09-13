@@ -194,6 +194,39 @@ function createWindow() {
         editor.on("closed", function () {
             editor = null
         });
+
+        editor.webContents.on("crashed", function() {
+            const options = {
+                type: 'info',
+                title: 'Shadow Engine',
+                message: `Shadow Editor has crashed :(
+Sorry about that,
+If you wait, you can press Ctrl+Shift+Alt+R
+to restart the engine`,
+                buttons: ['Reset', 'Wait', "Close"]
+            };
+
+            dialog.showMessageBox(options, (index) => {
+                if (index == 0) editor.reload();
+                if (index == 2) editor.close();
+            });
+        });
+
+        editor.on("unresponsive", () => {
+            const options = {
+                type: 'info',
+                title: 'Shadow Engine',
+                message: `We noticed Shadow Editor is hanging,
+Sorry about that.`,
+                buttons: ['Reset', 'Wait', "Close"]
+            };
+
+            dialog.showMessageBox(options, (index) => {
+                if (index == 0) editor.reload();
+                if (index == 2) editor.close();
+            });
+        });
+
         editor.show();
         var ProjectBrowserKilled = false;
         editor.webContents.on("did-finish-load", function () {
