@@ -31,9 +31,11 @@ const editorFileMenuTemplate = [
         submenu: [
             {
                 label: "Reload Window",
-                accelerator: "CmdOrCtrl+r",
+                accelerator: "CmdOrCtrl+Shift+Alt+R",
                 click() {
-                    BrowserWindow.getFocusedWindow().webContents.reload();
+                    //BrowserWindow.getFocusedWindow().webContents.reload();
+                    app.relaunch();
+                    app.quit();
                 }
             }
         ]
@@ -193,9 +195,13 @@ function createWindow() {
             editor = null
         });
         editor.show();
+        var ProjectBrowserKilled = false;
         editor.webContents.on("did-finish-load", function () {
             editor.webContents.send("load-proj", projectName);
-            event.sender.send("main.project-browser.kill");
+            if (!ProjectBrowserKilled) {
+                event.sender.send("main.project-browser.kill");
+                ProjectBrowserKilled = true;
+            }
         });
         editor.setThumbnailClip({
             x: 0,

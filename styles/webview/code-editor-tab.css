@@ -184,3 +184,62 @@
 ::-webkit-scrollbar-corner {
     background: transparent;
 }
+
+/* Editor Context Menu */
+.editor-context-menu {
+    position: fixed;
+    background: #111;
+    color: #fff;
+    min-width: 300px;
+    min-height: 100px;
+    z-index: 20;
+    display: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.cmenu-options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: fit-content;
+    width: 100%;
+    background: transparent;
+    user-select: none;
+}
+
+.cmenu-options li:not(.cmenu-seperator) {
+    padding: 5px 0px 5px 5px;
+    cursor: pointer;
+    font-family: sans-serif;
+    transition: 0.1s;
+    color: white;
+    box-sizing: border-box;
+}
+
+.cmenu-options li:hover:not(.cmenu-seperator) {
+    background: #ffffff50;
+}
+
+.cmenu-options li .accelerator {
+    float: right;
+    color: #838383;
+    font-family: "Consolas";
+}
+
+.cmenu-seperator {
+    padding: 0px;
+    margin-top: 5px;
+    border-bottom: 2px solid white;
+    margin-bottom: 5px;
+    cursor: default;
+}
+
+.cmenu-seperator:hover {
+    background: transparent;
+}
+
+/* Find Menu */
+.ace_search_field {
+    font-family: "Consolas";
+}

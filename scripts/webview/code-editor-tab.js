@@ -7,6 +7,7 @@ const fs = require("fs");
 const getFileType = require("../../scripts/FileManip/getFileType");
 const getLineEnding = require("../../scripts/FileManip/getLineEndingType");
 const getProject = require("../../scripts/get-project");
+const {clipboard} = require("electron");
 
 var editor = ace.edit("editor");
 editor.setTheme("ace/theme/solarized_dark");
@@ -37,6 +38,48 @@ editor.commands.addCommand({
     },
     readOnly: true
 });
+
+editor.commands.addCommand({
+    name: "replaceKeybind",
+    bindKey: {win: "Ctrl-Shift-R", mac: "Command-Shift-R"},
+    exec: function(editor) {
+        editor.execCommand("replace");
+    },
+    readOnly: true
+})
+
+//Right-Click Context Menu
+editor.container.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+
+    var editorContextMenu = document.getElementById("editor-context-menu");
+    editorContextMenu.style.display = "block";
+    editorContextMenu.style.bottom = "unset";
+    editorContextMenu.style.right = "unset";
+    editorContextMenu.style.top = e.clientY + "px";
+    editorContextMenu.style.left = e.clientX + "px";
+
+    if (editorContextMenu.clientHeight + e.clientY > window.innerHeight) {
+        editorContextMenu.style.top = "unset";
+        editorContextMenu.style.bottom = "0";
+    }
+
+    if (editorContextMenu.clientWidth + e.clientX > window.innerWidth) {
+        editorContextMenu.style.left = "unset";
+        editorContextMenu.style.right = "0";
+    }
+
+    return false;
+});
+
+// WINDOW EVENTS
+window.onclick = function() {
+    document.getElementById("editor-context-menu").style.display = "none";
+};
+
+window.onload = function() {
+    //editor.config.loadModule("ace/ext/searchbox", function(m) {m.Search(editor)});
+};
 
 
 //this is for exiting out of the command-popup element with your mouse
@@ -386,4 +429,48 @@ window.addEventListener("message", messageFromEditor);
 
 function messageFromEditor(event) {
     fileLoader().load(event.data);
+}
+
+/* Context Menu Events */
+
+var cmenuEvents = {
+    OpenCommandMenu: function() {
+        document.getElementById("command-popup").style.transform = "scale(1)";
+        document.getElementById("command-popup-back").style.display = "block";
+        document.getElementById("command-input").focus();
+        document.getElementById("command-input").value = "";
+    },
+    find: function() {
+        editor.execCommand("find");
+    },
+    replace: function() {
+        editor.execCommand("replace");
+    },
+    cut: function() {
+        var buffer = editor.getCopyText();
+        editor.execCommand("cut");
+        clipboard.writeText(buffer);
+        delete buffer;
+        editor.focus();
+    },
+    copy: function() {
+        var buffer = editor.getCopyText();
+        editor.execCommand("copy");
+        clipboard.writeText(buffer);
+        delete buffer;
+        editor.focus();
+    },
+    paste: function() {
+        editor.execCommand("paste", clipboard.readText());
+        editor.focus();
+    },
+    undo: function() {
+        editor.execCommand("undo");
+        editor.focus();
+    },
+    redo: function() {
+        editor.execCommand("redo");
+        editor.focus();
+    },
+    closeFile: function() {}
 }
