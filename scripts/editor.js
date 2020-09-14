@@ -5,6 +5,7 @@ const editorIpcRenderer = require("electron").ipcRenderer;
 const fs = require("fs");
 const configFileReader = require("../scripts/terrain-config-file-reader");
 const startTimestamp = new Date();
+const {shell} = require("electron");
 
 var showEditorFPS = true;
 
@@ -98,3 +99,8 @@ editorIpcRenderer.on("main.relay.createCodeEditor", (event, fileName, fileLocati
 });
 
 //Forwarding Data to tabs END
+
+//Help Button
+document.getElementById("help-button").addEventListener("click", function() {
+    shell.openExternal("https://github.com/77Z/Shadow-Engine/wiki/Help");
+});
