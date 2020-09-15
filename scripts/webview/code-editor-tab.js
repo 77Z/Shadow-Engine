@@ -48,33 +48,50 @@ editor.commands.addCommand({
     readOnly: true
 })
 
+var contextMenuOpen = false;
+var editorContextMenu = document.getElementById("editor-context-menu");
+
 //Right-Click Context Menu
 editor.container.addEventListener("contextmenu", function(e) {
     e.preventDefault();
 
-    var editorContextMenu = document.getElementById("editor-context-menu");
     editorContextMenu.style.display = "block";
-    editorContextMenu.style.bottom = "unset";
-    editorContextMenu.style.right = "unset";
-    editorContextMenu.style.top = e.clientY + "px";
-    editorContextMenu.style.left = e.clientX + "px";
+    setTimeout(function() {
+        if (!contextMenuOpen) {
+            //If the context menu is not open, then do the fade animation.
+            editorContextMenu.style.opacity = "1";
+        }
 
-    if (editorContextMenu.clientHeight + e.clientY > window.innerHeight) {
-        editorContextMenu.style.top = "unset";
-        editorContextMenu.style.bottom = "0";
-    }
+        contextMenuOpen = true;
 
-    if (editorContextMenu.clientWidth + e.clientX > window.innerWidth) {
-        editorContextMenu.style.left = "unset";
-        editorContextMenu.style.right = "0";
-    }
+        editorContextMenu.style.bottom = "unset";
+        editorContextMenu.style.right = "unset";
+        editorContextMenu.style.top = e.clientY + "px";
+        editorContextMenu.style.left = e.clientX + "px";
+
+        if (editorContextMenu.clientHeight + e.clientY > window.innerHeight) {
+            editorContextMenu.style.top = "unset";
+            editorContextMenu.style.bottom = "0";
+        }
+
+        if (editorContextMenu.clientWidth + e.clientX > window.innerWidth) {
+            editorContextMenu.style.left = "unset";
+            editorContextMenu.style.right = "0";
+        }
+    }, 10);
+    
 
     return false;
 });
 
 // WINDOW EVENTS
 window.onclick = function() {
-    document.getElementById("editor-context-menu").style.display = "none";
+    editorContextMenu.style.opacity = "0";
+    setTimeout(function() {
+        editorContextMenu.style.display = "none";
+        contextMenuOpen = false;
+    }, 150);
+    
 };
 
 window.onload = function() {
