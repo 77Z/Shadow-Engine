@@ -7,8 +7,13 @@ const _ = require("../../scripts/vq-node");
 const fs = require("fs");
 const getProject = require("../../scripts/get-project");
 const ipc = require("electron").ipcRenderer;
+const child_process = require("child_process");
 
 var FileExplorerItemHover = null;
+
+/* setInterval(function() {
+    console.log(FileExplorerItemHover);
+}, 1000); */
 
 //Not used
 
@@ -96,6 +101,7 @@ var mainTab = {
                 iframe.setAttribute("class", "terminal-iframe");
                 iframe.setAttribute("id", "viewport-terminal");
                 document.getElementById("terminal-container").appendChild(iframe);
+                terminalInitialized = true;
             }
             
 
@@ -219,6 +225,9 @@ var fileExplorer = {
 
             item.addEventListener("contextmenu", function(e) {
                 e.preventDefault();
+
+                var FileExplorerItemHoverSaveState = FileExplorerItemHover;
+
                 ContextMenu().create({
                     items: [
                         {
@@ -235,10 +244,19 @@ var fileExplorer = {
                         {
                             type: "label",
                             name: "Properties",
-                            click() {}
+                            click() {
+                                var directory = document.getElementById("uriinput").value;
+                                var fileLoc = shadowEngineDataDir + "\\projects\\" + getProject() + "\\Source" + directory + "\\" + FileExplorerItemHoverSaveState;
+                                child_process.exec(`C:\\Users\\${require("os").userInfo().username}\\AppData\\Local\\Programs\\shadow-engine\\ShadowShowFileProperties.exe "${fileLoc}"`.replace(/\//g, "\\"), (error, stdout, stderr) => {
+                                    if (error) throw error;
+                                    if (stderr) console.error(stderr);
+                                    console.log(stdout);
+                                });
+                            }
                         }
                     ]
                 }, FileExplorerItemHover, e.clientX, e.clientY);
+                delete FileExplorerItemHoverSaveState;
                 /* console.log("x: " + e.clientX + "  y:" + e.clientY); */
             });
             

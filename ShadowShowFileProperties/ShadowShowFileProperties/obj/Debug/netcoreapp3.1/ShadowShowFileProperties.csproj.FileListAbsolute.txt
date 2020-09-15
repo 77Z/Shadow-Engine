@@ -1,0 +1,13 @@
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\bin\Debug\netcoreapp3.1\ShadowShowFileProperties.exe
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\bin\Debug\netcoreapp3.1\ShadowShowFileProperties.deps.json
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\bin\Debug\netcoreapp3.1\ShadowShowFileProperties.runtimeconfig.json
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\bin\Debug\netcoreapp3.1\ShadowShowFileProperties.runtimeconfig.dev.json
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\bin\Debug\netcoreapp3.1\ShadowShowFileProperties.dll
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\bin\Debug\netcoreapp3.1\ShadowShowFileProperties.pdb
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\obj\Debug\netcoreapp3.1\ShadowShowFileProperties.csprojAssemblyReference.cache
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\obj\Debug\netcoreapp3.1\ShadowShowFileProperties.AssemblyInfoInputs.cache
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\obj\Debug\netcoreapp3.1\ShadowShowFileProperties.AssemblyInfo.cs
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\obj\Debug\netcoreapp3.1\ShadowShowFileProperties.csproj.CoreCompileInputs.cache
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\obj\Debug\netcoreapp3.1\ShadowShowFileProperties.dll
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\obj\Debug\netcoreapp3.1\ShadowShowFileProperties.pdb
+C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\ShadowShowFileProperties\ShadowShowFileProperties\obj\Debug\netcoreapp3.1\ShadowShowFileProperties.genruntimeconfig.cache
