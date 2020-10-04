@@ -2,7 +2,11 @@ const child_process = require("child_process");
 
 if (process.platform == "linux") {
     console.log("running tests for linux");
-    process.exit(0);
+    child_process.execFile('./linuxTests', (err, stdout, stderr) => {
+        if (err) throw err;
+        console.log(stderr);
+        console.log(stdout);
+    });
 } else if (process.platform == "win32") {
     console.log("running tests for win32");
     child_process.exec("ShadowTests.exe", (error, stdout, stderr) => {
