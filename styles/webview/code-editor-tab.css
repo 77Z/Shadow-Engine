@@ -227,6 +227,7 @@
     float: right;
     color: #838383;
     font-family: "Consolas";
+    margin-right: 5px;
 }
 
 .cmenu-seperator {
@@ -244,4 +245,12 @@
 /* Find Menu */
 .ace_search_field {
     font-family: "Consolas";
+}
+
+.ace_gutter-cell .ace_error {
+    background-image: url("../../media/img/ui/code-editor/err.png") !important;
+}
+
+.ace_gutter-cell .ace_warning {
+    background-image: url("../../media/img/ui/code-editor/wrn.png") !important;
 }
