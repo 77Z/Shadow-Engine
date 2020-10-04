@@ -2,6 +2,11 @@ const child_process = require("child_process");
 
 if (process.platform == "linux") {
     console.log("running tests for linux");
+    child_process.exec("chmod +x ./linuxTests", (error, stdout, stderr) => {
+        if (error) throw error;
+        console.log(stderr);
+        console.log(stdout);
+    });
     child_process.execFile('./linuxTests', (err, stdout, stderr) => {
         if (err) throw err;
         console.log(stderr);
