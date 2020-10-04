@@ -7,7 +7,7 @@ if (process.platform == "linux") {
         console.log(stderr);
         console.log(stdout);
     });
-    child_process.execFile('./linuxTests', (err, stdout, stderr) => {
+    child_process.exec('./linuxTests', (err, stdout, stderr) => {
         if (err) throw err;
         console.log(stderr);
         console.log(stdout);
