@@ -14,6 +14,7 @@ const pty = require("node-pty");
 const os = require("os");
 var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
 const isDev = require("electron-is-dev");
+const homedir = os.homedir();
 
 const DiscordRPC = require("./DiscordRPC");
 var DiscordRPCData = {
@@ -132,6 +133,15 @@ let mainWindow;
 let editor;
 
 function createWindow() {
+
+    fs.exists(shadowEngineDataDir + "\\engine-data\\env.txt", (exists) => {
+        if (!exists) {
+            fs.writeFile(shadowEngineDataDir + "\\engine-data\\env.txt", `RAYLIBDIR=${homedir}\\AppData\\Local\\Programs\\shadow-engine\\raylib\nRAYLIBCOMPILE=$(CC) -o out.exe input.c ${homedir}\\AppData\\Local\\Programs\\shadow-engine\\raylib\\src\\raylib.rc.data -s -static -Os -std=c99 -Wall -Iexternal -DPLATFORM_DESKTOP\nCC=${homedir}\\AppData\\Local\\Programs\\shadow-engine\\mingw\\bin\\gcc.exe\nCPP=${homedir}\\AppData\\Local\\Programs\\shadow-engine\\mingw\\bin\\g++.exe`, (err) => {
+                if (err) throw err;
+            });
+        }
+    });
+
     mainWindow = new BrowserWindow({
         height: 500,
         width: 850,
