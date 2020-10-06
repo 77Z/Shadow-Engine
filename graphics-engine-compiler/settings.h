@@ -22,9 +22,9 @@
 // Linux
 //     - Debian, Ubuntu, etc...            .deb
 //         - Shadow    (LIN_DEB_SHADOW)
-//         - OpenGL    (LIN_DEB_OPENGL)
+//         - Vulkan    (LIN_DEB_VULKAN)
 //     - Red Hat, Fedora, SUSE, etc...     .rpm
 //         - Shadow    (LIN_RPM_SHADOW)
-//         - OpenGL    (LIN_RPM_OPENGL)
+//         - Vulkan    (LIN_RPM_VULKAN)
 
-#define WINDOWS_SHADOW
+#define WINDOWSNT_SHADOW
