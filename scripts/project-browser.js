@@ -292,7 +292,7 @@ setInterval(() => {
     if (!document.hasFocus()) {
         showContextMenu(false);
     }
-}, 200);
+}, 50);
 
 document.getElementById("termsettings").addEventListener("click", function() {
     let termsettings = new BrowserWindow({

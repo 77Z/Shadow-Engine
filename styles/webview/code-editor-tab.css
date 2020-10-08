@@ -188,7 +188,7 @@
 /* Editor Context Menu */
 .editor-context-menu {
     position: fixed;
-    background: #111;
+    background: #111111ab;
     color: #fff;
     min-width: 300px;
     min-height: 100px;
@@ -198,6 +198,7 @@
     border-radius: 5px;
     transition: 0.15s opacity;
     opacity: 0;
+    backdrop-filter: blur(8px);
 }
 
 .cmenu-options {

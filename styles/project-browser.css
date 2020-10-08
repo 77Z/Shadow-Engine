@@ -255,8 +255,11 @@ body, html {
     position: absolute;
     width: 300px;
     cursor: pointer;
-    background: #474747;
+    background: #1111119a;
     box-sizing: border-box;
+    backdrop-filter: blur(8px);
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .context-menu .context-child {
