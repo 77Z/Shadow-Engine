@@ -4,6 +4,8 @@ node_js:
 
 before_script:
   - "npm run rebuild"
+  - "rm ./linuxTests"
+  - "g++ -o ./linuxTests ./test/linux/main.cpp"
 
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
