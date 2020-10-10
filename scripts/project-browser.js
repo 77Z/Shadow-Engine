@@ -203,6 +203,7 @@ function getProjects() {
                 document.getElementById("projects").appendChild(project);
 
                 project.addEventListener("dblclick", function() {
+                    document.getElementById("loading").style.clipPath = "circle(200% at 50% 50%)";
                     openEditor(name.innerText);
                 });
 
@@ -252,7 +253,7 @@ function showContextMenu(show = true, x = 0, y = 0, project = null) {
     cmenu.style.display = show ? "block" : "none";
     cmenu.style.left = x + "px";
     cmenu.style.top = y + "px";
-    document.getElementById("context-open-proj").setAttribute("onclick", "openEditor('" + project + "')");
+    document.getElementById("context-open-proj").setAttribute("onclick", "document.getElementById('loading').style.clipPath = 'circle(200% at 50% 50%)';openEditor('" + project + "')");
     document.getElementById("delete-proj-button").setAttribute("onclick", "ipcRenderer.send('confirm-delete-proj-msg', '" + project + "')")
     document.getElementById("open-proj-in-explorer").setAttribute("onclick", "openProjInExp('" + project + "')");
 }
@@ -286,6 +287,10 @@ ipcRenderer.on("main.project-browser.kill", () => {
     setTimeout(() => {
         window.close();
     }, 200);
+});
+
+ipcRenderer.on("project-browser.createProject", function() {
+    createProjectMenu.style.clipPath = "circle(141.5% at 100% 100%)";
 });
 
 setInterval(() => {

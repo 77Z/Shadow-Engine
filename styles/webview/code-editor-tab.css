@@ -63,6 +63,7 @@
     padding-left: 15px;
     box-sizing: border-box;
     font-family: sans-serif;
+    pointer-events: none;
 }
 
 .command-popup .keycaps-footer .keycap-group {

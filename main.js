@@ -132,6 +132,18 @@ app.on('ready', function() {
 let mainWindow;
 let editor;
 
+/*
+    check to see if a value exists in the launch arguments
+*/
+function launchArgsContain(arg) {
+    for(var i = 0; i < process.argv.length; i++) {
+        if (process.argv[i] == arg) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function createWindow() {
 
     fs.exists(shadowEngineDataDir + "\\engine-data\\env.txt", (exists) => {
@@ -154,6 +166,25 @@ function createWindow() {
         darkTheme: true,
         alwaysOnTop: true,
         icon: "media\\img\\icons\\shadowengine.png"
+    });
+
+    if (process.platform == "win32") {
+        app.setUserTasks([
+            {
+                program: process.execPath,
+                arguments: "newProject",
+                iconPath: process.execPath,
+                iconIndex: 0,
+                title: "New Project",
+                description: "Create a new project."
+            }
+        ]);
+    }
+
+    mainWindow.webContents.on("did-finish-load", function() {
+        if (launchArgsContain("newProject")) {
+            mainWindow.webContents.send("project-browser.createProject");
+        }
     });
 
     mainWindow.loadURL(`file://${__dirname}/dom/project-browser.html`);
