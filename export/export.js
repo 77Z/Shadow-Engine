@@ -1,5 +1,10 @@
 //Global
-const shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow Engine";
+var shadowEngineDataDir;
+if (process.platform == "linux") {
+    shadowEngineDataDir = require("os").homedir + "/Shadow Engine";
+} else if (process.platform == "win32") {
+    shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow Engine";
+}
 
 const fs = require("fs");
 

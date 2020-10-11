@@ -1,5 +1,12 @@
 const EngineVersion = 1.00;
 
+//Global
+var shadowEngineDataDir;
+if (process.platform == "linux") {
+    shadowEngineDataDir = require("os").homedir + "/Shadow Engine";
+} else if (process.platform == "win32") {
+    shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow Engine";
+}
 
 var newProject = document.getElementById("new-project");
 var createProjectMenu = document.getElementById("proj-menu");
@@ -7,7 +14,6 @@ var date = new Date();
 const randoProjectName = require("../scripts/random-project-name");
 const validFileNameChecker = require("../scripts/valid-file-name-checker");
 const fs = require('fs');
-const shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow Engine";
 const {BrowserWindow} = require("electron").remote;
 const ipcRenderer = require("electron").ipcRenderer;
 const trash = require("trash");
