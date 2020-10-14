@@ -1,9 +1,10 @@
 const fetch = require("node-fetch");
 const request = require("request");
-const fs = require("fs");
+const fs = require("fs-extra");
 const colors = require("colors");
 const extract = require("extract-zip");
 const mv = require("mv");
+const childprocess = require("child_process");
 
 //const latestReleaseUrl = "https://api.github.com/repos/77Z/Shadow-Plugins/tags";
 const latestReleaseUrl = "https://api.github.com/repos/77Z/Shadow-Dummy/tags";
@@ -38,17 +39,40 @@ fetch(latestReleaseUrl)
                     if (err) throw err;
                     for(var i = 0; i < items.length; i++) {
                         if (items[i].split("-")[0] == "77Z") { //Match
-                            log("Moving items from " + items[i]);
-                            mv(__dirname + "\\DeveloperSetup\\" + items[i], __dirname + "\\DeveloperSetup\\", { mkdirp: true }, function(err) {
+                            /* log("Trusting Items...");
+                            childprocess.exec(`powershell gci -recurse "${__dirname + "\\DeveloperSetup\\" + items[i]}" | powershell Unblock-File`, (error, stdout, stderr) => {
+                                if (error) throw error;
+                                if (stderr) throw stderr;
+                                console.log(stdout);
+                            }) */
+                            /* log("Moving items from " + items[i]);
+                            fs.move(__dirname + "\\DeveloperSetup\\" + items[i], __dirname + "\\DeveloperSetup\\", (err) => {
                                 if (err) throw err;
                                 log("Done.");
+                            }); */
+                            /* mv(__dirname + "\\DeveloperSetup\\" + items[i], __dirname + "\\DeveloperSetup\\", { mkdirp: true }, function(err) {
+                                if (err) throw err;
+                                log("Done.");
+                            }) */
+
+                            var Zfolder = items[i];
+
+                            //We need to move every item inside of the 77Z folder one directory up
+                            fs.readdir(__dirname + "\\DeveloperSetup\\" + Zfolder, (err, files) => {
+                                if (err) throw err;
+                                for (var l = 0; l < files.length; l++) {
+                                    fs.move(__dirname + "\\DeveloperSetup\\" + Zfolder + "\\" + files[l], __dirname + "\\DeveloperSetup", (err) => {
+                                        if (err) throw err;
+                                        log("Moved " + files[l]);
+                                    });
+                                }
                             })
                         }
                     }
                 })
 
             } catch (err) {
-                throw err;
+                console.error(err);
             }
         });
     } else if (process.platform == "linux") {
