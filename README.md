@@ -8,6 +8,8 @@
 ![GitHub issues](https://img.shields.io/github/issues/77Z/Shadow-Engine)
 ![GitHub](https://img.shields.io/github/license/77Z/Shadow-Engine)
 ![Platforms](https://img.shields.io/badge/Platforms-Win-green)
+![Lines of code](https://img.shields.io/tokei/lines/github/77Z/Shadow-Engine)
+![GitHub last commit](https://img.shields.io/github/last-commit/77Z/Shadow-Engine)
 
 [AppVeyor Build](https://ci.appveyor.com/project/77Z/Shadow-Engine)
 
@@ -42,3 +44,11 @@ $ npm i
 $ npm run rebuild
 $ npm start
 ```
+# Wiki
+
+Use the wiki to your advantage!
+[Wiki](https://github.com/77Z/Shadow-Engine/wiki)
+
+# Licence
+
+[Licence](https://github.com/77Z/Shadow-Engine/blob/master/LICENSE)
