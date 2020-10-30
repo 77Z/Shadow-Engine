@@ -18,6 +18,7 @@ const {BrowserWindow} = require("electron").remote;
 const ipcRenderer = require("electron").ipcRenderer;
 const trash = require("trash");
 const et = require("electron-tools");
+const { ipc } = require("../DiscordRPC/transports");
 
 document.body.onmousedown = function (e) {
     if (e.button == 1) return false;
@@ -179,11 +180,13 @@ function setHoveredProject(projName) {
     hoveredProject = projName;
 }
 
+var noProjectsLabel = "No projects";
+
 function getProjects() {
     fs.readdir(shadowEngineDataDir + "\\projects", "utf-8", (err, files) => {
         if (err) throw err;
         if (files.length == 0) {
-            document.getElementById("projects").innerText = "No projects";
+            document.getElementById("projects").innerText = noProjectsLabel;
         } else {
             for (var i = 0; i < files.length; i++) {
                 var projName = files[i];
@@ -251,8 +254,6 @@ function getProjects() {
         }
     });
 }
-getProjects();
-
 
 var cmenu = document.getElementById("cmenu");
 function showContextMenu(show = true, x = 0, y = 0, project = null) {
@@ -319,7 +320,7 @@ document.getElementById("termsettings").addEventListener("click", function() {
         minimizable: false,
         resizable: false
     });
-    termsettings.loadURL(`file://${__dirname}/command-line.html`);
+    termsettings.loadURL(`file://${__dirname}/localization.html`);
     termsettings.show();
     termsettings.setThumbnailClip({
         height: 421,
@@ -340,3 +341,26 @@ d3.addEventListener("click", function() {
     d2.classList.remove("selected");
     d3.classList.add("selected");
 });
+
+window.onload = function() {
+      // ------------ //
+     // localization //
+    // ------------ //
+    ipcRenderer.send("localization.getLocales", "project-browser");
+    ipcRenderer.on("main.localization.returnLocales", (event, locales) => {
+        document.title                                                   = locales.title;
+        document.getElementById("new-project").innerText                 = locales.newProject;
+        document.getElementById("window-title").innerText                = locales.title;
+        document.getElementById("create-a-new-project-header").innerText = locales.createAnewProjectHeader;
+        document.getElementById("create-a-new-project-desc").innerText   = locales.createAnewProjectDesc;
+        document.getElementById("project-name-label").innerText          = locales.projectNameLabel;
+        document.getElementById("randoprojecto").innerText               = locales.randoprojecto;
+        document.getElementById("resetcopyrighttext").innerText          = locales.resetcopyrighttext;
+        document.getElementById("prefered-lang-label").innerText         = locales.preferedLangLabel;
+        document.getElementById("pref-dimension-label").innerText        = locales.prefDimensionLabel;
+        document.getElementById("createprojectbtn").innerText            = locales.createprojectbtn;
+
+        noProjectsLabel = locales.noprojects;
+        getProjects();
+    });
+};

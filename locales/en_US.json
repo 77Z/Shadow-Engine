@@ -1,0 +1,23 @@
+{
+    "id": "en_US",
+    "data": {
+        "projectBrowser": {
+            "title":                   "Shadow Engine Project Browser",
+            "newProject":              "New Project",
+            "createAnewProjectHeader": "Create a new Project",
+            "createAnewProjectDesc":   "Fill out some basic information about your project and be on your way.",
+            "projectNameLabel":        "Project Name",
+            "randoprojecto":           "Click me for inspiration!",
+            "resetcopyrighttext":      "Reset Text",
+            "preferedLangLabel":       "You/Your Teams Preferred Language",
+            "prefDimensionLabel":      "Dimension",
+            "createprojectbtn":        "Create Project",
+            "noprojects":              "No Projects"
+        },
+        "localization": {
+            "windowtitle":   "Language",
+            "setBtn":     "Set",
+            "restartMsg": "This will restart Shadow"
+        }
+    }
+}

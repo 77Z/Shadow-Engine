@@ -21,6 +21,17 @@ var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
 const isDev = require("electron-is-dev");
 const homedir = os.homedir();
 
+const availableLocales = [
+    {
+        id: "en_US",
+        prettyName: "English (USA)"
+    },
+    {
+        id: "es_MX",
+        prettyName: "Espanol (México/Mexico) [Spanish]"
+    }
+];
+
 const DiscordRPC = require("./DiscordRPC");
 var DiscordRPCData = {
     details: "In the Editor",
@@ -109,9 +120,15 @@ app.on('ready', function() {
                                                                                 fs.mkdir(shadowEngineDataDir + "\\blob", (err) => {
                                                                                     //fs.mkdir(shadowEngineDataDir + "\\blob\\" + uuid4, (err) => {
                                                                                         if (err) throw err;
-                                                                                        fs.writeFile(shadowEngineDataDir + "\\engine-data\\config.json", "//This is the Shadow Engine Configuration File\n//Change settings from here :)\n\n{\n    \"defaultProject\": null,\n    //This will change the default dropdown\n    //on the project creation screen\n    \"mostUsedProgrammingLang\": null,\n    \"codeEditor\": {\n        \"colorTheme\": \"solorized_dark\",\n        \"defaultFontSize\": 20\n    }\n}", (err) => {
+                                                                                        fs.writeFile(shadowEngineDataDir + "\\engine-data\\config.json", "{\n    \"locale\": \"en_US\",\n    \"defaultProject\": null,\n    \"mostUsedProgrammingLang\": null,\n    \"codeEditor\": {\n        \"colorTheme\": \"solorized_dark\",\n        \"defaultFontSize\": 20\n    }\n}", (err) => {
                                                                                             if (err) throw err;
-                                                                                            createWindow();
+                                                                                            fs.mkdir(shadowEngineDataDir + "\\localization", (err) => {
+                                                                                                if (err) throw err;
+                                                                                                fs.writeFile(shadowEngineDataDir + "\\engine-data\\locales.json", JSON.stringify(availableLocales), (err) => {
+                                                                                                    if (err) throw err;
+                                                                                                    createWindow();
+                                                                                                });
+                                                                                            })
                                                                                         });
                                                                                     //});
                                                                                 });
@@ -236,6 +253,13 @@ function launchArgsContain(arg) {
 }
 
 function createWindow() {
+
+    const engineConfig = JSON.parse(fs.readFileSync(shadowEngineDataDir + "\\engine-data\\config.json", "utf-8"));
+      // ------------ //
+     // localization //
+    // ------------ //
+    const selectedLocale = engineConfig.locale;
+    const localeData = JSON.parse(fs.readFileSync(shadowEngineDataDir + "\\localization\\" + selectedLocale + ".json", "utf-8"));
 
     if (process.platform == "win32") {
         fs.exists(shadowEngineDataDir + "\\engine-data\\env.txt", (exists) => {
@@ -512,7 +536,6 @@ Sorry about that.`,
             message: "Are you sure you want to delete " + project + "?",
             buttons: ["Yes", "No"]
         });
-
         event.sender.send("response-confirm-delete-proj-msg", confirm, project); */
     });
 
@@ -554,6 +577,17 @@ Sorry about that.`,
             ptyProcess.write(key);
         });
 
+    });
+
+    ipcMain.on("localization.getLocales", (event, shadowSection) => {
+        switch(shadowSection) {
+            case "project-browser":
+                event.sender.send("main.localization.returnLocales", localeData.data.projectBrowser);
+                break;
+            case "localization":
+                event.sender.send("main.localization.returnLocales", localeData.data.localization);
+                break;
+        }
     });
 
 

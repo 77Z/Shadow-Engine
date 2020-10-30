@@ -126,3 +126,13 @@ input[type=text]:focus {
 ::selection {
     background-color: #ff4500;
 }
+
+select {
+    background: #000;
+}
+
+button {
+    background: #000;
+    border: 1px solid #fff;
+    cursor: pointer;
+}

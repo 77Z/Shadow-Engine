@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="../styles/window.css">
+</head>
+<body>
+    <div class="grab-bar" id="grab"></div>
+    <div class="top" id="top">
+        <span class="title" id="title"></span>
+    </div>
+    <div class="nav-icon close-nav-btn" id="c-nav" onclick="window.close()">
+        <svg class="" width="10px" height="11px" viewBox="0 0 10 11">
+            <g stroke="none" stroke-width="1" fill="#ffffff" id="close-btn-g" fill-rule="evenodd">
+                <g fill-rule="nonzero" class="fill">
+                    <path d="M5,4.82101759 L0.678982409,0.5 L0,1.17898241 L4.32101759,5.5 L0,9.82101759 L0.678982409,10.5 L5,6.17898241 L9.32101759,10.5 L10,9.82101759 L5.67898241,5.5 L10,1.17898241 L9.32101759,0.5 L5,4.82101759 Z"></path>
+                </g>
+            </g>
+        </svg>
+    </div>
+    <div id="maximize" style="display: none;" class="nav-icon min-max-nav-btn">
+        <svg class="" width="10px" height="11px" viewBox="0 0 10 11">
+            <g stroke="none" stroke-width="1" fill="#ffffff" fill-rule="evenodd">
+                <g fill-rule="nonzero" class="fill">
+                    <path d="M1,9 L9,9 L9,1 L1,1 L1,9 Z M0,0 L10,0 L10,10 L0,10 L0,0 Z"></path>
+                </g>
+            </g>
+        </svg>
+    </div>
+    <div id="minimize" style="display: none;" class="nav-icon min-nav-btn">
+        <svg class="" width="10px" height="11px" viewBox="0 0 10 11">
+            <g stroke="none" stroke-width="" id="minimize-g" fill="#ffffff" fill-rule="evenodd">
+                <g class="fill">
+                    <rect id="" x="0" y="5" width="10" height="1"></rect>
+                </g>
+            </g>
+        </svg>
+    </div>
+    <script src="../scripts/renderer.js"></script>
+    <div class="content">
+        <select id="locales-select"></select>
+        <button id="set-btn"></button>
+        <h3 id="restart-msg"></h3>
+    </div>
+
+    <script src="../scripts/localization.js"></script>
+</body>
+</html>
