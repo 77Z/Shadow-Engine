@@ -13,7 +13,10 @@ module.exports = [
                 "preferedLangLabel":       "Tu idioma preferido",
                 "prefDimensionLabel":      "Dimensión",
                 "createprojectbtn":        "Crea proyecto",
-                "noprojects":              "Sin proyectos"
+                "noprojects":              "Sin proyectos",
+                "contextOpenProj":         "Abierto",
+                "deleteProjButton":        "Eliminar",
+                "openProjInExplorer":      "Abrir proyecto en el Explorador de archivos"
             },
             "localization": {
                 "windowtitle":   "Idioma",
@@ -36,7 +39,10 @@ module.exports = [
                 "preferedLangLabel":       "You/Your Teams Preferred Language",
                 "prefDimensionLabel":      "Dimension",
                 "createprojectbtn":        "Create Project",
-                "noprojects":              "No Projects"
+                "noprojects":              "No Projects",
+                "contextOpenProj":         "Open",
+                "deleteProjButton":        "Delete",
+                "openProjInExplorer":      "Open Project in File Explorer"
             },
             "localization": {
                 "windowtitle":   "Language",

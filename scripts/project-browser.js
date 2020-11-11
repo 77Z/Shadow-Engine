@@ -359,6 +359,9 @@ window.onload = function() {
         document.getElementById("prefered-lang-label").innerText         = locales.preferedLangLabel;
         document.getElementById("pref-dimension-label").innerText        = locales.prefDimensionLabel;
         document.getElementById("createprojectbtn").innerText            = locales.createprojectbtn;
+        document.getElementById("context-open-proj").innerText           = locales.contextOpenProj;
+        document.getElementById("delete-proj-button").innerText          = locales.deleteProjButton;
+        document.getElementById("open-proj-in-explorer").innerText       = locales.openProjInExplorer;
 
         noProjectsLabel = locales.noprojects;
         getProjects();
