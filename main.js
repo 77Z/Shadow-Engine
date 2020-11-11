@@ -20,6 +20,7 @@ const os = require("os");
 var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
 const isDev = require("electron-is-dev");
 const homedir = os.homedir();
+const localizationData = require("./resources/localization");
 
 const availableLocales = [
     {
@@ -259,7 +260,15 @@ function createWindow() {
      // localization //
     // ------------ //
     const selectedLocale = engineConfig.locale;
-    const localeData = JSON.parse(fs.readFileSync(shadowEngineDataDir + "\\localization\\" + selectedLocale + ".json", "utf-8"));
+
+    //extract localization data from localization.js
+    var localeData;
+    for (var i = 0; i < localizationData.length; i++) {
+        if (localizationData[i].id == selectedLocale) {
+            localeData = localizationData[i];
+        }
+    }
+
 
     if (process.platform == "win32") {
         fs.exists(shadowEngineDataDir + "\\engine-data\\env.txt", (exists) => {
