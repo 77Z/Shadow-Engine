@@ -54,19 +54,19 @@
 
     <div class="editor-context-menu" id="editor-context-menu">
         <ul class="cmenu-options">
-            <li onclick="cmenuEvents.OpenCommandMenu()">Open Command Menu<span class="accelerator">F1</span></li>
+            <li onclick="cmenuEvents.OpenCommandMenu()" id="cmenuButton1"><div id="cmenu-input-text1"></div><span class="accelerator">F1</span></li>
             <li class="cmenu-seperator"></li>
-            <li onclick="cmenuEvents.find()">Find<span class="accelerator">Ctrl+F</span></li>
-            <li onclick="cmenuEvents.replace()">Replace<span class="accelerator">Ctrl+Shift+R</span></li>
+            <li onclick="cmenuEvents.find()" id="cmenuButton2"><div class="cmenu-input-text" id="cmenu-input-text2"></div><span class="accelerator">Ctrl+F</span></li>
+            <li onclick="cmenuEvents.replace()" id="cmenuButton3"><div class="cmenu-input-text" id="cmenu-input-text3"></div><span class="accelerator">Ctrl+Shift+R</span></li>
             <li class="cmenu-seperator"></li>
-            <li onclick="cmenuEvents.cut()">Cut<span class="accelerator">Ctrl+X</span></li>
-            <li onclick="cmenuEvents.copy()">Copy<span class="accelerator">Ctrl+C</span></li>
-            <li onclick="cmenuEvents.paste()">Paste<span class="accelerator">Ctrl+V</span></li>
+            <li onclick="cmenuEvents.cut()" id="cmenuButton4"><div class="cmenu-input-text" id="cmenu-input-text4"></div><span class="accelerator">Ctrl+X</span></li>
+            <li onclick="cmenuEvents.copy()" id="cmenuButton5"><div class="cmenu-input-text" id="cmenu-input-text5"></div><span class="accelerator">Ctrl+C</span></li>
+            <li onclick="cmenuEvents.paste()" id="cmenuButton6"><div class="cmenu-input-text" id="cmenu-input-text6"></div><span class="accelerator">Ctrl+V</span></li>
             <li class="cmenu-seperator"></li>
-            <li onclick="cmenuEvents.undo()">Undo<span class="accelerator">Ctrl+U</span></li>
-            <li onclick="cmenuEvents.redo()">Redo<span class="accelerator">Ctrl+Y</span></li>
+            <li onclick="cmenuEvents.undo()" id="cmenuButton7"><div class="cmenu-input-text" id="cmenu-input-text7"></div><span class="accelerator">Ctrl+U</span></li>
+            <li onclick="cmenuEvents.redo()" id="cmenuButton8"><div class="cmenu-input-text" id="cmenu-input-text8"></div><span class="accelerator">Ctrl+Y</span></li>
             <li class="cmenu-seperator"></li>
-            <li>Close File<span class="accelerator">Ctrl+W</span></li>
+            <li id="cmenuButton9"><div class="cmenu-input-text" id="cmenu-input-text9"></div><span class="accelerator">Ctrl+W</span></li>
         </ul>
     </div>
 

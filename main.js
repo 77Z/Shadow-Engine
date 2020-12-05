@@ -21,6 +21,7 @@ var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
 const isDev = require("electron-is-dev");
 const homedir = os.homedir();
 const localizationData = require("./resources/localization");
+const engineConfig = JSON.parse(fs.readFileSync(shadowEngineDataDir + "\\engine-data\\config.json", "utf-8"));
 
 const availableLocales = [
     {
@@ -30,18 +31,40 @@ const availableLocales = [
     {
         id: "es_MX",
         prettyName: "Espanol (México/Mexico) [Spanish]"
+    },
+    {
+        id: "tr_TR",
+        prettyName: "Turkey (Turkey/Turkey) [Turkey]"
     }
 ];
 
+const selectedLocale = engineConfig.locale;
+//extract localization data from localization.js
+var localeData;
+for (var i = 0; i < localizationData.length; i++) {
+    if (localizationData[i].id == selectedLocale) {
+        localeData = localizationData[i];
+    }
+}
+
 const DiscordRPC = require("./DiscordRPC");
+
 var DiscordRPCData = {
-    details: "In the Editor",
+    details: localeData.data.discordRPC.details,
     startTimestamp,
     largeImageKey: 'shadowengine',
-    largeImageText: "Shadow Engine",
+    largeImageText: localeData.data.discordRPC.title,
     smallImageKey: "shadow-worker",
-    smallImageText: "In the Editor"
+    smallImageText: localeData.data.discordRPC.details
 };
+
+for (var i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] == "--debug") {
+        DiscordRPCData.details = localeData.data.discordRPC.debugDetails;
+        DiscordRPCData.smallImageText = localeData.data.discordRPC.debugDetails;
+    }
+}
+
 
 const editorFileMenuTemplate = [
     {
@@ -255,20 +278,9 @@ function launchArgsContain(arg) {
 
 function createWindow() {
 
-    const engineConfig = JSON.parse(fs.readFileSync(shadowEngineDataDir + "\\engine-data\\config.json", "utf-8"));
       // ------------ //
      // localization //
     // ------------ //
-    const selectedLocale = engineConfig.locale;
-
-    //extract localization data from localization.js
-    var localeData;
-    for (var i = 0; i < localizationData.length; i++) {
-        if (localizationData[i].id == selectedLocale) {
-            localeData = localizationData[i];
-        }
-    }
-
 
     if (process.platform == "win32") {
         fs.exists(shadowEngineDataDir + "\\engine-data\\env.txt", (exists) => {
@@ -589,14 +601,36 @@ Sorry about that.`,
     });
 
     ipcMain.on("localization.getLocales", (event, shadowSection) => {
+        console.log(`${shadowSection} wants locales`);
         switch(shadowSection) {
+
+            // * /////////////////////////
+            // * IMPORTANT: REMEMBER YOU CAN'T SEND IPC DATA TO TABS, ONLY THE EDITOR! So RELAY IT!!!
+            // * /////////////////////////
+            case "code-editor-tab":
+                event.sender.send("main.localization.returnRelayLocales", "code-editor", localeData.data.codeEditorTab);
+                break;
             case "project-browser":
                 event.sender.send("main.localization.returnLocales", localeData.data.projectBrowser);
                 break;
             case "localization":
                 event.sender.send("main.localization.returnLocales", localeData.data.localization);
                 break;
+            case "editor":
+                event.sender.send("main.localization.returnLocales", localeData.data.editor);
+                break;
         }
+    });
+
+
+    
+    ipcMain.on("shadowSettings.restartDebug", () => {
+        var date = new Date();
+        var stamp = date.getFullYear() + date.getMonth() + date.getDay() + date.getHours() + date.getMinutes() + date.getSeconds() + date.getMilliseconds() + Math.random().toString().split(".")[1];
+        app.relaunch({
+            args: ['.', '--debug', `--log-net-log=${shadowEngineDataDir}/blob/netlog${stamp}.txt`]
+        });
+        app.quit();
     });
 
 

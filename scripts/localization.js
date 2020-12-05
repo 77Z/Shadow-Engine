@@ -34,11 +34,12 @@ window.onload = function() {
     // ------------ //
     ipcRenderer.send("localization.getLocales", "localization");
     ipcRenderer.on("main.localization.returnLocales", (event, locales) => {
-        document.title                                   = locales.windowtitle;
-        document.getElementById("title").innerText       = locales.windowtitle;
-        document.getElementById("set-btn").innerText     = locales.setBtn;
-        document.getElementById("restart-msg").innerText = locales.restartMsg;
-
+        document.title                                        = locales.windowtitle;
+        document.getElementById("title").innerText            = locales.windowtitle;
+        document.getElementById("set-btn").innerText          = locales.setBtn;
+        document.getElementById("restart-msg").innerText      = locales.restartMsg;
+        document.getElementById("shadow-debug-msg").innerText = locales.shadowDebugMsg;
+        document.getElementById("shadow-debug-btn").innerText = locales.shadowDebugBtn;
     });
 };
 
@@ -50,4 +51,8 @@ document.getElementById("set-btn").addEventListener("click", function() {
         app.relaunch();
         app.quit();
     });
+});
+
+document.getElementById("shadow-debug-btn").addEventListener("click", function() {
+    ipcRenderer.send("shadowSettings.restartDebug");
 });
