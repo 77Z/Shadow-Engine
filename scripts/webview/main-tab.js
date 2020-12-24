@@ -691,16 +691,15 @@ window.addEventListener("message", messageFromEditor);
 
 function messageFromEditor(event) {
 
-    if (event.data.split(":")[0] == "FTT") {
-        //Forward Data to the terminal
+    switch(event.data.split(":")[0]) {
+        case "FTT":
+            //remove the first four charactors instead of getting [1] of the array
+            //you do this because if there is an : in the rest of the data,
+            //only everything before that : will be send to the viewport terminal
+            var dataToForward = event.data.substr(4);
 
-        //remove the first four charactors instead of getting [1] of the array
-        //you do this because if there is an : in the rest of the data,
-        //only everything before that : will be send to the viewport terminal
-        var dataToForward = event.data.substr(4);
-
-        document.getElementById("viewport-terminal").contentWindow.postMessage(dataToForward, "*");
-
+            document.getElementById("viewport-terminal").contentWindow.postMessage(dataToForward, "*");
+            break;
     }
 
     return;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shadow Project Browser</title>
+    <title></title>
 
     <link rel="manifest" href="../manifest.webmanifest">
 
@@ -15,9 +15,7 @@
 <body>
     <div class="grab-bar" id="grab"></div>
     <div class="top" id="top">
-        <span class="title">
-            Shadow Engine Project Browser
-        </span>
+        <span class="title" id="window-title"></span>
     </div>
     <div class="nav-icon close-nav-btn" id="c-nav" onclick="window.close()">
         <svg class="" width="10px" height="11px" viewBox="0 0 10 11">
@@ -61,36 +59,28 @@
             </div>-->
         </div>
 
-        <button id="new-project">
-            New Project
-        </button>
+        <button id="new-project"></button>
 
         <div id="proj-menu">
             <button class="back" id="back-new-proj">&times;</button>
-            <h1>
-                Create a new Project
-            </h1>
-            <p class="desc">Fill out some basic information about your project and be on your way.</p>
+            <h1 id="create-a-new-project-header"></h1>
+            <p class="desc" id="create-a-new-project-desc">Fill out some basic information about your project and be on your way.</p>
 
             <hr class="half">
 
             <div class="input-container">
-                <label for="name">Project Name</label>
+                <label for="name" id="project-name-label">Project Name</label>
                 <input type="text" onkeyup="replaceSpaceWithDash()" size="30" id="name">
-                <button id="randoprojecto">
-                    Click me for inspiration!
-                </button><br>
+                <button id="randoprojecto"></button><br>
                 <span id="errs"></span>
             </div>
             <div class="input-container">
                 <label for="copyright">Copyright</label>
                 <input type="text" size="30" id="copyright">
-                <button id="resetcopyrighttext">
-                    Reset Text
-                </button>
+                <button id="resetcopyrighttext"></button>
             </div>
             <div class="input-container">
-                <label for="pref-lang">Your/Your Teams Prefered Language</label>
+                <label for="pref-lang" id="prefered-lang-label"></label>
                 <div class="select-dropdown" id="select-dropdown">
                     <div class="selected-option">
                         <span id="selected-option-text">JavaScript</span>
@@ -105,16 +95,14 @@
                 </div>
             </div>
             <div class="input-container">
-                <label for="pref-dimension">Dimension</label>
+                <label for="pref-dimension" id="pref-dimension-label"></label>
                 <div id="pref-dimension">
                     <div class="d2 selected" id="d2">2D</div>
                     <div class="d3" id="d3">3D</div>
                 </div>
             </div>
 
-            <button id="createprojectbtn">
-                Create Project
-            </button>
+            <button id="createprojectbtn">CREAT</button>
         </div>
     </div>
 
@@ -137,9 +125,9 @@
     <div class="terminalSettings" id="termsettings">></div>
 
     <div class="context-menu" id="cmenu" style="display: none;">
-        <div class="context-child" id="context-open-proj">Open</div>
-        <div class="context-child" id="delete-proj-button">Delete</div>
-        <div class="context-child" id="open-proj-in-explorer">Open Project in File Explorer</div>
+        <div class="context-child" id="context-open-proj"></div>
+        <div class="context-child" id="delete-proj-button"></div>
+        <div class="context-child" id="open-proj-in-explorer"></div>
     </div>
 
     <script src="../scripts/project-browser.js"></script>

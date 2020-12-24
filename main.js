@@ -20,16 +20,51 @@ const os = require("os");
 var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
 const isDev = require("electron-is-dev");
 const homedir = os.homedir();
+const localizationData = require("./resources/localization");
+const engineConfig = JSON.parse(fs.readFileSync(shadowEngineDataDir + "\\engine-data\\config.json", "utf-8"));
+
+const availableLocales = [
+    {
+        id: "en_US",
+        prettyName: "English (USA)"
+    },
+    {
+        id: "es_MX",
+        prettyName: "Espanol (México/Mexico) [Spanish]"
+    },
+    {
+        id: "tr_TR",
+        prettyName: "Turkey (Turkey/Turkey) [Turkey]"
+    }
+];
+
+const selectedLocale = engineConfig.locale;
+//extract localization data from localization.js
+var localeData;
+for (var i = 0; i < localizationData.length; i++) {
+    if (localizationData[i].id == selectedLocale) {
+        localeData = localizationData[i];
+    }
+}
 
 const DiscordRPC = require("./DiscordRPC");
+
 var DiscordRPCData = {
-    details: "In the Editor",
+    details: localeData.data.discordRPC.details,
     startTimestamp,
     largeImageKey: 'shadowengine',
-    largeImageText: "Shadow Engine",
+    largeImageText: localeData.data.discordRPC.title,
     smallImageKey: "shadow-worker",
-    smallImageText: "In the Editor"
+    smallImageText: localeData.data.discordRPC.details
 };
+
+for (var i = 0; i < process.argv.length; i++) {
+    if (process.argv[i] == "--debug") {
+        DiscordRPCData.details = localeData.data.discordRPC.debugDetails;
+        DiscordRPCData.smallImageText = localeData.data.discordRPC.debugDetails;
+    }
+}
+
 
 const editorFileMenuTemplate = [
     {
@@ -109,9 +144,15 @@ app.on('ready', function() {
                                                                                 fs.mkdir(shadowEngineDataDir + "\\blob", (err) => {
                                                                                     //fs.mkdir(shadowEngineDataDir + "\\blob\\" + uuid4, (err) => {
                                                                                         if (err) throw err;
-                                                                                        fs.writeFile(shadowEngineDataDir + "\\engine-data\\config.json", "//This is the Shadow Engine Configuration File\n//Change settings from here :)\n\n{\n    \"defaultProject\": null,\n    //This will change the default dropdown\n    //on the project creation screen\n    \"mostUsedProgrammingLang\": null,\n    \"codeEditor\": {\n        \"colorTheme\": \"solorized_dark\",\n        \"defaultFontSize\": 20\n    }\n}", (err) => {
+                                                                                        fs.writeFile(shadowEngineDataDir + "\\engine-data\\config.json", "{\n    \"locale\": \"en_US\",\n    \"defaultProject\": null,\n    \"mostUsedProgrammingLang\": null,\n    \"codeEditor\": {\n        \"colorTheme\": \"solorized_dark\",\n        \"defaultFontSize\": 20\n    }\n}", (err) => {
                                                                                             if (err) throw err;
-                                                                                            createWindow();
+                                                                                            fs.mkdir(shadowEngineDataDir + "\\localization", (err) => {
+                                                                                                if (err) throw err;
+                                                                                                fs.writeFile(shadowEngineDataDir + "\\engine-data\\locales.json", JSON.stringify(availableLocales), (err) => {
+                                                                                                    if (err) throw err;
+                                                                                                    createWindow();
+                                                                                                });
+                                                                                            })
                                                                                         });
                                                                                     //});
                                                                                 });
@@ -236,6 +277,10 @@ function launchArgsContain(arg) {
 }
 
 function createWindow() {
+
+      // ------------ //
+     // localization //
+    // ------------ //
 
     if (process.platform == "win32") {
         fs.exists(shadowEngineDataDir + "\\engine-data\\env.txt", (exists) => {
@@ -512,7 +557,6 @@ Sorry about that.`,
             message: "Are you sure you want to delete " + project + "?",
             buttons: ["Yes", "No"]
         });
-
         event.sender.send("response-confirm-delete-proj-msg", confirm, project); */
     });
 
@@ -554,6 +598,39 @@ Sorry about that.`,
             ptyProcess.write(key);
         });
 
+    });
+
+    ipcMain.on("localization.getLocales", (event, shadowSection) => {
+        console.log(`${shadowSection} wants locales`);
+        switch(shadowSection) {
+
+            // * /////////////////////////
+            // * IMPORTANT: REMEMBER YOU CAN'T SEND IPC DATA TO TABS, ONLY THE EDITOR! So RELAY IT!!!
+            // * /////////////////////////
+            case "code-editor-tab":
+                event.sender.send("main.localization.returnRelayLocales", "code-editor", localeData.data.codeEditorTab);
+                break;
+            case "project-browser":
+                event.sender.send("main.localization.returnLocales", localeData.data.projectBrowser);
+                break;
+            case "localization":
+                event.sender.send("main.localization.returnLocales", localeData.data.localization);
+                break;
+            case "editor":
+                event.sender.send("main.localization.returnLocales", localeData.data.editor);
+                break;
+        }
+    });
+
+
+    
+    ipcMain.on("shadowSettings.restartDebug", () => {
+        var date = new Date();
+        var stamp = date.getFullYear() + date.getMonth() + date.getDay() + date.getHours() + date.getMinutes() + date.getSeconds() + date.getMilliseconds() + Math.random().toString().split(".")[1];
+        app.relaunch({
+            args: ['.', '--debug', `--log-net-log=${shadowEngineDataDir}/blob/netlog${stamp}.txt`]
+        });
+        app.quit();
     });
 
 

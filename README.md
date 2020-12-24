@@ -27,6 +27,7 @@ In order to run Shadow Engine on your computer you need these things:
 - A Windows 10 Machine
 - [Node.js](https://nodejs.org "Node.js")
 - [Git](https://git-scm.com/)
+- [Python](https://python.org)
 
 ```PowerShell
 $ git clone https://github.com/77Z/Shadow-Engine.git

@@ -1,11 +1,27 @@
 //Global
-const shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow Engine";
+var shadowEngineDataDir;
+if (process.platform == "linux") {
+    shadowEngineDataDir = require("os").homedir + "/Shadow Engine";
+} else if (process.platform == "win32") {
+    shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow Engine";
+}
 
 const editorIpcRenderer = require("electron").ipcRenderer;
 const fs = require("fs");
 const configFileReader = require("../scripts/terrain-config-file-reader");
 const startTimestamp = new Date();
 const {shell} = require("electron");
+
+const localizationData = require("../resources/localization");
+const engineConfig = JSON.parse(fs.readFileSync(shadowEngineDataDir + "\\engine-data\\config.json", "utf-8"));
+const selectedLocale = engineConfig.locale;
+//extract localization data from localization.js
+var localeData;
+for (var i = 0; i < localizationData.length; i++) {
+    if (localizationData[i].id == selectedLocale) {
+        localeData = localizationData[i];
+    }
+}
 
 var showEditorFPS = true;
 
@@ -82,25 +98,48 @@ if (showEditorFPS) {
     refresh();
 }
 
-//this variable creates the main tab and returns
-//the tabs id
-var maintabId = tabs.create("Main", "main.html", false);
+var preallocatedmaintabname = "";
+var preallocatededitortabname = "";
 
-var editortabId = tabs.create("Code Editor", "code-editor-tab.html", false);
+window.onload = function() {
+    document.title            = localeData.data.editor.editorwindowtitle;
+    preallocatedmaintabname   = localeData.data.editor.mainTab;
+    preallocatededitortabname = localeData.data.editor.editorTab;
 
-//Forwarding Data to tabs START
+    readyToLoadTabs();
+};
 
-editorIpcRenderer.on("FTT", (event, data) => {
-    document.getElementById(maintabId).contentWindow.postMessage("FTT:" + data, "*");
-});
+function readyToLoadTabs() {
+    //this variable creates the main tab and returns
+    //the tabs id
+    var maintabId = tabs.create(preallocatedmaintabname, "main.html", false);
 
-editorIpcRenderer.on("main.relay.createCodeEditor", (event, fileName, fileLocation) => {
-    document.getElementById(editortabId).contentWindow.postMessage(fileLocation, "*");
-});
+    var editortabId = tabs.create(preallocatededitortabname, "code-editor-tab.html", false);
 
-//Forwarding Data to tabs END
+    //Forwarding Data to tabs START
 
-//Help Button
-document.getElementById("help-button").addEventListener("click", function() {
-    shell.openExternal("https://github.com/77Z/Shadow-Engine/wiki/Help");
-});
+    editorIpcRenderer.on("FTT", (event, data) => {
+        document.getElementById(maintabId).contentWindow.postMessage("FTT:" /* Forward to terminal */ + data, "*");
+    });
+
+    editorIpcRenderer.on("main.relay.createCodeEditor", (event, fileName, fileLocation) => {
+        document.getElementById(editortabId).contentWindow.postMessage("FLL:" /* File Loader */ + fileLocation, "*");
+    });
+
+    //LOCALIZATION RELAY
+
+    editorIpcRenderer.on("main.localization.returnRelayLocales", (event, relaytab, localeData) => {
+        switch(relaytab) {
+            case "code-editor":
+                document.getElementById(editortabId).contentWindow.postMessage("LOC:" /* Locale Data */ + JSON.stringify(localeData), "*");
+                break;
+        }
+    });
+
+    //Forwarding Data to tabs END
+
+    //Help Button
+    document.getElementById("help-button").addEventListener("click", function() {
+        shell.openExternal("https://github.com/77Z/Shadow-Engine/wiki/Help");
+    });
+}

@@ -7,7 +7,7 @@ const fs = require("fs");
 const getFileType = require("../../scripts/FileManip/getFileType");
 const getLineEnding = require("../../scripts/FileManip/getLineEndingType");
 const getProject = require("../../scripts/get-project");
-const {clipboard} = require("electron");
+const {clipboard, ipcRenderer} = require("electron");
 
 var editor = ace.edit("editor");
 editor.setTheme("ace/theme/solarized_dark");
@@ -93,11 +93,6 @@ window.onclick = function() {
     }, 150);
     
 };
-
-window.onload = function() {
-    //editor.config.loadModule("ace/ext/searchbox", function(m) {m.Search(editor)});
-};
-
 
 //this is for exiting out of the command-popup element with your mouse
 document.getElementById("command-popup-back").addEventListener("click", closeCommandWindow);
@@ -445,7 +440,14 @@ function snackbar(content) {
 window.addEventListener("message", messageFromEditor);
 
 function messageFromEditor(event) {
-    fileLoader().load(event.data);
+    switch(event.data.split(":")[0]) {
+        case "FLL": /* File Loader */
+            fileLoader().load(event.data);
+            break;
+        case "LOC": /* Locale Data */
+            handleLocales(event.data.substr(4));
+            break;
+    }
 }
 
 /* Context Menu Events */
@@ -490,4 +492,25 @@ var cmenuEvents = {
         editor.focus();
     },
     closeFile: function() {}
+}
+
+window.onload = function() {
+    ipcRenderer.on("main.localization.returnLocales", (event, locales) => {
+        console.log("locales returned!");
+        
+    });
+    ipcRenderer.send("localization.getLocales", "code-editor-tab");
+};
+
+function handleLocales(localesin) {
+    var locales = JSON.parse(localesin);
+    document.getElementById("cmenu-input-text1").innerText = locales.cmenuButton1;
+    document.getElementById("cmenu-input-text2").innerText = locales.cmenuButton2;
+    document.getElementById("cmenu-input-text3").innerText = locales.cmenuButton3;
+    document.getElementById("cmenu-input-text4").innerText = locales.cmenuButton4;
+    document.getElementById("cmenu-input-text5").innerText = locales.cmenuButton5;
+    document.getElementById("cmenu-input-text6").innerText = locales.cmenuButton6;
+    document.getElementById("cmenu-input-text7").innerText = locales.cmenuButton7;
+    document.getElementById("cmenu-input-text8").innerText = locales.cmenuButton8;
+    document.getElementById("cmenu-input-text9").innerText = locales.cmenuButton9;
 }

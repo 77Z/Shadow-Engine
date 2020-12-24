@@ -1,12 +1,6 @@
 # Copyright © 77Z 2020
 # Copyright © Vince Richter 2020
 #
-# Only make on Linux systems
-#
-# Shadow Engine is only avalible on Windows, but
-# in order to build Shadow, you need a Linux
-# System or WSL.
-#
 # run 'make' to build Shadow Engine
 # run 'make clean' to clean up files that the
 # makefile has made
