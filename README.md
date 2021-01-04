@@ -30,7 +30,7 @@ In order to run Shadow Engine on your computer you need these things:
 - [Python](https://python.org)
 
 ```PowerShell
-$ git clone https://github.com/77Z/Shadow-Engine.git
+$ git clone --depth=30 https://github.com/77Z/Shadow-Engine.git
 $ cd Shadow-Engine
 $ npm i
 $ npm run rebuild
