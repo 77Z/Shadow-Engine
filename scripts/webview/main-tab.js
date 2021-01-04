@@ -749,44 +749,172 @@ function escapeBackslash(input = null) {
         });
     });
 
+//const Shadow3DViewport = require("../../scripts/engine/viewport/3d");
 
-//      END
+//Stolen from stackoverflow >:D
+//I could have never thought of this
+//Credit to Nathan https://stackoverflow.com/questions/4122268/using-settimeout-synchronously-in-javascript
+function synchronousPause(milliseconds) {
+    var dt = new Date();
+    while ((new Date()) - dt <= milliseconds) { /* Do nothing */ }
+}
+
+const THREE = require("three");
+const JSON5 = require("json5"); // JSON5 for reading things like scene files
+const terrainConfigFileReader = require("../../scripts/terrain-config-file-reader"); //For reading the default scene
+/* const projectNameRequire = require("../../scripts/get-project");
+var projectName = projectNameRequire(); */
+
+//Wait for a bit so the project name can laod
+
+// * THIS IS THE THING CAUSING ALL MY PROBLEMS, RIGHT BELOW HERE
+
+/* var projectName;
+projectName = terrainConfigFileReader.readConfigFile(shadowEngineDataDir + "\\engine-data\\proj.sec", 1);
+if (projectName !== "null") { projectNameLoaded = true; } else {
+    fs.watch(shadowEngineDataDir + "\\engine-data\\proj.sec", "utf-8", (event, trigger) => {
+        //Check here for updates
+    })
+} */
+
+/* var projectNameLoaded = false;
+while (!projectNameLoaded) {
+    //synchronousPause(1000);
+    setTimeout(() => {
+        projectName = terrainConfigFileReader.readConfigFile(shadowEngineDataDir + "\\engine-data\\proj.sec", 1);
+        if (projectName !== "null") { projectNameLoaded = true; }
+    }, 1000);
+} */
 
 
 
+/* const vpContainer = document.getElementById("vp-container");
 
-/* document.addEventListener("DOMContentLoaded", function() {
-    console.log("Fully Loaded");
-    OverlayScrollbars(document.querySelectorAll("body"), { });
-
-    OverlayScrollbars(document.querySelectorAll(".file-ex-item-container"), {});
-}) */
-
-
-////Import 3D tools
-////import * as THREE from "../../three";
-//const three = require("../../three");
-//
-////Get the bounding box of the Viewport Container
-//var vpContainer = document.getElementById("vp-container");
-//var vpcWidth  = vpContainer.clientWidth;
-//var vpcHeight = vpContainer.clientHeight;
-//
-////Create Scene and Camera
-//var scene = new THREE.Scene();
-//var camera = new THREE.PerspectiveCamera(75, vpcWidth / vpcHeight, 0.1, 1000);
-//
-////Create the renderer and append it to the Viewport Container
-//var renderer = new THREE.WebGLRenderer();
-//renderer.setSize(vpcWidth, vpcHeight);
-//vpContainer.appendChild(renderer.domElement);
-//
+{
+    let defaultSceneUnparsed = terrainConfigFileReader.readConfigFile(`${shadowEngineDataDir}/projects/${projectName}/game.sproject`, 10);
+    var defaultScene = defaultSceneUnparsed.split(":")[1];
+}
 
 
+var sceneData = JSON5.parse(fs.readFileSync(`${shadowEngineDataDir}/projects/${projectName}/Source/${defaultScene}`));
+
+console.log(sceneData); */
+
+const vpContainer = document.getElementById("vp-container");
+var activeCamera;
+fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", (err, data) => {
+    if (err) throw err;
+    var parsedData = JSON5.parse(data);
+
+    const viewportScene = new THREE.Scene();
+
+    //! Temporary material, find all references, then REMOVE ME!!
+    const tempMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+
+    //Loop through cameras and set the last one to active
+    var cameras = [];
+    for(var i = 0; i < parsedData.cameras.length; i++) {
+        console.log("Created new Cam");
+        if (parsedData.cameras[i].type == "perspective") {
+            var cam = new THREE.PerspectiveCamera(parsedData.cameras[i].fov, vpContainer.clientWidth / vpContainer.clientHeight, parsedData.cameras[i].viewplaneMin, parsedData.cameras[i].viewplaneMax)
+            cam.position.set(parsedData.cameras[i].location.x, parsedData.cameras[i].location.y, parsedData.cameras[i].location.z);
+            cam.rotation.set(parsedData.cameras[i].rotation.x, parsedData.cameras[i].rotation.y, parsedData.cameras[i].rotation.z);
+            cameras.push(cam);
+        } else if (parsedData.cameras[i].type == "orthographic") {
+            var cam;
+            if (parsedData.cameras[i].orthoSettings == null) {
+                //Use default ortho camera settings
+                var width = vpContainer.clientWidth;
+                var height = vpContainer.clientHeight;
+                cam = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 1000);
+            } else {
+                cam = new THREE.OrthographicCamera(parsedData.cameras[i].left, parsedData.cameras[i].right, parsedData.cameras[i].top, parsedData.cameras[i].bottom, parsedData.cameras[i].near, parsedData.cameras[i].far);
+            }
+            cam.position.set(parsedData.cameras[i].location.x, parsedData.cameras[i].location.y, parsedData.cameras[i].location.z);
+            cam.rotation.set(parsedData.cameras[i].rotation.x, parsedData.cameras[i].rotation.y, parsedData.cameras[i].rotation.z);
+            cameras.push(cam);
+        } else { console.error("SHADOW3D: Error, unknown camera type.") };
+        
+        //Set last camera to active
+        activeCamera = cameras[i];
+    }
+    //const viewportCamera1 = new THREE.PerspectiveCamera(parsedData.cameras[0].fov, vpContainer.clientWidth / vpContainer.clientHeight, 0.1, 1000);
+
+    //Loop through and create objects
+    for(var i = 0; i < parsedData.objects.length; i++) {
+        console.log("Created new Geo");
+        //  Switch statements are better than if else if else,
+        //  but for the camera loop above it is probably better to do if else,
+        //  because certain cameras are more common than others,
+        //  and there arent that many cameras to worry about,
+        //  perspective camera is the most popular, therefore it is on the top
+        switch(parsedData.objects[i].type) {
+            case "box-geometry": {
+                var boxGeometry = new THREE.BoxGeometry(parsedData.objects[i].boxType.x, parsedData.objects[i].boxType.y, parsedData.objects[i].boxType.z);
+                var box = new THREE.Mesh(boxGeometry, tempMaterial);
+                box.position.set(parsedData.objects[i].location.x, parsedData.objects[i].location.y, parsedData.objects[i].location.z);
+                box.rotation.set(parsedData.objects[i].rotation.x, parsedData.objects[i].rotation.y, parsedData.objects[i].rotation.z);
+                box.scale.set   (parsedData.objects[i].scale.x   , parsedData.objects[i].scale.y   , parsedData.objects[i].scale.z   );
+                viewportScene.add(box);
+                break;
+            }
+            default: {
+                console.error("SHADOW3D: Error, Unknown geometry: " + parsedData.objects[i].type);
+                break;
+            }
+        }
+    }
+
+
+    const viewportRenderer = new THREE.WebGLRenderer();
+    viewportRenderer.setClearColor(parsedData.meta.clearColor);
+    viewportRenderer.setSize(vpContainer.clientWidth, vpContainer.clientHeight);
+
+    vpContainer.appendChild(viewportRenderer.domElement);
+
+
+    window.onresize = function() {
+        activeCamera.aspect = vpContainer.clientWidth / vpContainer.clientHeight;
+        activeCamera.updateProjectionMatrix();
+
+        viewportRenderer.setSize(vpContainer.clientWidth, vpContainer.clientHeight);
+    };
+
+    function animateViewportFrame() {
+        requestAnimationFrame(animateViewportFrame);
+        viewportRenderer.render(viewportScene, activeCamera);
+    }
+
+    requestAnimationFrame(animateViewportFrame);
+
+    console.log(activeCamera);
+});
+
+
+/* const viewportScene = new THREE.Scene();
+const viewportCamera1 = new THREE.PerspectiveCamera(75, vpContainer.clientWidth / vpContainer.clientHeight, 0.1, 1000);
 
 
 
-///DELETE ME |
-///         \/
+const viewportRenderer = new THREE.WebGLRenderer();
+viewportRenderer.setClearColor(0xe5e5e5);
+viewportRenderer.setSize(vpContainer.clientWidth, vpContainer.clientHeight);
 
-//document.getElementById("delete-me-button-tab-create").addEventListener("click", fui)
+vpContainer.appendChild(viewportRenderer.domElement);
+
+
+var activeCamera = viewportCamera1;
+
+window.onresize = function() {
+    activeCamera.aspect = vpContainer.clientWidth / vpContainer.clientHeight;
+    activeCamera.updateProjectionMatrix();
+
+    viewportRenderer.setSize(vpContainer.clientWidth, vpContainer.clientHeight);
+};
+
+function animateViewportFrame() {
+    requestAnimationFrame(animateViewportFrame);
+    viewportRenderer.render(viewportScene, activeCamera);
+}
+
+requestAnimationFrame(animateViewportFrame); */

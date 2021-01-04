@@ -104,7 +104,7 @@ const editorFileMenuTemplate = [
 
 app.on('ready', function() {
     if (process.platform == "linux") {
-        linuxStartMode();
+        //linuxStartMode();
     } else if (process.platform == "win32") {
         fs.exists(shadowEngineDataDir, (exists, err) => {
             if (err) throw err;
@@ -150,7 +150,10 @@ app.on('ready', function() {
                                                                                                 if (err) throw err;
                                                                                                 fs.writeFile(shadowEngineDataDir + "\\engine-data\\locales.json", JSON.stringify(availableLocales), (err) => {
                                                                                                     if (err) throw err;
-                                                                                                    createWindow();
+                                                                                                    fs.writeFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", JSON.stringify(require("./resources/DefaultScene")), (err) => {
+                                                                                                        if (err) throw err;
+                                                                                                        createWindow();
+                                                                                                    });
                                                                                                 });
                                                                                             })
                                                                                         });
@@ -194,7 +197,7 @@ app.on('ready', function() {
     }
 });
 
-function linuxStartMode() {
+/* function linuxStartMode() {
     fs.exists(shadowEngineDataDir, (exists, err) => {
         if (err) throw err;
         if (!exists) {
@@ -259,7 +262,7 @@ function linuxStartMode() {
             createWindow();
         }
     });
-}
+} */
 
 let mainWindow;
 let editor;
