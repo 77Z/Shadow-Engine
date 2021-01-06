@@ -1,9 +1,0 @@
-C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\PlatinumAntiCheat\PlatinumTray\Platinum Tray\Platinum Tray\bin\Debug\Platinum Tray.exe.config
-C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\PlatinumAntiCheat\PlatinumTray\Platinum Tray\Platinum Tray\bin\Debug\Platinum Tray.exe
-C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\PlatinumAntiCheat\PlatinumTray\Platinum Tray\Platinum Tray\bin\Debug\Platinum Tray.pdb
-C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\PlatinumAntiCheat\PlatinumTray\Platinum Tray\Platinum Tray\obj\Debug\Platinum Tray.csprojAssemblyReference.cache
-C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\PlatinumAntiCheat\PlatinumTray\Platinum Tray\Platinum Tray\obj\Debug\Platinum_Tray.Properties.Resources.resources
-C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\PlatinumAntiCheat\PlatinumTray\Platinum Tray\Platinum Tray\obj\Debug\Platinum Tray.csproj.GenerateResource.cache
-C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\PlatinumAntiCheat\PlatinumTray\Platinum Tray\Platinum Tray\obj\Debug\Platinum Tray.csproj.CoreCompileInputs.cache
-C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\PlatinumAntiCheat\PlatinumTray\Platinum Tray\Platinum Tray\obj\Debug\Platinum Tray.exe
-C:\Users\Owner\Documents\Projects\Terrain\Modules\shadow-engine\PlatinumAntiCheat\PlatinumTray\Platinum Tray\Platinum Tray\obj\Debug\Platinum Tray.pdb

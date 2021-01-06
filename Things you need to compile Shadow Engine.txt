@@ -1,6 +1,0 @@
-Node.js
-npm
-npm/pkg
-
-
-Make sure you move everything in DeveloperSetup to C:\Users\Owner\AppData\Local\Programs\shadow-engine

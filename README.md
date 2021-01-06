@@ -37,6 +37,12 @@ $ npm run rebuild
 $ npm start
 ```
 
+### Then move everything in DeveloperSetup to C:\Users\USERNAME\AppData\Local\Programs\shadow-engine
+
+<br>
+<br>
+<br>
+
 To Update:
 
 ```PowerShell
@@ -45,6 +51,13 @@ $ npm i
 $ npm run rebuild
 $ npm start
 ```
+
+# FAQ
+
+- WHY ISN'T IT RUNNNINNNG!!!!
+
+    The most common reason why Shadow might not run is due to node-pty and robotjs, these both rely on Python, so make sure that Python3 is installed properly, this is usaually only a problem on Windows, but Shadow only runs on Windows sooo..
+
 # Wiki
 
 Use the wiki to your advantage!
