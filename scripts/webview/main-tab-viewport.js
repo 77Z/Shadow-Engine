@@ -5,11 +5,13 @@ const JSON5 = require("json5"); // JSON5 for reading things like scene files
 
 const vpContainer = document.getElementById("vp-container");
 var activeCamera;
+var viewportRenderer;
+var viewportScene;
 fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", (err, data) => {
     if (err) throw err;
     var parsedData = JSON5.parse(data);
 
-    const viewportScene = new THREE.Scene();
+    viewportScene = new THREE.Scene();
 
     //! Temporary material, find all references, then REMOVE ME!!
     const tempMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
@@ -75,7 +77,7 @@ fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", 
 
     
 
-    const viewportRenderer = new THREE.WebGLRenderer();
+    viewportRenderer = new THREE.WebGLRenderer({ antialias: true });
     viewportRenderer.setClearColor(parsedData.meta.clearColor);
     viewportRenderer.setSize(vpContainer.clientWidth, vpContainer.clientHeight);
 
@@ -93,11 +95,6 @@ fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", 
         viewportRenderer.setSize(vpContainer.clientWidth, vpContainer.clientHeight);
     };
 
-    function animateViewportFrame() {
-        requestAnimationFrame(animateViewportFrame);
-        viewportRenderer.render(viewportScene, activeCamera);
-    }
-
     requestAnimationFrame(animateViewportFrame);
 
     console.log(activeCamera);
@@ -105,17 +102,94 @@ fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", 
 
 const robot = require("robotjs");
 const { remote } = require("electron");
-var mouseisdown = false;
+var viewportMouseisdown = false;
+var resetMousePosition;
 
-vpContainer.addEventListener("mousedown", function() {
-    var editorPosition = remote.getCurrentWindow().getPosition();
-    var middleViewportX = Math.round(vpContainer.clientLeft + vpContainer.clientWidth);
-    var middleViewportY = Math.round(vpContainer.clientTop + (vpContainer.clientHeight / 2)) + 29; //plus 29 for titlebar because main-tab is an iframe
-    console.log(vpContainer.clientWidth / 2);
-    mouseisdown = true;
-    robot.moveMouse(editorPosition[0] + middleViewportX, editorPosition[1] + middleViewportY);
+vpContainer.addEventListener("mousedown", function(event) {
+    if (event.button == 2) { //Right mouse button down
+        viewportMouseisdown = true;
+        vpContainer.style.cursor = "none";
+        resetMousePosition = robot.getMousePos(); //Get mouse position before we move it to the center, so we can reset it after they let go of the right mouse button
+    }
 });
 
-vpContainer.addEventListener("mouseup", function() {
-    mouseisdown = false;
+vpContainer.addEventListener("mouseup", function(event) {
+    if (event.button == 2) { //Right mouse button down
+        viewportMouseisdown = false;
+        vpContainer.style.cursor = "auto";
+        robot.moveMouse(resetMousePosition.x, resetMousePosition.y);
+    }
 });
+
+vpContainer.addEventListener("mousemove", function() {
+    if (viewportMouseisdown) {
+        var editorPosition = remote.getCurrentWindow().getPosition();
+        var middleViewportX = Math.round(vpContainer.offsetLeft + (vpContainer.clientWidth / 2));
+        var middleViewportY = Math.round(vpContainer.offsetTop + (vpContainer.clientHeight / 2)) + 29; //plus 29 for titlebar because main-tab is an iframe
+        robot.moveMouse(editorPosition[0] + middleViewportX, editorPosition[1] + middleViewportY);
+    }
+});
+
+var keydownEvents = {
+    w: false,
+    a: false,
+    s: false,
+    d: false
+};
+
+document.addEventListener("keydown", (e) => {
+    //if (e.preventDefault()) { return; }
+    var key = e.key || e.keyCode;
+    if (key == "w" && viewportMouseisdown) {
+        keydownEvents.w = true;
+    } else if (key == "s" && viewportMouseisdown) {
+        keydownEvents.s = true;
+    }
+
+    if (key == "a" && viewportMouseisdown) {
+        keydownEvents.a = true;
+    } else if (key == "d" && viewportMouseisdown) {
+        keydownEvents.d = true;
+    }
+});
+
+document.addEventListener("keyup", (e) => {
+    //if (e.preventDefault()) { return; }
+    var key = e.key || e.keyCode;
+    if (key == "w" && viewportMouseisdown) {
+        keydownEvents.w = false;
+    } else if (key == "s" && viewportMouseisdown) {
+        keydownEvents.s = false;
+    }
+
+    if (key == "a" && viewportMouseisdown) {
+        keydownEvents.a = false;
+    } else if (key == "d" && viewportMouseisdown) {
+        keydownEvents.d = false;
+    }
+});
+
+function animateViewportFrame() {
+    requestAnimationFrame(animateViewportFrame);
+    viewportRenderer.render(viewportScene, activeCamera);
+
+
+    if (keydownEvents.w) {
+        var direction = new THREE.Vector3();
+        activeCamera.getWorldDirection(direction);
+        activeCamera.position.set(activeCamera.position.x + (direction.x / 5), activeCamera.position.y + (direction.y / 5), activeCamera.position.z + (direction.z / 5));
+    } else if (keydownEvents.s) {
+        var direction = new THREE.Vector3();
+        activeCamera.getWorldDirection(direction);
+        activeCamera.position.set(activeCamera.position.x - (direction.x / 5), activeCamera.position.y - (direction.y / 5), activeCamera.position.z - (direction.z / 5));
+    }
+
+    if (keydownEvents.a) {
+        console.log("a");
+        var direction = new THREE.Vector3();
+        activeCamera.getWorldDirection(direction);
+        activeCamera.position.set(activeCamera.position.x + (direction.x / 5), activeCamera.position.y + (direction.y / 5), activeCamera.position.z + (direction.z / 5));
+    } else if (keydownEvents.d) {
+        //
+    }
+}
