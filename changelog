@@ -1,0 +1,12 @@
+1/9/2021:
+    Main Tab Partial Localization
+    New Icons
+    Main Tab Sidebar
+    Bug Fixes
+    Started using the changelog
+    Changed color of the help icon to orange to match the Shadow theme
+    Added Localization to the help button
+    DEVELOPMENT in the top left corner was shortend to DEV
+    Added hover titles to DirUp and Reload in the File Explorer
+    Added New Material and New Scene to the File Explorer Context menu
+    Made the File Explorer context menus localized

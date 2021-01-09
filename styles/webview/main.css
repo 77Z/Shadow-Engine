@@ -304,3 +304,80 @@
     display: none;
     cursor: ns-resize;
 }
+
+
+/* 
+    Sidepanel
+*/
+
+.sidepanel-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 25%;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+}
+
+/* Yes i have to do it this way otherwise the buttons get margins for some reason
+   even though the margin is set to 0, thanks CSS */
+.sidepanel-button-meshes {
+    left: 0;
+
+    background-image: url(../../media/img/ui/editor/sidepanel/Meshes.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.sidepanel-button-lights {
+    left: 25%;
+
+    background-image: url(../../media/img/ui/editor/sidepanel/Lights.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.sidepanel-button-cinematics {
+    right: 25%;
+
+    background-image: url(../../media/img/ui/editor/sidepanel/Cinematics.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.sidepanel-button-volumes {
+    right: 0;
+
+    background-image: url(../../media/img/ui/editor/sidepanel/Volumes.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.sidepanel-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: calc(100% - 30px);
+    width: 100%;
+    display: none;
+}
+
+.sidepanel-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.sidepanel-item:hover {
+    background: #ffffff50;
+}
+
+.sidepanel-item {
+    margin-left: 5px;
+}

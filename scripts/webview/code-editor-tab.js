@@ -495,10 +495,10 @@ var cmenuEvents = {
 }
 
 window.onload = function() {
-    ipcRenderer.on("main.localization.returnLocales", (event, locales) => {
+    /* Removed below code because it's impossible for a tab to recive ipc events, only the editor. */
+    /* ipcRenderer.on("main.localization.returnLocales", (event, locales) => {
         console.log("locales returned!");
-        
-    });
+    }); */
     ipcRenderer.send("localization.getLocales", "code-editor-tab");
 };
 

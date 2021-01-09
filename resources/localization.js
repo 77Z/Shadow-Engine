@@ -28,7 +28,8 @@ module.exports = [
             "editor": {
                 "editorwindowtitle": "Editor de Shadow",
                 "mainTab":           "Principal",
-                "editorTab":         "Editor de código"
+                "editorTab":         "Editor de código",
+                "helpButton":        "Ayuda"
             },
             "codeEditorTab": {
                 "cmenuButton1": "Abrir el menú de comandos",
@@ -40,6 +41,30 @@ module.exports = [
                 "cmenuButton7": "Deshacer",
                 "cmenuButton8": "Rehacer",
                 "cmenuButton9": "Cerrar el archivo"
+            },
+            "mainTab": {
+                "sidepanel": {
+                    "meshesButton": "Engrane",
+                    "lightsButton": "Luces",
+                    "cinematicsButton": "Cinemática",
+                    "volumesButton": "Volúmenes"
+                },
+                "fileExplorer": {
+                    "projectRootLabel": "Proyecto",
+                    "moveUpDir": "Ascender",
+                    "reload": "Recargar",
+                    "directoryIsEmpty": "El directorio está vacío",
+                    "invalidDirectory": "Directorio invalido (Intenta recargar)",
+                    "contextMenus": {
+                        "createFolder": "Crear carpeta",
+                        "createFile":   "Crear archivo",
+                        "newScene":     "Nueva escena",
+                        "newMaterial":  "Nuevo material",
+                        "open":         "Abierto",
+                        "delete":       "Eliminar",
+                        "properties":   "Característicos"
+                    }
+                }
             },
             "discordRPC": {
                 "title":        "Shadow Motor",
@@ -77,7 +102,8 @@ module.exports = [
             "editor": {
                 "editorwindowtitle": "Shadow Editor",
                 "mainTab":           "Main",
-                "editorTab":         "Code Editor"
+                "editorTab":         "Code Editor",
+                "helpButton":        "Help"
             },
             "codeEditorTab": {
                 "cmenuButton1": "Open Command Menu",
@@ -89,6 +115,30 @@ module.exports = [
                 "cmenuButton7": "Undo",
                 "cmenuButton8": "Redo",
                 "cmenuButton9": "Close File"
+            },
+            "mainTab": {
+                "sidepanel": {
+                    "meshesButton": "Meshes",
+                    "lightsButton": "Lights",
+                    "cinematicsButton": "Cinematics",
+                    "volumesButton": "Volumes"
+                },
+                "fileExplorer": {
+                    "projectRootLabel": "Project",
+                    "moveUpDir": "Move Up",
+                    "reload": "Reload",
+                    "directoryIsEmpty": "Directory is empty",
+                    "invalidDirectory": "Invalid Directory (Try reloading)",
+                    "contextMenus": {
+                        "createFolder": "Create Folder",
+                        "createFile":   "Create File",
+                        "newScene":     "New Scene",
+                        "newMaterial":  "New Material",
+                        "open":         "Open",
+                        "delete":       "Delete",
+                        "properties":   "Properties"
+                    }
+               }
             },
             "discordRPC": {
                 "title":        "Shadow Engine",
@@ -126,7 +176,8 @@ module.exports = [
             "editor": {
                 "editorwindowtitle": "gobble gobble",
                 "mainTab":           "gobble",
-                "editorTab":         "gobble gobble"
+                "editorTab":         "gobble gobble",
+                "helpButton":        "gobble"
             },
             "codeEditorTab": {
                 "cmenuButton1": "gobble gobble gobble",
@@ -138,6 +189,30 @@ module.exports = [
                 "cmenuButton7": "gobble",
                 "cmenuButton8": "gobble",
                 "cmenuButton9": "gobble gobble"
+            },
+            "mainTab": {
+                "sidepanel": {
+                    "meshesButton": "gobble",
+                    "lightsButton": "gobble",
+                    "cinematicsButton": "gobble",
+                    "volumesButton": "gobble"
+                },
+                "fileExplorer": {
+                    "projectRootLabel": "gobble",
+                    "moveUpDir": "gobble gobble",
+                    "reload": "gobble",
+                    "directoryIsEmpty": "gobble gobble gobble",
+                    "invalidDirectory": "gobble gobble (Try regobbling)",
+                    "contextMenus": {
+                        "createFolder": "gobble gobble",
+                        "createFile":   "gobble gobble",
+                        "newScene":     "gobble gobble",
+                        "newMaterial":  "gobble gobble",
+                        "open":         "gobble",
+                        "delete":       "gobble",
+                        "properties":   "gobble"
+                    }
+               }
             },
             "discordRPC": {
                 "title":        "Gobble Gobble",

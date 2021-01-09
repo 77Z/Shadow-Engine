@@ -22,12 +22,78 @@
     <div id="terminal-resize-safety"></div>
     <div class="grid-container" id="grid-container">
         <div class="header"></div>
-        <div class="sidepanel"></div>
+        <div class="sidepanel">
+            <button class="sidepanel-button sidepanel-button-meshes" id="sidepanel-button-meshes" title="Meshes"></button>
+            <button class="sidepanel-button sidepanel-button-lights" id="sidepanel-button-lights" title="Lights"></button>
+            <button class="sidepanel-button sidepanel-button-cinematics" id="sidepanel-button-cinematics" title="Cinematics"></button>
+            <button class="sidepanel-button sidepanel-button-volumes" id="sidepanel-button-volumes" title="Volumes"></button>
+
+            <div class="sidepanel-container" id="sidepanel-meshes-container">
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Meshes.png">
+                    <span>Cube</span>
+                </div>
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Sphere.png">
+                    <span>Sphere</span>
+                </div>
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Cylinder.png">
+                    <span>Cylinder</span>
+                </div>
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Cone.png">
+                    <span>Cone</span>
+                </div>
+            </div>
+            <div class="sidepanel-container" id="sidepanel-lights-container">
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Lights.png">
+                    <span>Ambient Light</span>
+                </div>
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Lights.png">
+                    <span>Directional Light</span>
+                </div>
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Lights.png">
+                    <span>Hemisphere Light</span>
+                </div>
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Lights.png">
+                    <span>Point Light</span>
+                </div>
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Lights.png">
+                    <span>Rectangle Area Light</span>
+                </div>
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Lights.png">
+                    <span>Spot Light</span>
+                </div>
+            </div>
+            <div class="sidepanel-container" id="sidepanel-cinematics-container">
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Perspective.png">
+                    <span>Perspective Camera</span>
+                </div>
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Ortho.png">
+                    <span>Orthographic Camera</span>
+                </div>
+            </div>
+            <div class="sidepanel-container" id="sidepanel-volumes-container">
+                <div class="sidepanel-item">
+                    <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Volumes.png">
+                    <span>Fog</span>
+                </div>
+            </div>
+        </div>
         <div class="viewport" id="vp-container"></div>
         <div class="inspector"></div>
         <div class="file-ex">
             <div class="uri-bar-container" id="uri-bar-container">
-                <span class="pre">Project:</span>
+                <span class="pre" id="projectRootLabel">Project:</span>
                 <input type="text" value="/" id="uriinput">
             </div>
             <button class="directory-up-btn" id="dirupbtn"></button>

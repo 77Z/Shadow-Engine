@@ -37,5 +37,5 @@
         "xtr1common": "cpp",
         "xutility": "cpp"
     },
-    "discord.enabled": false
+    "discord.enabled": true
 }

@@ -102,9 +102,10 @@ var preallocatedmaintabname = "";
 var preallocatededitortabname = "";
 
 window.onload = function() {
-    document.title            = localeData.data.editor.editorwindowtitle;
-    preallocatedmaintabname   = localeData.data.editor.mainTab;
-    preallocatededitortabname = localeData.data.editor.editorTab;
+    document.title                                  = localeData.data.editor.editorwindowtitle;
+    preallocatedmaintabname                         = localeData.data.editor.mainTab;
+    preallocatededitortabname                       = localeData.data.editor.editorTab;
+    document.getElementById("help-popup").innerText = localeData.data.editor.helpButton;
 
     readyToLoadTabs();
 };
@@ -132,6 +133,9 @@ function readyToLoadTabs() {
         switch(relaytab) {
             case "code-editor":
                 document.getElementById(editortabId).contentWindow.postMessage("LOC:" /* Locale Data */ + JSON.stringify(localeData), "*");
+                break;
+            case "main":
+                document.getElementById(maintabId).contentWindow.postMessage("LOC:" /* Locale Data */ + JSON.stringify(localeData), "*");
                 break;
         }
     });

@@ -6,6 +6,7 @@ if (process.platform == "linux") {
     shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow Engine";
 }
 
+const DiscordRPCenabled = false; // * Move this to a config file
 const defaultProtocolClient = "shadowengine";
 const {app, BrowserWindow, ipcMain, Menu, MenuItem, dialog, globalShortcut} = require("electron");
 const showLog = require("./scripts/showLog");
@@ -576,7 +577,7 @@ Sorry about that.`,
     ipcMain.on("ShadowDiscordRPC.setStatus", (event, data) => {
         DiscordRPCData = data;
 
-        console.log(DiscordRPCData);
+        //console.log(DiscordRPCData);
         //createDebugDialogBox("external source set discord status to " + JSON.stringify(DiscordRPCData));
     });
 
@@ -621,6 +622,9 @@ Sorry about that.`,
                 break;
             case "editor":
                 event.sender.send("main.localization.returnLocales", localeData.data.editor);
+                break;
+            case "main-tab":
+                event.sender.send("main.localization.returnRelayLocales", "main", localeData.data.mainTab);
                 break;
         }
     });
@@ -697,16 +701,17 @@ async function setActivity() {
 
     rpc.setActivity(DiscordRPCData);
 }
-
+if (DiscordRPCenabled) {
 rpc.on("ready", () => {
-    setActivity();
-
-    setInterval(() => {
         setActivity();
-    }, 15e3)
-});
 
-rpc.login({ clientId }).catch(console.error);
+        setInterval(() => {
+            setActivity();
+        }, 15e3)
+    });
+
+    rpc.login({ clientId }).catch(console.error);
+}
 
 app.removeAsDefaultProtocolClient(defaultProtocolClient);
 app.setAsDefaultProtocolClient(defaultProtocolClient);

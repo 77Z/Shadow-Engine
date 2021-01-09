@@ -8,6 +8,7 @@ const fs = require("fs");
 const getProject = require("../../scripts/get-project");
 const ipc = require("electron").ipcRenderer;
 const child_process = require("child_process");
+const { ipcRenderer } = require("electron");
 
 var FileExplorerItemHover = null;
 
@@ -126,27 +127,56 @@ document.getElementById("file-ex-item-container").addEventListener("contextmenu"
     fileExItemContainerCreate(e);
 });
 
+var fileExContextMenuLocales = {
+    createFolder: "",
+    createFile: "",
+    newScene: "",
+    newMaterial: "",
+    open: "",
+    delete: "",
+    properties: ""
+}
+
 function fileExItemContainerCreate(e) {
     if (FileExplorerItemHover == null) {
         e.preventDefault();
         ContextMenu().create({items:[
             {
                 type: "label",
-                name: "Create Folder",
+                name: fileExContextMenuLocales.createFolder,
                 click() {
                     ipc.send("main-tab.createFolder", uriInput.value);
                 }
             },
             {
                 type: "label",
-                name: "Create File",
+                name: fileExContextMenuLocales.createFile,
                 click() {
                     ipc.send("main-tab.createFile", uriInput.value);
                 }
+            },
+            {
+                type: "sep",
+            },
+            {
+                type: "label",
+                name: fileExContextMenuLocales.newScene,
+                click() {}
+            },
+            {
+                type: "label",
+                name: fileExContextMenuLocales.newMaterial,
+                click() {}
             }
         ]}, null, e.clientX, e.clientY);
     }
 }
+
+/* 
+    File Explorer Localization, put in global scope so that handleLocales() can access them
+*/
+var directoryIsEmptyLocale = "Directory is empty"; //Default english values in case other langs fail to load in time
+var invalidDirectoryLocale = "Invalid Directory (Try reloading)";
 
 
 var fileExplorer = {
@@ -163,7 +193,7 @@ var fileExplorer = {
             if (!exists) {
                 var notValid = document.createElement("div");
                 notValid.setAttribute("class", "invalid-dir");
-                notValid.innerText = "Invalid Directory (Try reloading)";
+                notValid.innerText = invalidDirectoryLocale;
                 fileContainer.appendChild(notValid);
             } else {
                 fs.readdir(fullDir, (err, files) => {
@@ -171,7 +201,7 @@ var fileExplorer = {
                     if (files.length == 0) {
                         var notValid = document.createElement("div");
                         notValid.setAttribute("class", "invalid-dir");
-                        notValid.innerText = "Directory is empty ¯\\_(ツ)_/¯";
+                        notValid.innerText = directoryIsEmptyLocale + " ¯\\_(ツ)_/¯"; //easiar to add the shrug after the fact, and its not words, so it's supported in every language
                         notValid.addEventListener("contextmenu", (e) => {
                             e.preventDefault();
                             ContextMenu().create({items:[
@@ -188,6 +218,19 @@ var fileExplorer = {
                                     click() {
                                         ipc.send("main-tab.createFile", uriInput.value);
                                     }
+                                },
+                                {
+                                    type: "sep",
+                                },
+                                {
+                                    type: "label",
+                                    name: "New Scene",
+                                    click() {}
+                                },
+                                {
+                                    type: "label",
+                                    name: "New Material",
+                                    click() {}
                                 }
                             ]}, null, e.clientX, e.clientY);
                         });
@@ -232,18 +275,18 @@ var fileExplorer = {
                     items: [
                         {
                             type: "label",
-                            name: "Open",
+                            name: fileExContextMenuLocales.open,
                             click() {}
                         },
                         {
                             type: "label",
-                            name: "Delete",
+                            name: fileExContextMenuLocales.delete,
                             click() {}
                         },
                         { type: "sep" },
                         {
                             type: "label",
-                            name: "Properties",
+                            name: fileExContextMenuLocales.properties,
                             click() {
                                 var directory = document.getElementById("uriinput").value;
                                 var fileLoc = shadowEngineDataDir + "\\projects\\" + getProject() + "\\Source" + directory + "\\" + FileExplorerItemHoverSaveState;
@@ -271,113 +314,81 @@ var fileExplorer = {
 
                 switch(fileExt) {
                     case "js":
-                        img.src = "../../media/img/ui/editor/FileExplorer/Javascript.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/Javascript.png"; break;
                     case "cs":
-                        img.src = "../../media/img/ui/editor/FileExplorer/C-Sharp.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/C-Sharp.png"; break;
                     case "java":
-                        img.src = "../../media/img/ui/editor/FileExplorer/Java.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/Java.png"; break;
                     case "rs":
-                        img.src = "../../media/img/ui/editor/FileExplorer/Rust.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/Rust.png"; break;
                     case "cpp":
-                        img.src = "../../media/img/ui/editor/FileExplorer/Cpp.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/Cpp.png"; break;
                     case "h":
-                        img.src = "../../media/img/ui/editor/FileExplorer/h.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/h.png"; break;
                     case "class":
-                        img.src = "../../media/img/ui/editor/FileExplorer/class.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/class.png"; break;
                     case "jar":
-                        img.src = "../../media/img/ui/editor/FileExplorer/jar.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/jar.png"; break;
                     case "ts":
-                        img.src = "../../media/img/ui/editor/FileExplorer/typescript.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/typescript.png"; break;
                     case "txt":
-                        img.src = "../../media/img/ui/editor/FileExplorer/txt.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/txt.png"; break;
                     case "log":
-                        img.src = "../../media/img/ui/editor/FileExplorer/log.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/log.png"; break;
                     case "bat":
-                        img.src = "../../media/img/ui/editor/FileExplorer/batch.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/batch.png"; break;
                     case "json":
-                        img.src = "../../media/img/ui/editor/FileExplorer/json.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/json.png"; break;
                     case "sproject":
-                        img.src = "../../media/img/ui/editor/FileExplorer/sproject.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/sproject.png"; break;
                     case "sec":
-                        img.src = "../../media/img/ui/editor/FileExplorer/sec.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/sec.png"; break;
                     case "sln":
-                        img.src = "../../media/img/ui/editor/FileExplorer/sln.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/sln.png"; break;
                     case "csproject":
-                        img.src = "../../media/img/ui/editor/FileExplorer/csproj.png";
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/csproj.png"; break;
                     case "code-workspace":
-                        img.src = "../../media/img/ui/placeholder.png"
-                        break;
+                        img.src = "../../media/img/ui/placeholder.png"; break;
                     case "png":
-                        img.src = "../../media/img/ui/placeholder.png"
-                        break;
+                        img.src = "../../media/img/ui/placeholder.png"; break;
                     case "jpg":
-                        img.src = "../../media/img/ui/placeholder.png"
-                        break;
+                        img.src = "../../media/img/ui/placeholder.png"; break;
                     case "bmp":
-                        img.src = "../../media/img/ui/placeholder.png"
-                        break;
+                        img.src = "../../media/img/ui/placeholder.png"; break;
                     case "jpeg":
-                        img.src = "../../media/img/ui/placeholder.png"
-                        break;
+                        img.src = "../../media/img/ui/placeholder.png"; break;
                     case "mp3":
-                        img.src = "../../media/img/ui/placeholder.png"
-                        break;
+                        img.src = "../../media/img/ui/placeholder.png"; break;
                     case "wav":
-                        img.src = "../../media/img/ui/placeholder.png";
-                        break;
+                        img.src = "../../media/img/ui/placeholder.png"; break;
                     case "flac":
-                        img.src = "../../media/img/ui/placeholder.png"
-                        break;
+                        img.src = "../../media/img/ui/placeholder.png"; break;
                     case "aac":
-                        img.src = "../../media/img/ui/placeholder.png"
-                        break;
+                        img.src = "../../media/img/ui/placeholder.png"; break;
                     case "ogg":
-                        img.src = "../../media/img/ui/placeholder.png"
-                        break;
+                        img.src = "../../media/img/ui/placeholder.png"; break;
                     case "blend":
-                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"; break;
                     case "blend1":
-                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"; break;
                     case "blend2":
-                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"; break;
                     case "blend3":
-                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"; break;
                     case "obj":
-                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"; break;
                     case "fbx":
-                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"; break;
                     case "gltf":
-                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"; break;
                     case "glb":
-                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"
-                        break;
+                        img.src = "../../media/img/ui/editor/FileExplorer/3d.png"; break;
+                    case "Scene":
+                        img.src = "../../media/img/ui/editor/FileExplorer/Scene.png"; break;
+                    case "Mat":
+                        img.src = "../../media/img/ui/editor/FileExplorer/Material.png"; break;
                     default:
-                        img.src = "../../media/img/ui/placeholder.png";
-                        break;
+                        img.src = "../../media/img/ui/placeholder.png"; break;
                 }
 
                 //This is bad spahaghetti code  |
@@ -700,6 +711,9 @@ function messageFromEditor(event) {
 
             document.getElementById("viewport-terminal").contentWindow.postMessage(dataToForward, "*");
             break;
+        case "LOC": /* Locale Data */
+            handleLocales(event.data.substr(4));
+            break;
     }
 
     return;
@@ -748,3 +762,80 @@ function escapeBackslash(input = null) {
             document.getElementById("terminal-resize-safety").style.display = "none";
         });
     });
+
+
+
+
+/* 
+    SIDEPANEL CODE
+*/
+
+function initSidepanel() {
+    document.getElementById("sidepanel-button-meshes").addEventListener("click", () => {
+        resetSidepanel(); document.getElementById("sidepanel-button-meshes").style.backgroundColor = "#ff4500";
+        document.getElementById("sidepanel-meshes-container").style.display = "block";
+    });
+
+    document.getElementById("sidepanel-button-lights").addEventListener("click", () => {
+        resetSidepanel(); document.getElementById("sidepanel-button-lights").style.backgroundColor = "#ff4500";
+        document.getElementById("sidepanel-lights-container").style.display = "block";
+    });
+
+    document.getElementById("sidepanel-button-cinematics").addEventListener("click", () => {
+        resetSidepanel(); document.getElementById("sidepanel-button-cinematics").style.backgroundColor = "#ff4500";
+        document.getElementById("sidepanel-cinematics-container").style.display = "block";
+    });
+
+    document.getElementById("sidepanel-button-volumes").addEventListener("click", () => {
+        resetSidepanel(); document.getElementById("sidepanel-button-volumes").style.backgroundColor = "#ff4500";
+        document.getElementById("sidepanel-volumes-container").style.display = "block";
+    });
+
+
+    function resetSidepanel() {
+        document.getElementById("sidepanel-button-meshes").style.backgroundColor     = "unset";
+        document.getElementById("sidepanel-button-lights").style.backgroundColor     = "unset";
+        document.getElementById("sidepanel-button-cinematics").style.backgroundColor = "unset";
+        document.getElementById("sidepanel-button-volumes").style.backgroundColor    = "unset";
+
+        document.getElementById("sidepanel-meshes-container").style.display = "none";
+        document.getElementById("sidepanel-lights-container").style.display = "none";
+        document.getElementById("sidepanel-cinematics-container").style.display = "none";
+        document.getElementById("sidepanel-volumes-container").style.display = "none";
+    }
+}
+initSidepanel();
+
+
+
+
+
+
+
+/*
+    Localization
+*/
+
+window.onload = function() {
+    ipcRenderer.send("localization.getLocales", "main-tab");
+};
+
+function handleLocales(localesin) {
+    var locales = JSON.parse(localesin);
+    document.getElementById("sidepanel-button-meshes").title     = locales.sidepanel.meshesButton;
+    document.getElementById("sidepanel-button-lights").title     = locales.sidepanel.lightsButton;
+    document.getElementById("sidepanel-button-cinematics").title = locales.sidepanel.cinematicsButton;
+    document.getElementById("sidepanel-button-volumes").title    = locales.sidepanel.volumesButton;
+
+    document.getElementById("projectRootLabel").innerText        = locales.fileExplorer.projectRootLabel + ":" // <-- for the semicolon seperator;
+    document.getElementById("dirupbtn").title                    = locales.fileExplorer.moveUpDir;
+    document.getElementById("dirreloadbtn").title                = locales.fileExplorer.reload;
+    directoryIsEmptyLocale                                       = locales.fileExplorer.directoryIsEmpty;
+    invalidDirectoryLocale                                       = locales.fileExplorer.invalidDirectory;
+    fileExContextMenuLocales.createFolder                        = locales.fileExplorer.contextMenus.createFolder;
+    fileExContextMenuLocales.createFile                          = locales.fileExplorer.contextMenus.createFile;
+    fileExContextMenuLocales.newScene                            = locales.fileExplorer.contextMenus.newScene;
+    fileExContextMenuLocales.newMaterial                         = locales.fileExplorer.contextMenus.newMaterial;
+    fileExContextMenuLocales.open                                = locales.fileExplorer.contextMenus.open;
+    fileExContextMenuLocales.delete                              = locales.fileExplorer.contextMenus.delete;
+}
