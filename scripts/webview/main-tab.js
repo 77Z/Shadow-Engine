@@ -822,20 +822,37 @@ window.onload = function() {
 
 function handleLocales(localesin) {
     var locales = JSON.parse(localesin);
-    document.getElementById("sidepanel-button-meshes").title     = locales.sidepanel.meshesButton;
-    document.getElementById("sidepanel-button-lights").title     = locales.sidepanel.lightsButton;
-    document.getElementById("sidepanel-button-cinematics").title = locales.sidepanel.cinematicsButton;
-    document.getElementById("sidepanel-button-volumes").title    = locales.sidepanel.volumesButton;
+    document.getElementById("sidepanel-button-meshes").title                   = locales.sidepanel.meshesButton;
+    document.getElementById("sidepanel-button-lights").title                   = locales.sidepanel.lightsButton;
+    document.getElementById("sidepanel-button-cinematics").title               = locales.sidepanel.cinematicsButton;
+    document.getElementById("sidepanel-button-volumes").title                  = locales.sidepanel.volumesButton;
 
-    document.getElementById("projectRootLabel").innerText        = locales.fileExplorer.projectRootLabel + ":" // <-- for the semicolon seperator;
-    document.getElementById("dirupbtn").title                    = locales.fileExplorer.moveUpDir;
-    document.getElementById("dirreloadbtn").title                = locales.fileExplorer.reload;
-    directoryIsEmptyLocale                                       = locales.fileExplorer.directoryIsEmpty;
-    invalidDirectoryLocale                                       = locales.fileExplorer.invalidDirectory;
-    fileExContextMenuLocales.createFolder                        = locales.fileExplorer.contextMenus.createFolder;
-    fileExContextMenuLocales.createFile                          = locales.fileExplorer.contextMenus.createFile;
-    fileExContextMenuLocales.newScene                            = locales.fileExplorer.contextMenus.newScene;
-    fileExContextMenuLocales.newMaterial                         = locales.fileExplorer.contextMenus.newMaterial;
-    fileExContextMenuLocales.open                                = locales.fileExplorer.contextMenus.open;
-    fileExContextMenuLocales.delete                              = locales.fileExplorer.contextMenus.delete;
+    document.getElementById("sidepanel-meshes-span-cube").innerText            = locales.sidepanel.meshes.cube;
+    document.getElementById("sidepanel-meshes-span-sphere").innerText          = locales.sidepanel.meshes.sphere;
+    document.getElementById("sidepanel-meshes-span-cylinder").innerText        = locales.sidepanel.meshes.cylinder;
+    document.getElementById("sidepanel-meshes-span-cone").innerText            = locales.sidepanel.meshes.cone;
+
+    document.getElementById("sidepanel-lights-span-ambient").innerText         = locales.sidepanel.lights.ambient;
+    document.getElementById("sidepanel-lights-span-directional").innerText     = locales.sidepanel.lights.directional;
+    document.getElementById("sidepanel-lights-span-hemisphere").innerText      = locales.sidepanel.lights.hemisphere;
+    document.getElementById("sidepanel-lights-span-point").innerText           = locales.sidepanel.lights.point;
+    document.getElementById("sidepanel-lights-span-rectangleArea").innerText   = locales.sidepanel.lights.rectangleArea;
+    document.getElementById("sidepanel-lights-span-spot").innerText            = locales.sidepanel.lights.spot;
+
+    document.getElementById("sidepanel-cinematics-span-perspective").innerText = locales.sidepanel.cinematics.perspective;
+    document.getElementById("sidepanel-cinematics-span-ortho").innerText       = locales.sidepanel.cinematics.ortho;
+
+    document.getElementById("sidepanel-volumes-span-fog").innerText            = locales.sidepanel.volumes.fog;
+
+    document.getElementById("projectRootLabel").innerText                      = locales.fileExplorer.projectRootLabel + ":" // <-- for the semicolon seperator;
+    document.getElementById("dirupbtn").title                                  = locales.fileExplorer.moveUpDir;
+    document.getElementById("dirreloadbtn").title                              = locales.fileExplorer.reload;
+    directoryIsEmptyLocale                                                     = locales.fileExplorer.directoryIsEmpty;
+    invalidDirectoryLocale                                                     = locales.fileExplorer.invalidDirectory;
+    fileExContextMenuLocales.createFolder                                      = locales.fileExplorer.contextMenus.createFolder;
+    fileExContextMenuLocales.createFile                                        = locales.fileExplorer.contextMenus.createFile;
+    fileExContextMenuLocales.newScene                                          = locales.fileExplorer.contextMenus.newScene;
+    fileExContextMenuLocales.newMaterial                                       = locales.fileExplorer.contextMenus.newMaterial;
+    fileExContextMenuLocales.open                                              = locales.fileExplorer.contextMenus.open;
+    fileExContextMenuLocales.delete                                            = locales.fileExplorer.contextMenus.delete;
 }

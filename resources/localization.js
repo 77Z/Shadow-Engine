@@ -47,7 +47,28 @@ module.exports = [
                     "meshesButton": "Engrane",
                     "lightsButton": "Luces",
                     "cinematicsButton": "Cinemática",
-                    "volumesButton": "Volúmenes"
+                    "volumesButton": "Volúmenes",
+                    "meshes": {
+                        "cube": "Cubo",
+                        "sphere": "Esfera",
+                        "cylinder": "Cilindro",
+                        "cone": "Cono"
+                    },
+                    "lights": {
+                        "ambient": "Luz ambiental",
+                        "directional": "Luz direccional",
+                        "hemisphere": "Luz del hemisferio",
+                        "point": "Luz ",
+                        "rectangleArea": "Luzpuntual de área rectangular",
+                        "spot": "Destacar"
+                    },
+                    "cinematics": {
+                        "perspective": "Cámara de perspectiva",
+                        "ortho": "Cámara ortográfica"
+                    },
+                    "volumes": {
+                        "fog": "Niebla"
+                    }
                 },
                 "fileExplorer": {
                     "projectRootLabel": "Proyecto",
@@ -121,7 +142,28 @@ module.exports = [
                     "meshesButton": "Meshes",
                     "lightsButton": "Lights",
                     "cinematicsButton": "Cinematics",
-                    "volumesButton": "Volumes"
+                    "volumesButton": "Volumes",
+                    "meshes": {
+                        "cube": "Cube",
+                        "sphere": "Sphere",
+                        "cylinder": "Cylinder",
+                        "cone": "Cone"
+                    },
+                    "lights": {
+                        "ambient": "Ambient Light",
+                        "directional": "Directional Light",
+                        "hemisphere": "Hemisphere Light",
+                        "point": "Point Light",
+                        "rectangleArea": "Rectangle Area Light",
+                        "spot": "Spot Light"
+                    },
+                    "cinematics": {
+                        "perspective": "Perspective Camera",
+                        "ortho": "Orthographic Camera"
+                    },
+                    "volumes": {
+                        "fog": "Fog"
+                    }
                 },
                 "fileExplorer": {
                     "projectRootLabel": "Project",
@@ -195,7 +237,28 @@ module.exports = [
                     "meshesButton": "gobble",
                     "lightsButton": "gobble",
                     "cinematicsButton": "gobble",
-                    "volumesButton": "gobble"
+                    "volumesButton": "gobble",
+                    "meshes": {
+                        "cube": "Cube",
+                        "sphere": "Sphere",
+                        "cylinder": "Cylinder",
+                        "cone": "Cone"
+                    },
+                    "lights": {
+                        "ambient": "gobble gobble",
+                        "directional": "gobble gobble",
+                        "hemisphere": "gobble gobble",
+                        "point": "gobble gobble",
+                        "rectangleArea": "gobble gobble gobble",
+                        "spot": "gobble gobble"
+                    },
+                    "cinematics": {
+                        "perspective": "gobble gobblera",
+                        "ortho": "gobble gobblera"
+                    },
+                    "volumes": {
+                        "fog": "gobble"
+                    }
                 },
                 "fileExplorer": {
                     "projectRootLabel": "gobble",

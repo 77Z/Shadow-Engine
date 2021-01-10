@@ -380,7 +380,8 @@ function createWindow() {
             backgroundColor: "#222222",
             darkTheme: true,
             title: "Shadow Engine",
-            icon: "media\\img\\icons\\shadowengine.png"
+            icon: "media\\img\\icons\\shadowengine.png",
+            show: false
         });
         editor.loadURL(`file://${__dirname}/dom/editor.html`);
         editor.on("closed", function () {
@@ -423,6 +424,7 @@ Sorry about that.`,
         var ProjectBrowserKilled = false;
         editor.webContents.on("did-finish-load", function () {
             editor.webContents.send("load-proj", projectName);
+            editor.show();
             if (!ProjectBrowserKilled) {
                 event.sender.send("main.project-browser.kill");
                 ProjectBrowserKilled = true;

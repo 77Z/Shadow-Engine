@@ -18,7 +18,6 @@ const {BrowserWindow} = require("electron").remote;
 const ipcRenderer = require("electron").ipcRenderer;
 const trash = require("trash");
 const et = require("electron-tools");
-const { ipc } = require("../DiscordRPC/transports");
 
 document.body.onmousedown = function (e) {
     if (e.button == 1) return false;
