@@ -1,5 +1,6 @@
 module.exports = {
     "meta": {
+        "dimension": "3D",
         "clearColor": 0x222222  //0xe5e5e5 for lIgHt ThEmE
     },
     "cameras": [
@@ -30,11 +31,17 @@ module.exports = {
         {
             "id": "object1",
             "type": "box-geometry",
-            "boxType":  { "x": 1, "y": 2, "z": 1 },
+            "boxType":  { "x": 1, "y": 1, "z": 1 },
             "location": { "x": 0, "y": 0, "z": 0 },
             "rotation": { "x": 0.5, "y": 0.5, "z": 0.5 },
             "scale":    { "x": 1, "y": 1, "z": 1 },
-            "materialLocation": "#sddr/BasicMaterial.Mat" // #sddr expands to shadowEngineDataDir
+            "materialLocation": "#sddr/engine-data/BasicMaterial.Mat" // #sddr expands to shadowEngineDataDir
+            /*
+            "materialLocation": "#sddr/engine-data/BasicMaterial.Mat" // Shadow Engine Data Directory (C:/Users/Owner/AppData/Roaming/Shadow Engine OR /home/Owner/Shadow Engine)
+            "materialLocation": "#home/AppData/Roaming/Shadow Engine/engine-data/BasicMaterial.mat", //homedir macro
+            "materialLocation": "$C:/Users/Owner/AppData/Roaming/Shadow Engine/engine-data/BasicMaterial.mat", // Custom location
+            "materialLocation": "/../../engine-data/BasicMaterial.mat", // Source Folder of project
+            */
         }
     ]
 }

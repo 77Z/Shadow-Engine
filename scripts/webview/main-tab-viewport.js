@@ -1,7 +1,17 @@
-const THREE = require("../../three/build/three");
+//Global
+var shadowEngineDataDir;
+if (process.platform == "linux") {
+    shadowEngineDataDir = require("os").homedir + "/Shadow Engine";
+} else if (process.platform == "win32") {
+    shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow Engine";
+}
+
+const THREE = require("three");
 //const PointerLockControls = require("../../node_modules/three/examples/jsm/controls/PointerLockControls");
 //const { PointerLockControls } = require("../../three/examples/jsm/controls/PointerLockControls"); //import { PointerLockControls } from "../../three/examples/jsm/controls/PointerLockControls";
 const JSON5 = require("json5"); // JSON5 for reading things like scene files
+const { FirstPersonControls } = require("../../scripts/engine/FirstPersonControls");
+const getProjectName = require("../../scripts/get-project"); // <- Function
 
 const vpContainer = document.getElementById("vp-container");
 var activeCamera;
@@ -10,6 +20,10 @@ var viewportScene;
 fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", (err, data) => {
     if (err) throw err;
     var parsedData = JSON5.parse(data);
+
+    if (parsedData.meta.dimension !== "3D") {
+        console.warn("SHADOW3D: WARNING, Can't use type " + parsedData.meta.dimension + " with Shadow3D, continuning");
+    }
 
     viewportScene = new THREE.Scene();
 
@@ -58,11 +72,17 @@ fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", 
         switch(parsedData.objects[i].type) {
             case "box-geometry": {
                 var boxGeometry = new THREE.BoxGeometry(parsedData.objects[i].boxType.x, parsedData.objects[i].boxType.y, parsedData.objects[i].boxType.z);
-                var box = new THREE.Mesh(boxGeometry, tempMaterial);
+
+                //Get material location
+                var unparsedMatLocation = parsedData.objects[i].materialLocation;
+                var parsedMaterial =  parseMaterial(unparsedMatLocation); //finished material to apply to mesh :D
+
+                var box = new THREE.Mesh(boxGeometry, parsedMaterial);
                 box.position.set(parsedData.objects[i].location.x, parsedData.objects[i].location.y, parsedData.objects[i].location.z);
                 box.rotation.set(parsedData.objects[i].rotation.x, parsedData.objects[i].rotation.y, parsedData.objects[i].rotation.z);
                 box.scale.set   (parsedData.objects[i].scale.x   , parsedData.objects[i].scale.y   , parsedData.objects[i].scale.z   );
                 viewportScene.add(box);
+
                 break;
             }
             case "sphere-geometry": {
@@ -102,6 +122,8 @@ fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", 
 
 const robot = require("robotjs");
 const { remote } = require("electron");
+const { MeshBasicMaterial } = require("three"); // I love auto imports :D
+const { readFile } = require("fs");
 var viewportMouseisdown = false;
 var resetMousePosition;
 
@@ -134,7 +156,9 @@ var keydownEvents = {
     w: false,
     a: false,
     s: false,
-    d: false
+    d: false,
+
+    h: false
 };
 
 document.addEventListener("keydown", (e) => {
@@ -150,6 +174,10 @@ document.addEventListener("keydown", (e) => {
         keydownEvents.a = true;
     } else if (key == "d" && viewportMouseisdown) {
         keydownEvents.d = true;
+    }
+
+    if (key == "h" && viewportMouseisdown) {
+        keydownEvents.h = true;
     }
 });
 
@@ -167,6 +195,17 @@ document.addEventListener("keyup", (e) => {
     } else if (key == "d" && viewportMouseisdown) {
         keydownEvents.d = false;
     }
+
+    if (key == "h" && viewportMouseisdown) {
+        keydownEvents.h = false;
+    }
+});
+
+var mouseX = 0, mouseY = 0;
+
+document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
 });
 
 function animateViewportFrame() {
@@ -192,4 +231,92 @@ function animateViewportFrame() {
     } else if (keydownEvents.d) {
         //
     }
+
+    // Below is code that makes the active camera move when you move the mouse,
+    // i haven't written it as of writing this, and i looked at other implementations
+    // of this same thing in C++, but im not going to be doing those, because those
+    // involve PI and math wizardry, sooooo im going to do my "Awesome solution"
+
+    if (keydownEvents.h) {
+        activeCamera.rotation.x = 0;
+        activeCamera.rotation.y = 0;
+        activeCamera.rotation.z = 0;
+    }
+
+    if (viewportMouseisdown) {
+        //First get the middle of the viewport box on the frame (<- frame refers to the dimensions of the main tab)
+        var viewportBoxMiddlePosX = vpContainer.offsetLeft /* <- how far left the vpContainer is from the left of the frame */ + (vpContainer.clientWidth  / 2) /* <- Middle of the box */
+        var viewportBoxMiddlePosY = vpContainer.offsetTop  /* <- how far down the vpContainer is from the top  of the frame */ + (vpContainer.clientHeight / 2) /* <- Middle of the box */
+
+        //Then subtract the viewport middle position from the mouse position (on the frame that is) to calculate how much to move the cameras rotation
+        var mousePositionX = mouseX;
+        var mousePositionY = mouseY;
+
+        //ok for some reason they don't zero out when subtracted,
+        //so im gonna do something awful...
+        if (viewportBoxMiddlePosY - mousePositionY != 0) {
+            viewportBoxMiddlePosY = viewportBoxMiddlePosX - mousePositionY - (viewportBoxMiddlePosY - mousePositionY);
+        }
+
+        //activeCamera.rotation.x += (viewportBoxMiddlePosX - mousePositionX) / 100;
+        activeCamera.rotation.x += (viewportBoxMiddlePosY - mousePositionY) / 10000;
+        console.log(viewportBoxMiddlePosY - mousePositionY);
+    }
+
+
+}
+
+
+function parseMaterial(materialLocation) {
+
+    var macroDir = ""; //The part of the location string that expands
+    var macrolength  = 0; // The length of the macro so it can be cut off later
+
+    switch(materialLocation.charAt(0)) {
+        case "#": // # means macro, and it can expand to a certain dir on the system
+            switch(materialLocation.substring(1, 5)) { //Nested switch statements woohoo!
+                case "home": //refers to the home dir on the system, ex: C:\Users\Owner or on linux: ~ or /home/Owner
+                    macroDir = require("os").homedir();
+                    macrolength = 5;
+                    break;
+                case "sddr": //refers to the Shadow Engine Data Directory (C:/Users/Owner/AppData/Roaming/Shadow Engine OR /home/Owner/Shadow Engine)
+                    macroDir = shadowEngineDataDir;
+                    macrolength = 5;
+                    break;
+            };
+            break;
+        case "$": // Set it to nothing because the full directory is shown
+            macroDir = "";
+            macrolength = 1;
+            break;
+        case "/":
+            macroDir = shadowEngineDataDir + "/projects/" + getProjectName();
+            macrolength = 0;
+            break;
+    };
+
+    var dirAfterMacroRemoval = materialLocation.slice(macrolength); //this is the other half of the directory
+
+    var fulldir = macroDir + dirAfterMacroRemoval;
+    readFile(fulldir, "utf-8", (err, data) => {
+        if (err) throw err;
+
+        var materialObject = JSON5.parse(data);
+
+        var exportMaterial;
+        if (materialObject.meta.materialType == "basic") {
+            exportMaterial = new MeshBasicMaterial({
+                color: materialObject.basicMaterial.color,
+                transparent: materialObject.basicMaterial.transparent,
+                opacity: materialObject.basicMaterial.opacity
+            });
+
+            console.log(`New Material Initialized
+Color: ${materialObject.basicMaterial.color}
+transparent: ${materialObject.basicMaterial.transparent}
+opacity: ${materialObject.basicMaterial.opacity}`);
+        }
+
+        return exportMaterial;
+    });
 }
