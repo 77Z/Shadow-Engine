@@ -23,6 +23,7 @@ const isDev = require("electron-is-dev");
 const homedir = os.homedir();
 const localizationData = require("./resources/localization");
 const engineConfig = JSON.parse(fs.readFileSync(shadowEngineDataDir + "\\engine-data\\config.json", "utf-8"));
+const JSON5 = require("json5");
 
 const availableLocales = [
     {
@@ -112,48 +113,51 @@ app.on('ready', function() {
             if (!exists) {
                 fs.mkdir(shadowEngineDataDir, (err) => {
                     if (err) throw err;
-                    fs.mkdir(shadowEngineDataDir + "\\engine-data", (err) => {
+                    fs.mkdir(shadowEngineDataDir + "/engine-data", (err) => {
                         if (err) throw err;
-                        fs.writeFile(shadowEngineDataDir + "\\engine-data\\settings.sec", 'frame:false\n', (err) => {
+                        fs.writeFile(shadowEngineDataDir + "/engine-data/settings.sec", 'frame:false\n', (err) => {
                             if (err) throw err;
-                            fs.mkdir(shadowEngineDataDir + "\\projects", (err) => {
+                            fs.mkdir(shadowEngineDataDir + "/projects", (err) => {
                                 if (err) throw err;
-                                fs.writeFile(shadowEngineDataDir + "\\engine-data\\proj.sec", 'null\n', (err) => {
+                                fs.writeFile(shadowEngineDataDir + "/engine-data/proj.sec", 'null\n', (err) => {
                                     if (err) throw err;
-                                    fs.writeFile(shadowEngineDataDir + "\\engine-data\\run.log", "Nothing To See Here(yet)\r\n;)\r\n", (err) => {
+                                    fs.writeFile(shadowEngineDataDir + "/engine-data/run.log", "Nothing To See Here(yet)\r\n;)\r\n", (err) => {
                                         if (err) throw err;
-                                        fs.mkdir(shadowEngineDataDir + "\\plugins", (err) => {
+                                        fs.mkdir(shadowEngineDataDir + "/plugins", (err) => {
                                             if (err) throw err;
-                                            fs.mkdir(shadowEngineDataDir + "\\plugins\\DiscordRPC", (err) => {
+                                            fs.mkdir(shadowEngineDataDir + "/plugins/DiscordRPC", (err) => {
                                                 if (err) throw err;
-                                                fs.mkdir(shadowEngineDataDir + "\\plugins\\DiscordRPC\\transports", (err) => {
+                                                fs.mkdir(shadowEngineDataDir + "/plugins/DiscordRPC/transports", (err) => {
                                                     if (err) throw err;
-                                                    fs.copyFile(shadowProgramDir + "\\DiscordRPC\\client.js", shadowEngineDataDir + "\\plugins\\DiscordRPC\\client.js", (err) => {
+                                                    fs.copyFile(shadowProgramDir + "/DiscordRPC/client.js", shadowEngineDataDir + "/plugins/DiscordRPC/client.js", (err) => {
                                                         if (err) throw err;
-                                                        fs.copyFile(shadowProgramDir + "\\DiscordRPC\\constants.js", shadowEngineDataDir + "\\plugins\\DiscordRPC\\constants.js", (err) => {
+                                                        fs.copyFile(shadowProgramDir + "/DiscordRPC/constants.js", shadowEngineDataDir + "/plugins/DiscordRPC/constants.js", (err) => {
                                                             if (err) throw err;
-                                                            fs.copyFile(shadowProgramDir + "\\DiscordRPC\\index.js", shadowEngineDataDir + "\\plugins\\DiscordRPC\\index.js", (err) => {
+                                                            fs.copyFile(shadowProgramDir + "/DiscordRPC/index.js", shadowEngineDataDir + "/plugins/DiscordRPC/index.js", (err) => {
                                                                 if (err) throw err;
-                                                                fs.copyFile(shadowProgramDir + "\\DiscordRPC\\util.js", shadowEngineDataDir + "\\plugins\\DiscordRPC\\util.js", (err) => {
+                                                                fs.copyFile(shadowProgramDir + "/DiscordRPC/util.js", shadowEngineDataDir + "/plugins/DiscordRPC/util.js", (err) => {
                                                                     if (err) throw err;
-                                                                    fs.copyFile(shadowProgramDir + "\\DiscordRPC\\transports\\index.js", shadowEngineDataDir + "\\plugins\\DiscordRPC\\transports\\index.js", (err) => {
+                                                                    fs.copyFile(shadowProgramDir + "/DiscordRPC/transports/index.js", shadowEngineDataDir + "/plugins/DiscordRPC/transports/index.js", (err) => {
                                                                         if (err) throw err;
-                                                                        fs.copyFile(shadowProgramDir + "\\DiscordRPC\\transports\\ipc.js", shadowEngineDataDir + "\\plugins\\DiscordRPC\\transports\\ipc.js", (err) => {
+                                                                        fs.copyFile(shadowProgramDir + "/DiscordRPC/transports/ipc.js", shadowEngineDataDir + "/plugins/DiscordRPC/transports/ipc.js", (err) => {
                                                                             if (err) throw err;
-                                                                            fs.copyFile(shadowProgramDir + "\\DiscordRPC\\transports\\websocket.js", shadowEngineDataDir + "\\plugins\\DiscordRPC\\transports\\websocket.js", (err) => {
+                                                                            fs.copyFile(shadowProgramDir + "/DiscordRPC/transports/websocket.js", shadowEngineDataDir + "/plugins/DiscordRPC/transports/websocket.js", (err) => {
                                                                                 if (err) throw err;
-                                                                                fs.mkdir(shadowEngineDataDir + "\\blob", (err) => {
-                                                                                    //fs.mkdir(shadowEngineDataDir + "\\blob\\" + uuid4, (err) => {
+                                                                                fs.mkdir(shadowEngineDataDir + "/blob", (err) => {
+                                                                                    //fs.mkdir(shadowEngineDataDir + "/blob/" + uuid4, (err) => {
                                                                                         if (err) throw err;
-                                                                                        fs.writeFile(shadowEngineDataDir + "\\engine-data\\config.json", "{\n    \"locale\": \"en_US\",\n    \"defaultProject\": null,\n    \"mostUsedProgrammingLang\": null,\n    \"codeEditor\": {\n        \"colorTheme\": \"solorized_dark\",\n        \"defaultFontSize\": 20\n    }\n}", (err) => {
+                                                                                        fs.writeFile(shadowEngineDataDir + "/engine-data/config.json", "{\n    \"locale\": \"en_US\",\n    \"defaultProject\": null,\n    \"mostUsedProgrammingLang\": null,\n    \"codeEditor\": {\n        \"colorTheme\": \"solorized_dark\",\n        \"defaultFontSize\": 20\n    }\n}", (err) => {
                                                                                             if (err) throw err;
-                                                                                            fs.mkdir(shadowEngineDataDir + "\\localization", (err) => {
+                                                                                            fs.mkdir(shadowEngineDataDir + "/localization", (err) => {
                                                                                                 if (err) throw err;
-                                                                                                fs.writeFile(shadowEngineDataDir + "\\engine-data\\locales.json", JSON.stringify(availableLocales), (err) => {
+                                                                                                fs.writeFile(shadowEngineDataDir + "/engine-data/locales.json", JSON.stringify(availableLocales), (err) => {
                                                                                                     if (err) throw err;
-                                                                                                    fs.writeFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", JSON.stringify(require("./resources/DefaultScene")), (err) => {
+                                                                                                    fs.writeFile(shadowEngineDataDir + "/engine-data/DefaultScene.Scene", JSON5.stringify(require("./resources/DefaultScene")), (err) => {
                                                                                                         if (err) throw err;
-                                                                                                        createWindow();
+                                                                                                        fs.writeFile(shadowEngineDataDir + "/engine-data/BasicMaterial.Mat", JSON5.stringify(require("./resources/BasicMaterial")), (err) => {
+                                                                                                            if (err) throw err;
+                                                                                                            createWindow();
+                                                                                                        });
                                                                                                     });
                                                                                                 });
                                                                                             })
@@ -197,73 +201,6 @@ app.on('ready', function() {
         });
     }
 });
-
-/* function linuxStartMode() {
-    fs.exists(shadowEngineDataDir, (exists, err) => {
-        if (err) throw err;
-        if (!exists) {
-            fs.mkdir(shadowEngineDataDir, (err) => {
-                if (err) throw err;
-                fs.mkdir(shadowEngineDataDir + "/engine-data", (err) => {
-                    if (err) throw err;
-                    fs.writeFile(shadowEngineDataDir + "/engine-data/settings.sec", 'frame:false\n', (err) => {
-                        if (err) throw err;
-                        fs.mkdir(shadowEngineDataDir + "/projects", (err) => {
-                            if (err) throw err;
-                            fs.writeFile(shadowEngineDataDir + "/engine-data/proj.sec", 'null\n', (err) => {
-                                if (err) throw err;
-                                fs.writeFile(shadowEngineDataDir + "/engine-data/run.log", "Nothing To See Here(yet)\r\n;)\r\n", (err) => {
-                                    if (err) throw err;
-                                    fs.mkdir(shadowEngineDataDir + "/plugins", (err) => {
-                                        if (err) throw err;
-                                        fs.mkdir(shadowEngineDataDir + "/plugins/DiscordRPC", (err) => {
-                                            if (err) throw err;
-                                            fs.mkdir(shadowEngineDataDir + "/plugins/DiscordRPC/transports", (err) => {
-                                                if (err) throw err;
-                                                fs.copyFile(shadowProgramDir + "/DiscordRPC/client.js", shadowEngineDataDir + "/plugins/DiscordRPC/client.js", (err) => {
-                                                    if (err) throw err;
-                                                    fs.copyFile(shadowProgramDir + "/DiscordRPC/constants.js", shadowEngineDataDir + "/plugins/DiscordRPC/constants.js", (err) => {
-                                                        if (err) throw err;
-                                                        fs.copyFile(shadowProgramDir + "/DiscordRPC/index.js", shadowEngineDataDir + "/plugins/DiscordRPC/index.js", (err) => {
-                                                            if (err) throw err;
-                                                            fs.copyFile(shadowProgramDir + "/DiscordRPC/util.js", shadowEngineDataDir + "/plugins/DiscordRPC/util.js", (err) => {
-                                                                if (err) throw err;
-                                                                fs.copyFile(shadowProgramDir + "/DiscordRPC/transports/index.js", shadowEngineDataDir + "/plugins/DiscordRPC/transports/index.js", (err) => {
-                                                                    if (err) throw err;
-                                                                    fs.copyFile(shadowProgramDir + "/DiscordRPC/transports/ipc.js", shadowEngineDataDir + "/plugins/DiscordRPC/transports/ipc.js", (err) => {
-                                                                        if (err) throw err;
-                                                                        fs.copyFile(shadowProgramDir + "/DiscordRPC/transports/websocket.js", shadowEngineDataDir + "/plugins/DiscordRPC/transports/websocket.js", (err) => {
-                                                                            if (err) throw err;
-                                                                            fs.mkdir(shadowEngineDataDir + "/blob", (err) => {
-                                                                                //fs.mkdir(shadowEngineDataDir + "\\blob\\" + uuid4, (err) => {
-                                                                                    if (err) throw err;
-                                                                                    fs.writeFile(shadowEngineDataDir + "/engine-data/config.json", "//This is the Shadow Engine Configuration File\n//Change settings from here :)\n\n{\n    \"defaultProject\": null,\n    //This will change the default dropdown\n    //on the project creation screen\n    \"mostUsedProgrammingLang\": null,\n    \"codeEditor\": {\n        \"colorTheme\": \"solorized_dark\",\n        \"defaultFontSize\": 20\n    }\n}", (err) => {
-                                                                                        if (err) throw err;
-                                                                                        createWindow();
-                                                                                    });
-                                                                                //});
-                                                                            });
-                                                                        });
-                                                                    });
-                                                                });
-                                                            });
-                                                        });
-                                                    });
-                                                });
-                                            });
-                                        });
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            })
-        } else {
-            createWindow();
-        }
-    });
-} */
 
 let mainWindow;
 let editor;
