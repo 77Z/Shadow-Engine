@@ -100,11 +100,13 @@ if (showEditorFPS) {
 
 var preallocatedmaintabname = "";
 var preallocatededitortabname = "";
+var preallocatedmaterialeditortabname = "";
 
 window.onload = function() {
     document.title                                  = localeData.data.editor.editorwindowtitle;
     preallocatedmaintabname                         = localeData.data.editor.mainTab;
     preallocatededitortabname                       = localeData.data.editor.editorTab;
+    preallocatedmaterialeditortabname               = localeData.data.editor.materialEditorTab;
     document.getElementById("help-popup").innerText = localeData.data.editor.helpButton;
 
     readyToLoadTabs();
@@ -116,6 +118,8 @@ function readyToLoadTabs() {
     var maintabId = tabs.create(preallocatedmaintabname, "main.html", false);
 
     var editortabId = tabs.create(preallocatededitortabname, "code-editor-tab.html", false);
+
+    var materialEditorTabId = tabs.create(preallocatedmaterialeditortabname, "material-editor.html", false);
 
     //Forwarding Data to tabs START
 

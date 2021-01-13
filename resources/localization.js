@@ -29,6 +29,7 @@ module.exports = [
                 "editorwindowtitle": "Editor de Shadow",
                 "mainTab":           "Principal",
                 "editorTab":         "Editor de código",
+                "materialEditorTab": "Editor de materiales",
                 "helpButton":        "Ayuda"
             },
             "codeEditorTab": {
@@ -124,6 +125,7 @@ module.exports = [
                 "editorwindowtitle": "Shadow Editor",
                 "mainTab":           "Main",
                 "editorTab":         "Code Editor",
+                "materialEditorTab": "Material Editor",
                 "helpButton":        "Help"
             },
             "codeEditorTab": {
@@ -219,6 +221,7 @@ module.exports = [
                 "editorwindowtitle": "gobble gobble",
                 "mainTab":           "gobble",
                 "editorTab":         "gobble gobble",
+                "materialEditorTab": "gobble gobble",
                 "helpButton":        "gobble"
             },
             "codeEditorTab": {
