@@ -47,9 +47,7 @@ function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
 }
 
 class NodeEditorEngine {
-    constructor(_canvas, _cursorOverlay) {
-        this.cursorOverlay = _cursorOverlay;
-
+    constructor(_canvas) {
         this.canvas = _canvas;
         this.ctx = this.canvas.getContext("2d");
         
@@ -141,8 +139,18 @@ class NodeEditorEngine {
             //if (parentThis.cursorOverlay == undefined) { throw new Error("cursorOverlay isn't defined"); }
 
             if (parentThis.cameraMoving) {
-                parentThis.cameraPosX = event.clientX;
-                parentThis.cameraPosY = event.clientY;
+
+                //get current camera pos
+                var pos1 = parentThis.cameraPosX;
+                var pos2 = parentThis.cameraPosY;
+
+                //get the cursor pos ON THE SCREEN
+                var pos3 = event.clientX - parentThis.cameraPosX;
+                var pos4 = event.clientY - parentThis.cameraPosY;
+
+                //final
+                parentThis.cameraPosX = pos1 + pos3;
+                parentThis.cameraPosY = pos2 + pos4;
             } else {
                 if (parentThis.checkNodeCollisons({ x: event.clientX, y: event.clientY }) !== false) {
                     if (parentThis.grabbing) {
@@ -194,7 +202,7 @@ class NodeEditorEngine {
 
 var editor = new NodeEditorEngine(document.getElementById("node-editor"));
 
-editor.createNode("Number Node pooooog", 100, 10);
+editor.createNode("Number Node", 100, 10);
 
 editor.createNode("NUMBERSSS", 400, 300);
 

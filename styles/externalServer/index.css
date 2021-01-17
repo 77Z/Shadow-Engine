@@ -1,0 +1,51 @@
+.httpsfield {
+    width: 45%;
+    height: 87.3%;
+    display: inline-block;
+    position: fixed;
+    right: 6px;
+}
+
+.httpfield {
+    width: 45%;
+    height: 41.5%;
+    display: inline-block;
+}
+
+.mime {
+    position: fixed;
+    bottom: 6px;
+    left: 0;
+    overflow-y: scroll;
+}
+
+.http {
+    position: fixed;
+    top: 29px;
+}
+
+/* Mime Table */
+
+table, th, td {
+    border: 1px solid #fff;
+}
+
+.th-fileex {
+    width: 100px;
+}
+
+.th-mime {
+    width: 200px;
+}
+
+td input {
+    background: #222;
+    border: none;
+    min-width: 0;
+    width: 100px;
+    caret-color: #ff4500;
+}
+
+.input-mime-field {
+    width: 190px;
+}

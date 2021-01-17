@@ -381,3 +381,16 @@
 .sidepanel-item {
     margin-left: 5px;
 }
+
+.header button {
+    height: 100%;
+    background: #0f0f0f;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    width: 120px;
+}
+
+.header button:hover {
+    background: #ff4500;
+}

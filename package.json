@@ -5,6 +5,7 @@
     "main": "main.js",
     "scripts": {
         "start": "electron .",
+        "start-es": "electron ./scripts/externalServer/externalServerMain.js",
         "rebuild": "electron-rebuild && npm rebuild --runtime=electron --target=8.5.2 --disturl=https://atom.io/download/atom-shell --abi=57",
         "test": "node test.js",
         "install-plugins": "node installPlugins.js",

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow External Server</title>
+    <link rel="stylesheet" href="../../fonts/fonts.css">
+    <link rel="stylesheet" href="../../styles/window.css">
+    <link rel="stylesheet" href="../../styles/externalServer/index.css">
+</head>
+<body>
+    <div class="grab-bar" id="grab"></div>
+    <div class="top" id="top">
+        <span class="title" id="window-title">Shadow External Server</span>
+    </div>
+    <div class="nav-icon close-nav-btn" id="c-nav" onclick="window.close()">
+        <svg class="" width="10px" height="11px" viewBox="0 0 10 11">
+            <g stroke="none" stroke-width="1" fill="#ffffff" id="close-btn-g" fill-rule="evenodd">
+                <g fill-rule="nonzero" class="fill">
+                    <path d="M5,4.82101759 L0.678982409,0.5 L0,1.17898241 L4.32101759,5.5 L0,9.82101759 L0.678982409,10.5 L5,6.17898241 L9.32101759,10.5 L10,9.82101759 L5.67898241,5.5 L10,1.17898241 L9.32101759,0.5 L5,4.82101759 Z"></path>
+                </g>
+            </g>
+        </svg>
+    </div>
+    <!-- No need for the renderer to be here 'cause we aren't minimizing or maximizing
+        <script src="../scripts/renderer.js"></script> -->
+
+    <div class="content">
+        <fieldset class="httpfield http"> <legend>HTTP Server</legend>
+            <label for="httpport">Port</label>
+            <input type="text" name="httpport" id="httpport" size="10" value="8080">
+        </fieldset>
+        <!-- TODO: MAKE THE MIME SYSTEM READ FROM A JSON FILE TO CREATE THE TABLE, THEN WHEN THE USER SAVES IT, WRITE BACK TO THAT SAME FILE WITH FORMATTED JSON(JSON.Stringify(data, false, 2) <- I THINK) -->
+        <fieldset class="httpfield mime"> <legend>MIME Types</legend>
+            <label for="mimedefault">Default MIME Type</label>
+            <input type="text" name="mimedefault" id="mimedefault" value="text/plain">
+            <table>
+                <tr>
+                    <th                  >Index</th>
+                    <th class="th-fileex">FileEx</th>
+                    <th class="th-mime"  >MIME</th>
+                </tr>
+                <tr>
+                    <td>#</td>
+                    <td><input value="html"></td>
+                    <td><input value="text/html" class="input-mime-field"></td>
+                </tr>
+                <tr>
+                    <td>#</td>
+                    <td><input value="htm"></td>
+                    <td><input value="text/html" class="input-mime-field"></td>
+                </tr>
+                <tr>
+                    <td>#</td>
+                    <td><input value="css"></td>
+                    <td><input value="text/css" class="input-mime-field"></td>
+                </tr>
+                <tr>
+                    <td>#</td>
+                    <td><input value="js"></td>
+                    <td><input value="text/javascript" class="input-mime-field"></td>
+                </tr>
+                <tr>
+                    <td>#</td>
+                    <td><input value="json"></td>
+                    <td><input value="application/json" class="input-mime-field"></td>
+                </tr>
+                <tr>
+                    <td>#</td>
+                    <td><input value="png"></td>
+                    <td><input value="image/png" class="input-mime-field"></td>
+                </tr>
+                <tr>
+                    <td>#</td>
+                    <td><input value="jpg"></td>
+                    <td><input value="image/jpeg" class="input-mime-field"></td>
+                </tr>
+                <tr>
+                    <td>#</td>
+                    <td><input value="jpeg"></td>
+                    <td><input value="image/jpeg" class="input-mime-field"></td>
+                </tr>
+                <tr>
+                    <td>#</td>
+                    <td><input value="ttf"></td>
+                    <td><input value="font/tff" class="input-mime-field"></td>
+                </tr>
+                <tr>
+                    <td>#</td>
+                    <td><input value="txt"></td>
+                    <td><input value="text/plain" class="input-mime-field"></td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset class="httpsfield"> <legend>HTTPS Server</legend>
+            <label for="httpsport">Port</label>
+            <input type="text" name="httpsport" id="httpsport" size="10" value="443">
+            <br>
+            <br>
+            <label for="httpscert">Certificate</label>
+            <input type="text" name="httpscert" id="httpscert">
+            <br>
+            <label for="httpscabundle">CA Bundle</label>
+            <input type="text" name="httpscabundle" id="httpscabundle">
+            <br>
+            <label for="httpsprivatekey">Private Key</label>
+            <input type="text" name="httpsprivatekey" id="httpsprivatekey">
+        </fieldset>
+    </div>
+</body>
+</html>
