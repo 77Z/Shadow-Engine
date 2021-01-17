@@ -6,13 +6,14 @@ if (process.platform == "linux") {
     shadowEngineDataDir = require("os").homedir + "\\AppData\\Roaming\\Shadow Engine";
 }
 
+//const shadowProgramDir = require("os").homedir() + "/AppData/Local/Programs/shadow-engine";
+
 const DiscordRPCenabled = false; // * Move this to a config file
 const defaultProtocolClient = "shadowengine";
 const {app, BrowserWindow, ipcMain, Menu, MenuItem, dialog, globalShortcut} = require("electron");
 const showLog = require("./scripts/showLog");
 const fs = require("fs");
 const devEnabled = false;
-const shadowProgramDir = require("os").homedir() + "\\AppData\\Local\\Programs\\shadow-engine";
 const { openProcessManager } = require("electron-process-manager");
 const { v4: uuid4 } = require("uuid");
 const startTimestamp = new Date();
@@ -22,8 +23,15 @@ var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
 const isDev = require("electron-is-dev");
 const homedir = os.homedir();
 const localizationData = require("./resources/localization");
-const engineConfig = JSON.parse(fs.readFileSync(shadowEngineDataDir + "\\engine-data\\config.json", "utf-8"));
 const JSON5 = require("json5");
+
+
+var engineConfig;
+if (!fs.fileExistsSync(shadowEngineDataDir + "/engine-data/config.json")) {
+    engineConfig = { locale: "en_US" };
+} else {
+    engineConfig = JSON.parse(fs.readFileSync(shadowEngineDataDir + "/engine-data/config.json", "utf-8"));
+}
 
 const availableLocales = [
     {
@@ -105,9 +113,9 @@ const editorFileMenuTemplate = [
 ];
 
 app.on('ready', function() {
-    if (process.platform == "linux") {
+    /*if (process.platform == "linux") {
         //linuxStartMode();
-    } else if (process.platform == "win32") {
+    } else */if (process.platform == "win32" || process.platform == "linux") {
         fs.exists(shadowEngineDataDir, (exists, err) => {
             if (err) throw err;
             if (!exists) {
@@ -129,7 +137,7 @@ app.on('ready', function() {
                                                 if (err) throw err;
                                                 fs.mkdir(shadowEngineDataDir + "/plugins/DiscordRPC/transports", (err) => {
                                                     if (err) throw err;
-                                                    fs.copyFile(shadowProgramDir + "/DiscordRPC/client.js", shadowEngineDataDir + "/plugins/DiscordRPC/client.js", (err) => {
+                                                    /* fs.copyFile(shadowProgramDir + "/DiscordRPC/client.js", shadowEngineDataDir + "/plugins/DiscordRPC/client.js", (err) => {
                                                         if (err) throw err;
                                                         fs.copyFile(shadowProgramDir + "/DiscordRPC/constants.js", shadowEngineDataDir + "/plugins/DiscordRPC/constants.js", (err) => {
                                                             if (err) throw err;
@@ -143,34 +151,33 @@ app.on('ready', function() {
                                                                             if (err) throw err;
                                                                             fs.copyFile(shadowProgramDir + "/DiscordRPC/transports/websocket.js", shadowEngineDataDir + "/plugins/DiscordRPC/transports/websocket.js", (err) => {
                                                                                 if (err) throw err;
-                                                                                fs.mkdir(shadowEngineDataDir + "/blob", (err) => {
-                                                                                    //fs.mkdir(shadowEngineDataDir + "/blob/" + uuid4, (err) => {
+                                                                                */ fs.mkdir(shadowEngineDataDir + "/blob", (err) => {
+                                                                                    if (err) throw err;
+                                                                                    fs.writeFile(shadowEngineDataDir + "/engine-data/config.json", "{\n    \"locale\": \"en_US\",\n    \"defaultProject\": null,\n    \"mostUsedProgrammingLang\": null,\n    \"codeEditor\": {\n        \"colorTheme\": \"solorized_dark\",\n        \"defaultFontSize\": 20\n    }\n}", (err) => {
                                                                                         if (err) throw err;
-                                                                                        fs.writeFile(shadowEngineDataDir + "/engine-data/config.json", "{\n    \"locale\": \"en_US\",\n    \"defaultProject\": null,\n    \"mostUsedProgrammingLang\": null,\n    \"codeEditor\": {\n        \"colorTheme\": \"solorized_dark\",\n        \"defaultFontSize\": 20\n    }\n}", (err) => {
+                                                                                        fs.mkdir(shadowEngineDataDir + "/localization", (err) => {
                                                                                             if (err) throw err;
-                                                                                            fs.mkdir(shadowEngineDataDir + "/localization", (err) => {
+                                                                                            fs.writeFile(shadowEngineDataDir + "/engine-data/locales.json", JSON.stringify(availableLocales), (err) => {
                                                                                                 if (err) throw err;
-                                                                                                fs.writeFile(shadowEngineDataDir + "/engine-data/locales.json", JSON.stringify(availableLocales), (err) => {
+                                                                                                fs.writeFile(shadowEngineDataDir + "/engine-data/DefaultScene.Scene", JSON5.stringify(require("./resources/DefaultScene")), (err) => {
                                                                                                     if (err) throw err;
-                                                                                                    fs.writeFile(shadowEngineDataDir + "/engine-data/DefaultScene.Scene", JSON5.stringify(require("./resources/DefaultScene")), (err) => {
+                                                                                                    fs.writeFile(shadowEngineDataDir + "/engine-data/BasicMaterial.Mat", JSON5.stringify(require("./resources/BasicMaterial")), (err) => {
                                                                                                         if (err) throw err;
-                                                                                                        fs.writeFile(shadowEngineDataDir + "/engine-data/BasicMaterial.Mat", JSON5.stringify(require("./resources/BasicMaterial")), (err) => {
-                                                                                                            if (err) throw err;
-                                                                                                            createWindow();
-                                                                                                        });
+                                                                                                        createWindow();
                                                                                                     });
                                                                                                 });
-                                                                                            })
-                                                                                        });
-                                                                                    //});
+                                                                                            });
+                                                                                        })
+                                                                                    });
                                                                                 });
+                                                                                /*
                                                                             });
                                                                         });
                                                                     });
                                                                 });
                                                             });
                                                         });
-                                                    });
+                                                    }); */
                                                 });
                                             });
                                         });
