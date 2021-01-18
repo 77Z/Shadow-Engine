@@ -13,7 +13,10 @@ function createWindow() {
         title: "Shadow External Server",
         resizable: false,
         minimizable: false,
-        maximizable: false
+        maximizable: false,
+        webPreferences: {
+            nodeIntegration: true
+        }
     });
 
     mainWindow.loadURL(`file://${__dirname}/../../dom/externalServer/index.html`);

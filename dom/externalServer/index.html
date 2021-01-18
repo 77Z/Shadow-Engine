@@ -33,62 +33,13 @@
         <!-- TODO: MAKE THE MIME SYSTEM READ FROM A JSON FILE TO CREATE THE TABLE, THEN WHEN THE USER SAVES IT, WRITE BACK TO THAT SAME FILE WITH FORMATTED JSON(JSON.Stringify(data, false, 2) <- I THINK) -->
         <fieldset class="httpfield mime"> <legend>MIME Types</legend>
             <label for="mimedefault">Default MIME Type</label>
-            <input type="text" name="mimedefault" id="mimedefault" value="text/plain">
-            <table>
+            <input type="text" name="mimedefault" id="mimedefault" placeholder="text/plain" readonly>
+            <button id="mimeopenconfigbtn">Open config in default editor</button>
+            <table id="mimetable">
                 <tr>
                     <th                  >Index</th>
                     <th class="th-fileex">FileEx</th>
                     <th class="th-mime"  >MIME</th>
-                </tr>
-                <tr>
-                    <td>#</td>
-                    <td><input value="html"></td>
-                    <td><input value="text/html" class="input-mime-field"></td>
-                </tr>
-                <tr>
-                    <td>#</td>
-                    <td><input value="htm"></td>
-                    <td><input value="text/html" class="input-mime-field"></td>
-                </tr>
-                <tr>
-                    <td>#</td>
-                    <td><input value="css"></td>
-                    <td><input value="text/css" class="input-mime-field"></td>
-                </tr>
-                <tr>
-                    <td>#</td>
-                    <td><input value="js"></td>
-                    <td><input value="text/javascript" class="input-mime-field"></td>
-                </tr>
-                <tr>
-                    <td>#</td>
-                    <td><input value="json"></td>
-                    <td><input value="application/json" class="input-mime-field"></td>
-                </tr>
-                <tr>
-                    <td>#</td>
-                    <td><input value="png"></td>
-                    <td><input value="image/png" class="input-mime-field"></td>
-                </tr>
-                <tr>
-                    <td>#</td>
-                    <td><input value="jpg"></td>
-                    <td><input value="image/jpeg" class="input-mime-field"></td>
-                </tr>
-                <tr>
-                    <td>#</td>
-                    <td><input value="jpeg"></td>
-                    <td><input value="image/jpeg" class="input-mime-field"></td>
-                </tr>
-                <tr>
-                    <td>#</td>
-                    <td><input value="ttf"></td>
-                    <td><input value="font/tff" class="input-mime-field"></td>
-                </tr>
-                <tr>
-                    <td>#</td>
-                    <td><input value="txt"></td>
-                    <td><input value="text/plain" class="input-mime-field"></td>
                 </tr>
             </table>
         </fieldset>
@@ -107,5 +58,7 @@
             <input type="text" name="httpsprivatekey" id="httpsprivatekey">
         </fieldset>
     </div>
+
+    <script src="../../scripts/externalServer/index.js"></script>
 </body>
 </html>

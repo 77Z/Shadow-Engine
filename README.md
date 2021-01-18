@@ -63,6 +63,9 @@ $ npm start
 Use the wiki to your advantage!
 [Wiki](https://github.com/77Z/Shadow-Engine/wiki)
 
+# Special Thanks
+Thanks to [Maha Mohan](https://github.com/MahaMohan) for being the first real star on this project besides me :')
+
 # Licence
 
 [Licence](https://github.com/77Z/Shadow-Engine/blob/master/LICENSE)
