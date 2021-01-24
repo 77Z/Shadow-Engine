@@ -1,3 +1,7 @@
+*.exe
+
+*.cpuprofile
+
 # General
 node_modules/
 dist/

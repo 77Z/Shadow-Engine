@@ -641,9 +641,6 @@ function ContextMenu() {
 
         //Calculate the postion for the context menu
 
-        /* contextMenuObj.style.left = x + "px";
-        contextMenuObj.style.top = y + "px"; */
-
         contextMenuObj.style.bottom = "unset";
         contextMenuObj.style.right = "unset";
 

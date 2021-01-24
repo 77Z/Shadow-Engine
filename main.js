@@ -27,7 +27,7 @@ const JSON5 = require("json5");
 
 
 var engineConfig;
-if (!fs.fileExistsSync(shadowEngineDataDir + "/engine-data/config.json")) {
+if (!fs.existsSync(shadowEngineDataDir + "/engine-data/config.json")) {
     engineConfig = { locale: "en_US" };
 } else {
     engineConfig = JSON.parse(fs.readFileSync(shadowEngineDataDir + "/engine-data/config.json", "utf-8"));
@@ -68,10 +68,36 @@ var DiscordRPCData = {
     smallImageText: localeData.data.discordRPC.details
 };
 
+var VERBOSE = false;
+
+  /*                              */
+ /*       LAUNCH ARGUMENTS      */
+/*                            */
+
 for (var i = 0; i < process.argv.length; i++) {
-    if (process.argv[i] == "--debug") {
-        DiscordRPCData.details = localeData.data.discordRPC.debugDetails;
-        DiscordRPCData.smallImageText = localeData.data.discordRPC.debugDetails;
+    switch(process.argv[i]) {
+        case "--debug": {
+            DiscordRPCData.details = localeData.data.discordRPC.debugDetails;
+            DiscordRPCData.smallImageText = localeData.data.discordRPC.debugDetails;
+        };
+        case "--verbose": {
+            VERBOSE = true;
+        };
+        case "-v": {
+            VERBOSE = true;
+        };
+        case "--help": {
+            console.log(`
+SHADOW ENGINE HELP -- ENGLISH
+
+Commands:
+ --debug           :    Run Shadow in debug mode
+ --verbose | -v    :    Run Shadow in verbose mode
+ --help            :    Display this message
+ --recover | -r    :    Run the Shadow Engine Recovery Tool
+`);
+            process.exit(0);
+        };
     }
 }
 

@@ -53,6 +53,8 @@ module.exports = function(filename) {
             return "Just a space is not allowed by Windows";
         } else if (filename == "null") {
             return "null is not allowed by Shadow Engine";
+        } else if (filename == "tooldebug") {
+            return "tooldebug is reserved by the Shadow Engine Recovery Tool";
         } else {
             //Further Checks
             //Check for a space or period at the start and end of the string.
