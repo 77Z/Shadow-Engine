@@ -523,7 +523,7 @@ Sorry about that.`,
         var confirm = dialog.showMessageBoxSync(mainWindow, {
             type: "warning",
             title: "Project Deletion",
-            message: "Due to an existing bug, you have to manually delete \"" + project + "\" with file explorer, then restart Shadow. You can right click on a project and open with file explorer to see where it is located",
+            message: "Due to an existing bug, you have to manually delete the \"" + project + "\" folder, then restart Shadow. You can right click on a project and open with file explorer to see where it is located",
             buttons: ["Ok"]
         });
 

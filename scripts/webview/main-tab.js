@@ -156,7 +156,7 @@ function fileExItemContainerCreate(e) {
                 }
             },
             {
-                type: "sep",
+                type: "sep"
             },
             {
                 type: "label",
@@ -805,8 +805,39 @@ initSidepanel();
 
 
 
+//Header click events
 
+document.getElementById("header-settings").addEventListener("click", function() {
+    ipcRenderer.send("tab-control-from-tab.createTab", "Project Settings", "projSettings.html");
+});
 
+document.getElementById("header-buildcompile").addEventListener("click", function() {
+    var x = document.getElementById("header-buildcompile").offsetLeft;
+    var y = document.getElementById("header-buildcompile").offsetTop;
+    console.log(`${x}, ${y}`);
+    ContextMenu().create({items:[
+        {
+            type: "label",
+            name: "Build lighting",
+            click() {}
+        },
+        {
+            type: "label",
+            name: "precompile Shaders",
+            click() {}
+        },
+        { type: "sep" },
+        {
+            type: "label",
+            name: "Build Debug",
+            click() {}
+        },
+        {
+            type: "label",
+            name: "Build Release Candidate"
+        }
+    ]}, null, 10, 10);
+});
 
 
 /*

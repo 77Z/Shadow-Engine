@@ -122,8 +122,8 @@ fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", 
 
 const robot = require("robotjs");
 const { remote } = require("electron");
-const { MeshBasicMaterial } = require("three"); // I love auto imports :D
-const { readFile } = require("fs");
+const { MeshBasicMaterial, MeshLambertMaterial } = require("three"); // I love auto imports :D
+const { readFile, readFileSync } = require("fs");
 var viewportMouseisdown = false;
 var resetMousePosition;
 
@@ -298,25 +298,31 @@ function parseMaterial(materialLocation) {
     var dirAfterMacroRemoval = materialLocation.slice(macrolength); //this is the other half of the directory
 
     var fulldir = macroDir + dirAfterMacroRemoval;
-    readFile(fulldir, "utf-8", (err, data) => {
-        if (err) throw err;
+    var data = readFileSync(fulldir, "utf-8");
+    var materialObject = JSON5.parse(data);
 
-        var materialObject = JSON5.parse(data);
-
-        var exportMaterial;
-        if (materialObject.meta.materialType == "basic") {
+    var exportMaterial;
+    switch (materialObject.meta.materialType) {
+        case "basic": {
             exportMaterial = new MeshBasicMaterial({
                 color: materialObject.basicMaterial.color,
                 transparent: materialObject.basicMaterial.transparent,
-                opacity: materialObject.basicMaterial.opacity
+                opacity: materialObject.basicMaterial.opacity,
+                wireframe: materialObject.basicMaterial.wireframe
             });
-
-            console.log(`New Material Initialized
-Color: ${materialObject.basicMaterial.color}
-transparent: ${materialObject.basicMaterial.transparent}
-opacity: ${materialObject.basicMaterial.opacity}`);
+            break;
+        };
+        case "lambert": {
+            exportMaterial = new MeshLambertMaterial({
+                color: materialObject.lambertMaterial.color,
+                transparent: materialObject.lambertMaterial.transparent,
+                opacity: materialObject.lambertMaterial.opacity,
+                wireframe: materialObject.lambertMaterial.wireframe,
+                reflectivity: materialObject.lambertMaterial.reflectivity
+            });
+            break;
         }
+    }
 
-        return exportMaterial;
-    });
+    return exportMaterial;
 }

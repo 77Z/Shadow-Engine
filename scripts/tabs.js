@@ -15,7 +15,7 @@ var tabs = {
             var leftSlam = (tabsStorage.length) * 200 + "px";
         }
         var id = Math.random().toString().split(".")[1];
-        console.log("Tab Number " + tabsStorage.length + 1 + " id set to " + id);
+        console.log("Tab Number " + (tabsStorage.length + 1) + " id set to " + id);
         var tab = document.createElement("div");
         tab.setAttribute("tabPosition", tabsStorage.length + 1);
         if (tabsStorage.length == 0) {

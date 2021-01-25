@@ -214,6 +214,11 @@ document.addEventListener("keydown", function(e) {
                         editor.session.setMode("ace/mode/csharp");
                         closeCommandWindow()
                         break;
+                    case "Lang: GLSL Shader":
+                        languageModeText.innerText = "GLSL";
+                        editor.session.setMode("ace/mode/glsl");
+                        closeCommandWindow();
+                        break;
                 }
             }
         }
@@ -313,6 +318,7 @@ var commands = {
         <li class="command-list-item">Lang: Rust</li>
         <li class="command-list-item">Lang: Java!</li>
         <li class="command-list-item">Lang: C#</li>
+        <li class="command-list-item">Lang: GLSL Shader</li>
         `);
     },
     ChangeColorTheme: function() {

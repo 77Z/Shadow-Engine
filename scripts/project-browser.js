@@ -123,6 +123,13 @@ function startEngine() {
         dimension = 3;
     }
 
+    var sysNameToBin = null;
+    if (process.platform == "win32") {
+        sysNameToBin = "Win64";
+    } else {
+        sysNameToBin = "Linux";
+    }
+
     fs.mkdir(shadowEngineDataDir + "\\projects\\" + projectName, (err) => {
         if (err) throw err;
         fs.mkdir(projectFolder + "\\Bin", (err) => {
@@ -131,7 +138,7 @@ function startEngine() {
                 if (err) throw err;
                 fs.mkdir(projectFolder + "\\Assets", (err) => {
                     if (err) throw err;
-                    fs.mkdir(projectFolder + "\\Bin\\Win64", (err) => {
+                    fs.mkdir(projectFolder + "\\Bin\\" + sysNameToBin, (err) => {
                         if (err) throw err;
                         fs.writeFile(projectFolder + "\\game.sproject", projectName + "\n" + document.getElementById("copyright").value + "\n" + document.getElementById("selected-option-text").innerText + "\n" + EngineVersion.toString() + "\n" + dimension + "\ncrypto:0\nobfuscation:0\nconfigversion:010\nUsePostmaster:0\ndefaultScene:Scene1.Scene", "utf8", (err) => {
                             if (err) throw err;
