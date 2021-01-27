@@ -189,7 +189,16 @@ app.on('ready', function() {
                                                                                                     if (err) throw err;
                                                                                                     fs.writeFile(shadowEngineDataDir + "/engine-data/BasicMaterial.Mat", JSON5.stringify(require("./resources/BasicMaterial")), (err) => {
                                                                                                         if (err) throw err;
-                                                                                                        createWindow();
+                                                                                                        fs.writeFile(shadowEngineDataDir + "/engine-data/mimetypes.json", JSON.stringify(require("./resources/mimetypes.js"), null, 4), (err) => {
+                                                                                                            if (err) throw err;
+                                                                                                            fs.mkdir(shadowEngineDataDir + "/certs", (err) => {
+                                                                                                                if (err) throw err;
+                                                                                                                fs.mkdir(shadowEngineDataDir + "/certs/web", (err) => {
+                                                                                                                    if (err) throw err;
+                                                                                                                    createWindow();
+                                                                                                                });
+                                                                                                            });
+                                                                                                        });
                                                                                                     });
                                                                                                 });
                                                                                             });
