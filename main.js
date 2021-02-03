@@ -195,7 +195,13 @@ app.on('ready', function() {
                                                                                                                 if (err) throw err;
                                                                                                                 fs.mkdir(shadowEngineDataDir + "/certs/web", (err) => {
                                                                                                                     if (err) throw err;
-                                                                                                                    createWindow();
+                                                                                                                    fs.writeFile(shadowEngineDataDir + "/engine-data/BasicVertexShader.vert", require("./resources/BasicVertexShader.js"), (err) => {
+                                                                                                                        if (err) throw err;
+                                                                                                                        fs.write(shadowEngineDataDir + "/engine-data/BasicFragShader.frag", require("./resources/BasicFragShader.js"), (err) => {
+                                                                                                                            if (err) throw err;
+                                                                                                                            createWindow();
+                                                                                                                        });
+                                                                                                                    });
                                                                                                                 });
                                                                                                             });
                                                                                                         });

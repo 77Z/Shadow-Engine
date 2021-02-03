@@ -14,6 +14,16 @@ const { FirstPersonControls } = require("../../scripts/engine/FirstPersonControl
 const getProjectName = require("../../scripts/get-project"); // <- Function
 
 const vpContainer = document.getElementById("vp-container");
+
+//Shader Uniforms
+const uniforms = {
+    u_resolution: { value: { x: null, y: null } },
+    u_time: { value: 0.0 },
+    u_mouse: { value: { x: null, y: null } },
+}
+//Clock so shaders know how much time has passed
+const clock = new THREE.Clock();
+
 var activeCamera;
 var viewportRenderer;
 var viewportScene;
@@ -95,6 +105,11 @@ fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", 
         }
     }
 
+    //Loop through and create lights
+    for(var i = 0; i < parsedData.lights.length; i++) {
+
+    }
+
     
 
     viewportRenderer = new THREE.WebGLRenderer({ antialias: true });
@@ -113,6 +128,12 @@ fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", 
         activeCamera.updateProjectionMatrix();
 
         viewportRenderer.setSize(vpContainer.clientWidth, vpContainer.clientHeight);
+
+        //Update Shader Resolution
+        if (uniforms.u_resolution !== undefined){
+            uniforms.u_resolution.value.x = window.innerWidth;
+            uniforms.u_resolution.value.y = window.innerHeight;
+        }
     };
 
     requestAnimationFrame(animateViewportFrame);
@@ -124,6 +145,7 @@ const robot = require("robotjs");
 const { remote } = require("electron");
 const { MeshBasicMaterial, MeshLambertMaterial } = require("three"); // I love auto imports :D
 const { readFile, readFileSync } = require("fs");
+const fileLocationParser = require("../../scripts/fileLocationParser");
 var viewportMouseisdown = false;
 var resetMousePosition;
 
@@ -263,6 +285,9 @@ function animateViewportFrame() {
         console.log(viewportBoxMiddlePosY - mousePositionY);
     }
 
+    //Update the shader time uniform
+    uniforms.u_time.value = clock.getElapsedTime();
+
 
 }
 
@@ -321,7 +346,15 @@ function parseMaterial(materialLocation) {
                 reflectivity: materialObject.lambertMaterial.reflectivity
             });
             break;
-        }
+        };
+        case "shader": {
+            exportMaterial = new THREE.ShaderMaterial({
+                vertexShader: readFileSync(fileLocationParser(materialObject.shaderMaterial.vertexShader), "utf-8"),
+                fragmentShader: readFileSync(fileLocationParser(materialObject.shaderMaterial.fragmentShader), "utf-8"),
+                uniforms
+            });
+            break;
+        };
     }
 
     return exportMaterial;
