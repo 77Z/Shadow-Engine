@@ -43,5 +43,24 @@ module.exports = {
             "materialLocation": "/../../engine-data/BasicMaterial.mat", // Source Folder of project
             */
         }
+    ],
+    "lights": [
+        {
+            "id": "light1",
+            "type": "directional-light",
+            "location": { "x": 0, "y": 0, "z": 0 },
+            "rotation": { "x": 0, "y": 0, "z": 0 },
+            "castShadow": true,
+            "intensity": 0.5,
+            "shadow": {
+                "camera": {
+                    "top": 2,
+                    "bottom": -2,
+                    "right": 2,
+                    "left": -2
+                },
+                "mapSize": "4096x4096"
+            }
+        }
     ]
 }

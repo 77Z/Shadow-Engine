@@ -8,10 +8,27 @@
 </head>
 <body>
     <h1>Project Settings</h1>
-    <select id="cAndCppCompiler">
-        <option>gcc</option>
-        <option>clang</option>
-        <option>Microsoft Visual C++</option>
-    </select>
+    <fieldset>
+        <legend>Compilers & Linkers</legend>
+        <h3>Compiler</h3>
+        <select id="cAndCppCompiler">
+            <option>gcc</option>
+            <option>clang</option>
+            <option>Microsoft Visual C++</option>
+        </select>
+        <button>+</button>
+    </fieldset>
+    <fieldset>
+        <legend>Platforms</legend>
+        <input type="checkbox" id="">Windows<br>
+        <input type="checkbox" id="">Linux<br>
+        <input type="checkbox" id="">FreeBSD<br>
+        <input type="checkbox" id="">Xbox One and beyond<br>
+        <input type="checkbox" id="">Playstation 4<br>
+        <input type="checkbox" id="">Playstation 5<br>
+        <input type="checkbox" id="">Android<br>
+        <input type="checkbox" id="">Wii (Legacy)<br>
+        <input type="checkbox" id="">GameCube (Legacy)<br>
+    </fieldset>
 </body>
 </html>

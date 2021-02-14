@@ -839,6 +839,20 @@ document.getElementById("header-buildcompile").addEventListener("click", functio
     ]}, null, 10, 10);
 });
 
+/*
+    Outliner Dropdown Functionality
+*/
+
+{
+    let toggler = document.getElementsByClassName("dropdown"); //let so the variable name toggler doesn't escape
+
+    for(var i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function() {
+            this.parentElement.querySelector(".nested-list").classList.toggle("nested-list-active");
+            this.classList.toggle("dropdown-down");
+        });
+    }
+}
 
 /*
     Localization

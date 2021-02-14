@@ -38,19 +38,19 @@
             <button class="sidepanel-button sidepanel-button-volumes" id="sidepanel-button-volumes" title="Volumes"></button>
 
             <div class="sidepanel-container" id="sidepanel-meshes-container">
-                <div class="sidepanel-item">
+                <div class="sidepanel-item" id="sidepanel-meshes-cube">
                     <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Meshes.png">
                     <span id="sidepanel-meshes-span-cube"></span>
                 </div>
-                <div class="sidepanel-item">
+                <div class="sidepanel-item" id="sidepanel-meshes-sphere">
                     <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Sphere.png">
                     <span id="sidepanel-meshes-span-sphere"></span>
                 </div>
-                <div class="sidepanel-item">
+                <div class="sidepanel-item" id="sidepanel-meshes-cylinder">
                     <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Cylinder.png">
                     <span id="sidepanel-meshes-span-cylinder"></span>
                 </div>
-                <div class="sidepanel-item">
+                <div class="sidepanel-item" id="sidepanel-meshes-cone">
                     <img width="40" height="40" src="../../media/img/ui/editor/sidepanel/Cone.png">
                     <span id="sidepanel-meshes-span-cone"></span>
                 </div>
@@ -99,7 +99,19 @@
             </div>
         </div>
         <div class="viewport" id="vp-container"></div>
-        <div class="inspector"></div>
+        <div class="inspector">
+            <div class="outliner">
+                <p>Outliner</p>
+                <ul id="top-outliner">
+                    <!-- <li><span class="dropdown">GROUP</span>
+                        <ul class="nested-list">
+                            <li>Cube</li>
+                            <li>Directional Light</li>
+                        </ul>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
         <div class="file-ex">
             <div class="uri-bar-container" id="uri-bar-container">
                 <span class="pre" id="projectRootLabel">Project:</span>

@@ -37,7 +37,8 @@ fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", 
 
     viewportScene = new THREE.Scene();
 
-    //! Temporary material, find all references, then REMOVE ME!!
+    ///// Temporary material, find all references, then REMOVE ME!!
+    //* Sike it's now just a temporary material you can use when adding geometries
     const tempMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 
     //Loop through cameras and set the last one to active
@@ -107,7 +108,24 @@ fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", 
 
     //Loop through and create lights
     for(var i = 0; i < parsedData.lights.length; i++) {
+        console.log("created new light");
+        switch(parsedData.lights[i].type) {
+            case "directional-light": {
 
+                var light = new THREE.DirectionalLight(0xffffff, parsedData.lights[i].intensity);
+                light.position.set(parsedData.lights[i].location.x, parsedData.lights[i].location.y, parsedData.lights[i].location.z);
+                light.rotation.set(parsedData.lights[i].rotation.x, parsedData.lights[i].rotation.y, parsedData.lights[i].rotation.z);
+                light.castShadow = parsedData.lights[i].castShadow;
+                light.shadow.camera.top = parsedData.lights[i].shadow.camera.top;
+                light.shadow.camera.bottom = parsedData.lights[i].shadow.camera.bottom;
+                light.shadow.camera.right = parsedData.lights[i].shadow.camera.right;
+                light.shadow.camera.left = parsedData.lights[i].shadow.camera.left;
+                var parsedMapSize = parsedData.lights[i].shadow.mapSize.split("x");
+                light.shadow.mapSize.set(parsedMapSize[0], parsedMapSize[1]);
+                viewportScene.add(light);
+                break;
+            }
+        }
     }
 
     
@@ -136,15 +154,51 @@ fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", 
         }
     };
 
+    /*
+        Sidepanel click events
+    */
+
+    document.getElementById("sidepanel-meshes-cube").addEventListener("click", function() {
+        var boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+        
+        var box = new THREE.Mesh(boxGeometry, tempMaterial);
+        viewportScene.add(box);
+    });
+
+    document.getElementById("sidepanel-meshes-sphere").addEventListener("click", function() {
+        var sphereGeometry = new THREE.SphereGeometry(2, 10, 10);
+
+        var sphere = new THREE.Mesh(sphereGeometry, tempMaterial);
+        viewportScene.add(sphere);
+    });
+
+    document.getElementById("sidepanel-meshes-cylinder").addEventListener("click", function() {
+        var cylinderGeometry = new THREE.CylinderGeometry(1, 1, 2, 5, 5);
+
+        var cylinder = new THREE.Mesh(cylinderGeometry, tempMaterial);
+        viewportScene.add(cylinder);
+    });
+
+    document.getElementById("sidepanel-meshes-cone").addEventListener("click", function() {
+        var coneGeometry = new THREE.ConeGeometry(1, 2, 10, 5);
+        var cone = new THREE.Mesh(coneGeometry, tempMaterial);
+        viewportScene.add(cone);
+    });
+
+    /* const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+    viewportScene.add( directionalLight ); */
+
     requestAnimationFrame(animateViewportFrame);
 
     console.log(activeCamera);
+
+    reloadOutliner();
 });
 
 const robot = require("robotjs");
 const { remote } = require("electron");
 const { MeshBasicMaterial, MeshLambertMaterial } = require("three"); // I love auto imports :D
-const { readFile, readFileSync } = require("fs");
+const { readFileSync } = require("fs");
 const fileLocationParser = require("../../scripts/fileLocationParser");
 var viewportMouseisdown = false;
 var resetMousePosition;
@@ -358,4 +412,28 @@ function parseMaterial(materialLocation) {
     }
 
     return exportMaterial;
+}
+
+function reloadOutliner() {
+    // The outliner is a menu similar to the ones that can
+    // be found in Blender, Unreal, Unity, etc...
+    // It shows the contents of the scene.
+
+    //First read all of the objects in the viewportScene
+    //This returns a nice big array to use
+    var sceneObjects = viewportScene.children;
+
+    console.log(sceneObjects); //Print it out for debugging
+
+    //Loop through sceneObjects
+    for(var i = 0; i < sceneObjects.length; i++) {
+        var outlinerObject = document.createElement("li");
+        if (sceneObjects[i].children.length === 0) { //This object has no children so it doesn't need to be rendered as a group
+            outlinerObject.appendChild(document.createTextNode(sceneObjects[i].type));
+        } else { //This object DOES have children so it should be treated as a group
+
+        }
+
+        document.getElementById("top-outliner").appendChild(outlinerObject);
+    }
 }

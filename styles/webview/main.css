@@ -394,3 +394,24 @@
 .header button:hover {
     background: #ff4500;
 }
+
+/* Inspector */
+
+    /* Outliner */
+        .inspector .outliner {
+            background: #161616;
+            margin: 5px;
+        }
+        .inspector .outliner p { margin-left: 3px; }
+        .inspector .outliner ul { list-style: none; }
+        .inspector .outliner li:hover { background: #ffffff1f; }
+
+        #top-outliner { margin: 0; padding: 0; }
+
+        .dropdown::before {
+            content: "\25B6"; /* Little Arrow thing */
+        } .dropdown-down::before { content: "▼"; }
+
+        .nested-list        { display: none;  }
+        .nested-list-active { display: block; }
+        .gray { color: #808080; }
