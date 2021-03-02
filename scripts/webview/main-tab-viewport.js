@@ -149,8 +149,8 @@ fs.readFile(shadowEngineDataDir + "\\engine-data\\DefaultScene.Scene", "utf-8", 
 
         //Update Shader Resolution
         if (uniforms.u_resolution !== undefined){
-            uniforms.u_resolution.value.x = window.innerWidth;
-            uniforms.u_resolution.value.y = window.innerHeight;
+            uniforms.u_resolution.value.x = vpContainer.clientWidth;
+            uniforms.u_resolution.value.y = vpContainer.clientWidth;
         }
     };
 

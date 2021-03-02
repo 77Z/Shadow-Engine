@@ -38,6 +38,14 @@
     width: 71%;
     overflow-y: hidden;
 }
+.shader-editor {
+    position: fixed;
+    background: transparent;
+    top: 10%;
+    width: 50%;
+    height: 50%;
+    left: 21%;
+}
 
 .grid-container {
     position: fixed;
@@ -415,3 +423,27 @@
         .nested-list        { display: none;  }
         .nested-list-active { display: block; }
         .gray { color: #808080; }
+
+
+/* Shader Editor */
+    .file-ex .shader-editor-btn {
+        height: 23px;
+        width: 23px;
+        background-color: transparent;
+        cursor: pointer;
+        border-radius: 3px;
+        border: none;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        left: 47%;
+        
+        background-image: url("../../media/img/ui/editor/shaderEditor.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .file-ex .shader-editor-btn:hover {
+        background-color: #ff4500;
+    }

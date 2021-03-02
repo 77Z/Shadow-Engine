@@ -1,3 +1,5 @@
+const getProjectName = require("./get-project"); // <- Function
+
 module.exports = function(materialLocation) {
     var macroDir = ""; //The part of the location string that expands
     var macrolength  = 0; // The length of the macro so it can be cut off later

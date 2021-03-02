@@ -1,0 +1,29 @@
+body {
+    background: #fff;
+}
+
+.render-layer {
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.render-layer canvas {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.text-layer {
+    position: fixed;
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+    top: 10px;
+    left: 10px;
+    box-shadow: 0 0 10px #000;
+    background: transparent;
+}
