@@ -4,6 +4,7 @@
 
 ![CI](https://ci.appveyor.com/api/projects/status/github/77Z/Shadow-Engine?branch=master&svg=true)
 [![Build Status](https://travis-ci.com/77Z/Shadow-Engine.svg?branch=master)](https://travis-ci.com/77Z/Shadow-Engine)
+[![Node.js CI](https://github.com/77Z/Shadow-Engine/actions/workflows/node.js.yml/badge.svg)](https://github.com/77Z/Shadow-Engine/actions/workflows/node.js.yml)
 ![GitHub repo size](https://img.shields.io/github/repo-size/77Z/Shadow-Engine)
 ![GitHub issues](https://img.shields.io/github/issues/77Z/Shadow-Engine)
 ![GitHub](https://img.shields.io/github/license/77Z/Shadow-Engine)
