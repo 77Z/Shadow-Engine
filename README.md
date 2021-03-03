@@ -3,8 +3,7 @@
  A game engine!
 
 ![CI](https://ci.appveyor.com/api/projects/status/github/77Z/Shadow-Engine?branch=master&svg=true)
-[![Build Status](https://travis-ci.com/77Z/Shadow-Engine.svg?branch=master)](https://travis-ci.com/77Z/Shadow-Engine)
-[![Node.js CI](https://github.com/77Z/Shadow-Engine/actions/workflows/node.js.yml/badge.svg)](https://github.com/77Z/Shadow-Engine/actions/workflows/node.js.yml)
+[![Shadow CI](https://github.com/77Z/Shadow-Engine/actions/workflows/ShadowEngineCI.yml/badge.svg)](https://github.com/77Z/Shadow-Engine/actions/workflows/ShadowEngineCI.yml)
 ![GitHub repo size](https://img.shields.io/github/repo-size/77Z/Shadow-Engine)
 ![GitHub issues](https://img.shields.io/github/issues/77Z/Shadow-Engine)
 ![GitHub](https://img.shields.io/github/license/77Z/Shadow-Engine)
@@ -13,8 +12,6 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/77Z/Shadow-Engine)
 
 [AppVeyor Build](https://ci.appveyor.com/project/77Z/Shadow-Engine)
-
-[Travis Build](https://travis-ci.com/github/77Z/Shadow-Engine)
 
 ### Table of Contents
 
