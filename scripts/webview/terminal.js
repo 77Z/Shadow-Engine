@@ -1,4 +1,5 @@
 const ipc = require("electron").ipcRenderer;
+const { FitAddon } = require("xterm-addon-fit");
 
 const TermLetterCellSize = {
     height: 17,
@@ -12,7 +13,10 @@ var term = new Terminal({
     fontFamily: "Terminal",
     rendererType: "dom" */
 });
+const fitAddon = new FitAddon();
+term.loadAddon(fitAddon);
 term.open(document.getElementById("terminal"));
+fitAddon.fit();
 term.write("Shadow Terminal\r\n\r\n");
 
 

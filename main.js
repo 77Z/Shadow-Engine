@@ -267,6 +267,8 @@ function launchArgsContain(arg) {
 
 function createWindow() {
 
+    app.allowRendererProcessReuse = false
+
       // ------------ //
      // localization //
     // ------------ //

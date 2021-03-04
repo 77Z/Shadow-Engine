@@ -6,7 +6,7 @@
     "scripts": {
         "start": "electron .",
         "start-es": "electron ./scripts/externalServer/externalServerMain.js",
-        "rebuild": "electron-rebuild && npm rebuild --runtime=electron --target=8.5.2 --disturl=https://atom.io/download/atom-shell --abi=57",
+        "rebuild": "electron-rebuild && npm rebuild --runtime=electron --target=9.4.0 --disturl=https://atom.io/download/atom-shell --abi=59",
         "test": "node test.js",
         "install-plugins": "node installPlugins.js",
         "compileLocalizers": "node compileLocalizers.js"
@@ -37,6 +37,7 @@
         "uuid": "^8.3.0",
         "ws": "^7.3.1",
         "xterm": "^4.8.1",
+        "xterm-addon-fit": "^0.5.0",
         "yargs": "^15.4.1"
     },
     "build": {
