@@ -93,6 +93,10 @@ function searchProjectForShaders() {
     folderIndexer(projectDirectory);
 
 }
+
+// * Normally this would run on init of the shader-editor frame,
+// * But since we are loading in directly from the project browser
+// * The project name might not be loaded in yet.
 setTimeout(function() {
     searchProjectForShaders();
 }, 6000);

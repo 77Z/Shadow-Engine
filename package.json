@@ -9,7 +9,8 @@
         "rebuild": "electron-rebuild && npm rebuild --runtime=electron --target=9.4.0 --disturl=https://atom.io/download/atom-shell --abi=59",
         "test": "node test.js",
         "install-plugins": "node installPlugins.js",
-        "compileLocalizers": "node compileLocalizers.js"
+        "compileLocalizers": "node compileLocalizers.js",
+        "electron-version": "electron --version"
     },
     "author": "77Z",
     "license": "MIT",

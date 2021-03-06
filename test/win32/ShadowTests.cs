@@ -6,30 +6,30 @@ class ShadowTests {
         Console.WriteLine("Running Windows Style Tests");
 
         if (File.Exists(@".\node_modules\electron\dist\electron.exe")) {
-            Console.WriteLine("Test 1 Passed");
+            writePass("Test 1 Passed ✓");
         } else {
-            Console.WriteLine("Test 1 Failed");
+            writeFail("Test 1 Failed ✗");
             Environment.Exit(1);
         }
 
         if (File.Exists(@".\node_modules\node-pty\build\Release\conpty.node")) {
-            Console.WriteLine("Test 2 Passed");
+            writePass("Test 2 Passed ✓");
         } else {
-            Console.WriteLine("Test 2 Failed");
+            writeFail("Test 2 Failed ✗");
             Environment.Exit(1);
         }
 
         if (File.Exists(@".\node_modules\node-pty\build\Release\pty.node")) {
-            Console.WriteLine("Test 3 Passed");
+            writePass("Test 3 Passed ✓");
         } else {
-            Console.WriteLine("Test 3 Failed");
+            writeFail("Test 3 Failed ✗");
             Environment.Exit(1);
         }
 
         if (File.Exists(@".\node_modules\uuid\dist\index.js")) {
-            Console.WriteLine("Test 4 Passed");
+            writePass("Test 4 Passed ✓");
         } else {
-            Console.WriteLine("Test 4 Failed");
+            writeFail("Test 4 Failed ✗");
             Environment.Exit(1);
         }
 
@@ -37,5 +37,17 @@ class ShadowTests {
 
         //Every Test Passed, exit with code 0
         Environment.Exit(0);
+    }
+
+    static void writePass(string inp) {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine(inp);
+        Console.ResetColor();
+    }
+
+    static void writeFail(string inp) {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(inp);
+        Console.ResetColor();
     }
 }
