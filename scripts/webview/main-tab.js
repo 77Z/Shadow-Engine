@@ -855,6 +855,39 @@ document.getElementById("header-buildcompile").addEventListener("click", functio
 }
 
 /*
+    Shader Editor
+*/
+
+var shaderEditorLoaded = false;
+var shaderEditorShowing = false;
+var shaderEditorFrame;
+document.getElementById("shadereditorbtn").addEventListener("click", function() {
+    if (shaderEditorLoaded) {
+        //Show shader editor
+        if (shaderEditorShowing) {
+            shaderEditorFrame.style.display = "none";
+            shaderEditorShowing = false;
+        } else {
+            shaderEditorFrame.style.display = "block";
+            shaderEditorShowing = true;
+        }
+    } else {
+        //Load shader editor
+        if (shaderEditorFrame === undefined) {
+            //Clear to load
+            shaderEditorFrame = document.createElement("iframe");
+            shaderEditorFrame.src = "../../dom/webview/shader-editor.html";
+            shaderEditorFrame.classList.add("shader-editor");
+            shaderEditorFrame.frameBorder = 0;
+            document.body.appendChild(shaderEditorFrame);
+            shaderEditorLoaded = true;
+            shaderEditorShowing = true;
+        }
+    }
+});
+
+
+/*
     Localization
 */
 

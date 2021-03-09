@@ -47,7 +47,7 @@ renderer.setClearColor(0xffffff);
 renderer.setSize(renderLayer.clientWidth, renderLayer.clientHeight);
 renderLayer.appendChild(renderer.domElement);
 
-renderLayer.onresize = function() {
+window.onresize = function() {
     camera.aspect = renderLayer.clientWidth / renderLayer.clientHeight;
     camera.updateProjectionMatrix();
 
