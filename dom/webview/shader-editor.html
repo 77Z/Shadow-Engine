@@ -10,8 +10,16 @@
 </head>
 <body>
     <div class="render-layer" id="render-layer"></div>
-    <div class="text-layer"></div>
+    <div class="text-layer">
+        <div id="editor"></div>
+        <div id="shader-explorer">
+            <p>Shader Explorer</p>
+            <hr>
+        </div>
+    </div>
 
+    <script src="../../ace/ace.js"></script>
+    <script src="../../ace/ext-language_tools.js"></script>
     <script src="../../scripts/webview/shader-editor.js" type="module"></script>
 </body>
 </html>

@@ -1,6 +1,16 @@
 body {
     background: #fff;
+    color: #000;
 }
+
+p                { color: #000; }
+.ace_identifier  { color: #000; }
+.ace_constant    { color: #000; }
+.ace_numeric     { color: #000; }
+.ace_gutter-cell { color: #000; }
+.ace_editor      { color: #000; }
+
+.ace_autocomplete { background: #000; }
 
 .render-layer {
     margin: 0;
@@ -26,4 +36,33 @@ body {
     left: 10px;
     box-shadow: 0 0 10px #000;
     background: transparent;
+    color: #000 !important;
+}
+
+.text-layer #editor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 70%;
+    border-right: 2px solid #000;
+    font-family: consolas !important;
+    background: transparent;
+    color: #000 !important;
+    font-size: 20px;
+}
+
+.text-layer #shader-explorer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 30%;
+    box-sizing: border-box;
+    padding-left: 5px;
+}
+
+.text-layer #shader-explorer hr {
+    border: none;
+    border-bottom: 2px solid #000;
 }

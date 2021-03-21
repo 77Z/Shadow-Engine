@@ -100,3 +100,24 @@ function searchProjectForShaders() {
 setTimeout(function() {
     searchProjectForShaders();
 }, 6000);
+
+
+// CODE EDITOR
+{
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/chrome");
+    editor.session.setMode("ace/mode/glsl");
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+    editor.commands.addCommand({
+        name: "replaceKeybind",
+        bindKey: {win: "Ctrl-Shift-R", mac: "Command-Shift-R"},
+        exec: function(editor) {
+            editor.execCommand("replace");
+        },
+        readOnly: true
+    })
+}

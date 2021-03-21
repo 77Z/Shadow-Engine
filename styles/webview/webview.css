@@ -3,7 +3,7 @@
     outline: none;
     caret-color: orangered;
     color: #fff;
-    font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Montserrat', sans-serif; */
 }
 
 ::selection {
