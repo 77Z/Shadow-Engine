@@ -1,0 +1,17 @@
+* {
+    font-family: "Monserrat", sans-serif;
+}
+
+input[type=text] {
+    background: #222;
+    border: 1px solid #000;
+    min-width: 0;
+    width: 100px;
+    padding: 3px;
+    border-radius: 3px;
+    caret-color: #ff4500;
+}
+
+::selection {
+    background: #ff4500;
+}

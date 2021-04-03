@@ -1,0 +1,6 @@
+#ifndef _SHADOWCOREVERSIONH_
+#define _SHADOWCOREVERSIONH_
+
+#define CORE_VERSION "0.1.0"
+
+#endif /* _SHADOWCOREVERSIONH_ */

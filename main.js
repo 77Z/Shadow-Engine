@@ -24,6 +24,7 @@ const isDev = require("electron-is-dev");
 const homedir = os.homedir();
 const localizationData = require("./resources/localization");
 const JSON5 = require("json5");
+const request = require("request");
 
 
 var engineConfig;
@@ -627,6 +628,20 @@ Sorry about that.`,
             args: ['.', '--debug', `--log-net-log=${shadowEngineDataDir}/blob/netlog${stamp}.txt`]
         });
         app.quit();
+    });
+
+    //This function has a clever workaround to sending data to the editor
+    //just to be relayed to tabs, callbacks... Why didn't I think of this earlier!!!!
+    ipcMain.on("internet.downloadFile", (event, url, destination, callback) => {
+        //This function depends that there is internet avalible,
+        //that will be up to the caller to figure out
+        request({
+            headers: {
+                "User-Agent": "Shadow-Engine"
+            },
+            uri: url
+        }).pipe(fs.createWriteStream(destination))
+        .on("close", callback);
     });
 
 

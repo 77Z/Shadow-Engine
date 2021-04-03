@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../fonts/fonts.css">
     <link rel="stylesheet" href="../../styles/webview/webview.css">
+    <link rel="stylesheet" href="../../styles/webview/projSettings.css">
 </head>
 <body>
     <h1>Project Settings</h1>
@@ -30,5 +31,25 @@
         <input type="checkbox" id="">Wii (Legacy)<br>
         <input type="checkbox" id="">GameCube (Legacy)<br>
     </fieldset>
+    <fieldset>
+        <legend>Android Build Options</legend>
+        <h3>Android SDK</h3>
+        <p>SDK Needed to create Android apps</p>
+        <hr>
+        <button>Download SDK</button>
+        <br>
+        <input type="text" id="android-sdk-location" placeholder="SDK Location" size="20"><button>...</button>
+        <br><br>
+        <h3>Gradle</h3>
+        <p>Build tool used to compile APK's</p>
+        <hr>
+        <button id="download-gradle-button">Download Gradle</button>
+        <fieldset id="gradle-install-log" style="display: none;">
+            <legend>Gradle Install Log</legend>
+        </fieldset>
+    </fieldset>
+
+
+    <script src="../../scripts/webview/projSettings.js"></script>
 </body>
 </html>

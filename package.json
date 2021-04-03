@@ -18,7 +18,6 @@
         "colors": "^1.4.0",
         "crypto-js": "^4.0.0",
         "electron": "^9.4.0",
-        "electron-download-manager": "^2.1.2",
         "electron-is-dev": "^1.2.0",
         "electron-process-manager": "^1.0.0",
         "electron-rebuild": "^1.11.0",
